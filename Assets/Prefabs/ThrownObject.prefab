@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 577610421916463434}
   - component: {fileID: 1242229956969054403}
   - component: {fileID: 4146179628057326170}
+  - component: {fileID: 321454486638929521}
   m_Layer: 0
   m_Name: ThrownObject
   m_TagString: ThrownObject
@@ -123,3 +124,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   zDiffWithHole: 5
+--- !u!114 &321454486638929521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 577610421916463433}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39991a23985bedd41af86d0cdfe48e12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isInWindZone: 0
+  explosionForce: 10000
+  upwardsExplosionModifier: 50
+  explosionRadius: 10000

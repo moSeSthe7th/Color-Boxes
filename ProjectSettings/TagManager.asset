@@ -6,6 +6,7 @@ TagManager:
   tags:
   - ThrownObject
   - HoleCube
+  - Wind
   layers:
   - Default
   - TransparentFX

@@ -16,6 +16,8 @@ public class ObjectSnapper : MonoBehaviour
         }
     }
 
+    
+
     IEnumerator SnapObjectToThePosition(GameObject hole)
     {
         Vector3 posToSnap = GetSnapPosition(hole);
@@ -32,6 +34,8 @@ public class ObjectSnapper : MonoBehaviour
         transform.rotation = Quaternion.identity;
         ColorizeTheObject(hole);
     }
+
+    
 
     void GoToHole(GameObject hole)
     {
