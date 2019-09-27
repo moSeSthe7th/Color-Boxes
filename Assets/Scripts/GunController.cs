@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GunController : MonoBehaviour
 {
@@ -26,11 +27,15 @@ public class GunController : MonoBehaviour
     Vector3 p2;
     Vector3 p3;
 
+    Slider powerSlider;
+    bool isTouchEnded;
+
 
     float touchDeltaX;
     
     void Start()
     {
+        powerSlider = GetComponentInChildren<Slider>();
         windPhysicsScript = FindObjectOfType(typeof(WindPhysicsScript)) as WindPhysicsScript;
 
         p0 = route.GetChild(0).position;
@@ -53,13 +58,14 @@ public class GunController : MonoBehaviour
           
             if(touch.phase == TouchPhase.Began)
             {
-               
+                isTouchEnded = false;
+                StartCoroutine(StartPowerSliderAnimation(touch));
                 touchStartPos = touch.position;
             }
             else if(touch.phase == TouchPhase.Ended)
             {
+                isTouchEnded = true;
                 touchDeltaX = 0;
-                CreateWind();
             }
             else
             {
@@ -122,9 +128,25 @@ public class GunController : MonoBehaviour
         coroutineAllowed = true;
     }
 
-    void CreateWind()
+    void CreateWind(float windForce)
     {
         //get that force from a slider...
-        windPhysicsScript.CreateWind(transform, 20000f, lookPosition);
+        windPhysicsScript.CreateWind(transform, windForce, lookPosition);
+    }
+
+    IEnumerator StartPowerSliderAnimation(Touch currentTouch)
+    {
+        float powerValue = Random.Range(0,100f);
+
+        while (!isTouchEnded)
+        {
+            powerValue = Mathf.PingPong(Time.time*50, 100);
+            
+            powerSlider.value = powerValue;
+            powerSlider.GetComponent<GunSliderScript>().SetSliderPowerColors();
+            yield return new WaitForSecondsRealtime(0.02f);
+        }
+
+        CreateWind(powerSlider.value * 200);
     }
 }
