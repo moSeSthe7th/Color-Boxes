@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UtmostInput;
 
 public class GunController : MonoBehaviour
 {
@@ -22,6 +23,8 @@ public class GunController : MonoBehaviour
     public GameObject wind;
     private WindPhysicsScript windPhysicsScript;
 
+    private InputX inputX;
+
     Vector3 p0;
     Vector3 p1;
     Vector3 p2;
@@ -38,6 +41,8 @@ public class GunController : MonoBehaviour
         powerSlider = GetComponentInChildren<Slider>();
         windPhysicsScript = FindObjectOfType(typeof(WindPhysicsScript)) as WindPhysicsScript;
 
+        inputX = new InputX();
+
         p0 = route.GetChild(0).position;
         p1 = route.GetChild(1).position;
         p2 = route.GetChild(2).position;
@@ -52,28 +57,28 @@ public class GunController : MonoBehaviour
     
     void Update()
     {
-        if(Input.touchCount > 0)
+        if(inputX.IsInput())
         {
-            Touch touch = Input.GetTouch(0);
+            GeneralInput gInput = inputX.GetInput(0);
           
-            if(touch.phase == TouchPhase.Began)
+            if(gInput.phase == IPhase.Began)
             {
                 isTouchEnded = false;
-                StartCoroutine(StartPowerSliderAnimation(touch));
-                touchStartPos = touch.position;
+                StartCoroutine(StartPowerSliderAnimation(gInput));
+                touchStartPos = gInput.currentPosition;
             }
-            else if(touch.phase == TouchPhase.Ended)
+            else if(gInput.phase == IPhase.Ended)
             {
                 isTouchEnded = true;
                 touchDeltaX = 0;
             }
             else
             {
-                touchDeltaX = (touch.position.x - touchStartPos.x) / (Screen.width / 2);
+                touchDeltaX = (gInput.currentPosition.x - touchStartPos.x) / (Screen.width / 2);
                 
                 //Debug.Log("TouchDeltax = " + touchDeltaX);
                 if (coroutineAllowed)
-                    StartCoroutine(GoByTheRoute(touchDeltaX,touch));
+                    StartCoroutine(GoByTheRoute(touchDeltaX, gInput));
             }
         }
     }
@@ -91,7 +96,7 @@ public class GunController : MonoBehaviour
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, rotationSpeed);
     }
 
-    IEnumerator GoByTheRoute(float alphaX,Touch currentTouch)
+    IEnumerator GoByTheRoute(float alphaX,GeneralInput currentGInput)
     {
 
         coroutineAllowed = false;
@@ -99,7 +104,7 @@ public class GunController : MonoBehaviour
         if(touchDeltaX < 0)
         {
 
-            while (currentTouch.phase != TouchPhase.Ended /*&& tParam >= touchDeltaX*/) // bu touchdeltax leri acınca parmağını durdurduğun yerde duruyo. ama oyunu biraz durağanlastırıyo
+            while (currentGInput.phase != IPhase.Ended /*&& tParam >= touchDeltaX*/) // bu touchdeltax leri acınca parmağını durdurduğun yerde duruyo. ama oyunu biraz durağanlastırıyo
             {
                 Debug.Log("tParam = " + tParam + " touchDeltaX = " + touchDeltaX);
                 tParam += speedModifier * Time.deltaTime * touchDeltaX;
@@ -113,7 +118,7 @@ public class GunController : MonoBehaviour
         else if (touchDeltaX > 0)
         {
             
-            while (/*tParam <= touchDeltaX && */currentTouch.phase != TouchPhase.Ended )
+            while (/*tParam <= touchDeltaX && */currentGInput.phase != IPhase.Ended )
             {
                 Debug.Log("tParam = " + tParam + " touchDeltaX = " + touchDeltaX);
                 tParam += speedModifier * Time.deltaTime * touchDeltaX;
@@ -134,7 +139,7 @@ public class GunController : MonoBehaviour
         windPhysicsScript.CreateWind(transform, windForce, lookPosition);
     }
 
-    IEnumerator StartPowerSliderAnimation(Touch currentTouch)
+    IEnumerator StartPowerSliderAnimation(GeneralInput currentGInput)
     {
         float powerValue = Random.Range(0,100f);
 
