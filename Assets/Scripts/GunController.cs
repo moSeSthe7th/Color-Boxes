@@ -147,6 +147,6 @@ public class GunController : MonoBehaviour
             yield return new WaitForSecondsRealtime(0.02f);
         }
 
-        CreateWind(powerSlider.value * 200);
+        CreateWind(powerSlider.value);
     }
 }
