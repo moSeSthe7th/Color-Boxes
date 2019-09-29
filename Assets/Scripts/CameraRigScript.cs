@@ -4,10 +4,5 @@ using UnityEngine;
 
 public class CameraRigScript : MonoBehaviour
 {
-    public GameObject tornado;
-  
-    void Update()
-    {
-        transform.position = tornado.transform.position;
-    }
+
 }
