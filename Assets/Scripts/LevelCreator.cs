@@ -17,7 +17,7 @@ public class LevelCreator : MonoBehaviour
 
     void Start()
     {
-        levelData = GetComponent<LevelData>();
+        levelData = new LevelData();
         Time.timeScale = 3f;
         /*CreateHoleCubes();
 
@@ -36,7 +36,7 @@ public class LevelCreator : MonoBehaviour
         levelData.GetLevelData();
         holes = levelData.holes;
         CreateHoleCubes();
-        CreateOpposedWall();
+       // CreateOpposedWall();
     }
 
     List<Vector3> GetHoleCubePositions()
