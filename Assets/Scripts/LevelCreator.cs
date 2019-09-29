@@ -15,6 +15,9 @@ public class LevelCreator : MonoBehaviour
 
     private List<LevelData.Hole> holes;
 
+    Transform HoleCubeParent;
+    Transform OpposedWallParent;
+
     void Start()
     {
         levelData = new LevelData();
@@ -26,7 +29,7 @@ public class LevelCreator : MonoBehaviour
             Instantiate(holeCube, holePos, Quaternion.identity);
         }*/
 
-
+        //CreateParents(HoleCubeParent,OpposedWallParent);
         CreateLevel();
         
     }
@@ -36,7 +39,7 @@ public class LevelCreator : MonoBehaviour
         levelData.GetLevelData();
         holes = levelData.holes;
         CreateHoleCubes();
-       // CreateOpposedWall();
+        CreateOpposedWall();
     }
 
     List<Vector3> GetHoleCubePositions()
@@ -68,4 +71,14 @@ public class LevelCreator : MonoBehaviour
             }
         }
     }
+
+  /*  void CreateParents(params Transform[] transforms)
+    {
+        Debug.Log(transforms[0].);
+        for(int i = 0; i < transforms.Length; i++)
+        {
+            transforms[i] = new GameObject { name = transforms[i].ToString() , tag = transforms[i].ToString() }.transform;
+        }
+    }*/
+
 }
