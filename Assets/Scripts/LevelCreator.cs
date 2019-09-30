@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class LevelCreator : MonoBehaviour
 {
+    public Transform holeCubeParent;
+
     private LevelData levelData;
 
     public GameObject holeCube;
@@ -39,7 +41,7 @@ public class LevelCreator : MonoBehaviour
         levelData.GetLevelData();
         holes = levelData.holes;
         CreateHoleCubes();
-        CreateOpposedWall();
+        //CreateOpposedWall();
     }
 
     List<Vector3> GetHoleCubePositions()
@@ -54,6 +56,7 @@ public class LevelCreator : MonoBehaviour
             holeCubePositions.Add(selectedHole.position);
             GameObject currentHole = Instantiate(holeCube, selectedHole.position, Quaternion.identity);
             currentHole.GetComponent<HoleCubeScript>().holeColor = selectedHole.color;
+            //currentHole.transform.parent = holeCubeParent;
         }
         
     }
@@ -62,7 +65,7 @@ public class LevelCreator : MonoBehaviour
 
     void CreateOpposedWall()
     {
-        for (float x = -85f; x <= 85f; x += 10)
+        for (float x = -55; x <= 55; x += 10)
         {
             for (float y = 5f; y <= 145f; y += 10)
             {

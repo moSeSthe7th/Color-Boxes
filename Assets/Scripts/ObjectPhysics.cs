@@ -13,35 +13,39 @@ public class ObjectPhysics : MonoBehaviour
     public float upwardsExplosionModifier;
     public float explosionRadius;
 
-    Vector3 directionVec;
-
     private Vector3 explosionPos;
 
-    private float WindForce;
-    
+    private WindPhysicsScript windPhysicsScript;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        WindForce = GameObject.FindGameObjectWithTag("Wind").GetComponent<WindPhysicsScript>().windForce; //Zaten oyun icinde degeri degismiyor diye burada aliniyor.
     }
 
 
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag == "Wind")
+        if (other.gameObject.tag == "Wind")
         {
-            explosionForce = WindForce / 50f;
-            explosionRadius = WindForce;
-            upwardsExplosionModifier = WindForce / Random.Range(10f,15f);
 
-            Vector3 tmpRot = other.transform.rotation.eulerAngles;
-            //Debug.Log(tmpRot);
-            directionVec = this.transform.position - other.transform.position; //new Vector3(0f, upwardsExplosionModifier, explosionForce);
-            directionVec.z *= explosionForce;
-            //Debug.Log("Direction vec is : " + directionVec + " Explosion radius is : " + explosionRadius + " upwardsExplosionModifier is : " + upwardsExplosionModifier);
+            windPhysicsScript = other.gameObject.GetComponent<WindPhysicsScript>();
+            explosionForce = windPhysicsScript.windForce * 100f;
+            explosionRadius = windPhysicsScript.windForce * 100f;
+            upwardsExplosionModifier = windPhysicsScript.windForce / 1500;
 
             explosionPos = other.gameObject.GetComponent<Collider>().ClosestPointOnBounds(this.transform.position); //other.gameObject.transform.position;
+
+            /*//find contact point and apply force from here
+            RaycastHit hit;
+            if (Physics.Raycast(transform.position, transform.forward * -1, out hit))
+            {
+                explosionPos = hit.point;
+            }
+            //*/
+
+
+            //explosionPos = other.gameObject.transform.position;
             isInWindZone = true;
         }
     }
@@ -50,9 +54,9 @@ public class ObjectPhysics : MonoBehaviour
     {
         if (isInWindZone)
         {
-            //rb.AddExplosionForce(explosionForce, explosionPos, explosionRadius, upwardsExplosionModifier, ForceMode.Impulse); //Explosion Force gucu ileri dogru degil de etrafa sacarak dagitiyor objeler bundan yukari dogru yonlere dagiliyor bundan dagiliyor. 
-            rb.AddForce(directionVec,ForceMode.Impulse);
-            //rb.AddForceAtPosition(directionVec, explosionPos, ForceMode.Impulse);
+            rb.AddExplosionForce(explosionForce, explosionPos, explosionRadius, upwardsExplosionModifier, ForceMode.Acceleration);
+            if (windPhysicsScript != null)
+                rb.AddForce(windPhysicsScript.forceVec * 250,ForceMode.Impulse);
             isInWindZone = false;
         }
     }

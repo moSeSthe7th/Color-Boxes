@@ -71,7 +71,10 @@ public class GunController : MonoBehaviour
             else if(gInput.phase == IPhase.Ended)
             {
                 isTouchEnded = true;
-                StopCoroutine(routeFollower); //Corountine inputla beraber bitmediginden burada durduruluyor. yukarda alinan input corountine sokuluyor ama sonradan editlenmiyor. 
+
+                if(routeFollower!=null)
+                    StopCoroutine(routeFollower); //Corountine inputla beraber bitmediginden burada durduruluyor. yukarda alinan input corountine sokuluyor ama sonradan editlenmiyor. 
+
                 coroutineAllowed = true;
                 touchDeltaX = 0;
             }

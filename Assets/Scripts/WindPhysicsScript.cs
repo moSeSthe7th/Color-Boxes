@@ -9,7 +9,8 @@ public class WindPhysicsScript : MonoBehaviour
     public Vector3 initialPos;
     public float windForce; // ForceMode Impulse la eklendigi icin deger kuculebilir
     private Vector3 initialScale;
-    
+
+    public Vector3 forceVec;
 
     private void Start()
     {
@@ -33,9 +34,9 @@ public class WindPhysicsScript : MonoBehaviour
         dummyScaler.x = dummyScaler.x * scale;
         transform.localScale = dummyScaler;
 
-        Vector3 forceVec = (directionVec - transform.position).normalized;
+        forceVec = (directionVec - transform.position).normalized;
 
-        rb.AddForce(forceVec * windForce,ForceMode.Impulse); //Impulse force u anlik hiz degistirerek uyguluyor
+        rb.AddForce(forceVec * windForce * 1.3f ,ForceMode.Impulse); //Impulse force u anlik hiz degistirerek uyguluyor
     }
 
 }
