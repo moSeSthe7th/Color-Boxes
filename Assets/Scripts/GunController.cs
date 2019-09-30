@@ -33,9 +33,10 @@ public class GunController : MonoBehaviour
     Slider powerSlider;
     bool isTouchEnded;
 
-
     float touchDeltaX;
-    
+
+    private IEnumerator routeFollower; //GoByTheRoute corountine i buna esitleniyor sonra bu corountine stoplaniyor
+
     void Start()
     {
         powerSlider = GetComponentInChildren<Slider>();
@@ -64,12 +65,14 @@ public class GunController : MonoBehaviour
             if(gInput.phase == IPhase.Began)
             {
                 isTouchEnded = false;
-                StartCoroutine(StartPowerSliderAnimation(gInput));
+                StartCoroutine(StartPowerSliderAnimation());
                 touchStartPos = gInput.currentPosition;
             }
             else if(gInput.phase == IPhase.Ended)
             {
                 isTouchEnded = true;
+                StopCoroutine(routeFollower); //Corountine inputla beraber bitmediginden burada durduruluyor. yukarda alinan input corountine sokuluyor ama sonradan editlenmiyor. 
+                coroutineAllowed = true;
                 touchDeltaX = 0;
             }
             else
@@ -78,7 +81,10 @@ public class GunController : MonoBehaviour
                 
                 //Debug.Log("TouchDeltax = " + touchDeltaX);
                 if (coroutineAllowed)
-                    StartCoroutine(GoByTheRoute(touchDeltaX, gInput));
+                {
+                    routeFollower = GoByTheRoute(touchDeltaX, gInput);
+                    StartCoroutine(routeFollower);
+                }
             }
         }
     }
@@ -106,7 +112,7 @@ public class GunController : MonoBehaviour
 
             while (currentGInput.phase != IPhase.Ended /*&& tParam >= touchDeltaX*/) // bu touchdeltax leri acınca parmağını durdurduğun yerde duruyo. ama oyunu biraz durağanlastırıyo
             {
-                Debug.Log("tParam = " + tParam + " touchDeltaX = " + touchDeltaX);
+               // Debug.Log("tParam = " + tParam + " touchDeltaX = " + touchDeltaX);
                 tParam += speedModifier * Time.deltaTime * touchDeltaX;
                 tParam = Mathf.Clamp01(tParam);
 
@@ -120,7 +126,7 @@ public class GunController : MonoBehaviour
             
             while (/*tParam <= touchDeltaX && */currentGInput.phase != IPhase.Ended )
             {
-                Debug.Log("tParam = " + tParam + " touchDeltaX = " + touchDeltaX);
+               // Debug.Log("tParam = " + tParam + " touchDeltaX = " + touchDeltaX);
                 tParam += speedModifier * Time.deltaTime * touchDeltaX;
                 tParam = Mathf.Clamp01(tParam);
 
@@ -131,6 +137,7 @@ public class GunController : MonoBehaviour
         }
 
         coroutineAllowed = true;
+        StopCoroutine(routeFollower);
     }
 
     void CreateWind(float windForce)
@@ -139,7 +146,7 @@ public class GunController : MonoBehaviour
         windPhysicsScript.CreateWind(transform, windForce, lookPosition);
     }
 
-    IEnumerator StartPowerSliderAnimation(GeneralInput currentGInput)
+    IEnumerator StartPowerSliderAnimation( )
     {
         float powerValue = Random.Range(0,100f);
 
@@ -153,5 +160,7 @@ public class GunController : MonoBehaviour
         }
 
         CreateWind(powerSlider.value);
+
+        StopCoroutine(StartPowerSliderAnimation());
     }
 }

@@ -137,6 +137,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isInWindZone: 0
-  explosionForce: 10000
+  explosionForce: 1000
   upwardsExplosionModifier: 50
-  explosionRadius: 10000
+  explosionRadius: 1000
