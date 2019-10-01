@@ -11,7 +11,7 @@ public class LevelCreator : MonoBehaviour
     public GameObject holeCube;
     public GameObject opposedWallCube;
 
-    public float zValueOfOpposedWall = 470f;
+    public float zValueOfOpposedWall = 300f;
 
     List<Vector3> holeCubePositions = new List<Vector3>();
 
@@ -56,7 +56,7 @@ public class LevelCreator : MonoBehaviour
             holeCubePositions.Add(selectedHole.position);
             GameObject currentHole = Instantiate(holeCube, selectedHole.position, Quaternion.identity);
             currentHole.GetComponent<HoleCubeScript>().holeColor = selectedHole.color;
-            //currentHole.transform.parent = holeCubeParent;
+            currentHole.transform.parent = holeCubeParent;
         }
         
     }

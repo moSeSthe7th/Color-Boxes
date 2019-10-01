@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7856317819005655549}
   - component: {fileID: -6703834268195113767}
   - component: {fileID: 3866619317006719537}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: HoleCube
   m_TagString: HoleCube
   m_Icon: {fileID: 0}

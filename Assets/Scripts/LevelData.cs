@@ -16,7 +16,7 @@ public class LevelData
         }
     }
 
-    public float zValueOfOpposedWall = 300;
+    public float zValueOfOpposedWall = 300f;
     public List<Hole> holes;
 
     public void GetLevelData()
