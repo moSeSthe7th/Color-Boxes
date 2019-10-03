@@ -16,46 +16,46 @@ public class LevelData
         }
     }
 
-    public float zValueOfOpposedWall = 300f;
+    public float zValueOfOpposedWall = 450f;
     public List<Hole> holes;
 
     public void GetLevelData()
     {
         List<Hole> innerHoles = new List<Hole>();
 
-        innerHoles.Add(new Hole(new Vector3(5f, 35f, zValueOfOpposedWall),Color.red));
-        innerHoles.Add(new Hole(new Vector3(15f, 45f, zValueOfOpposedWall), Color.red));
-        innerHoles.Add(new Hole(new Vector3(-5f, 45f, zValueOfOpposedWall),Color.red));
+        innerHoles.Add(new Hole(new Vector3(5f, 25f, zValueOfOpposedWall),Color.red));
+        innerHoles.Add(new Hole(new Vector3(25f, 45f, zValueOfOpposedWall), Color.red));
+        innerHoles.Add(new Hole(new Vector3(-15f, 45f, zValueOfOpposedWall),Color.red));
         innerHoles.Add(new Hole(new Vector3(5f, 45f, zValueOfOpposedWall),Color.blue));
-        innerHoles.Add(new Hole(new Vector3(5f, 55f, zValueOfOpposedWall),Color.blue));
-        innerHoles.Add(new Hole(new Vector3(15f, 55f, zValueOfOpposedWall),Color.blue));
-        innerHoles.Add(new Hole(new Vector3(-5f, 55f, zValueOfOpposedWall),Color.blue));
-        innerHoles.Add(new Hole(new Vector3(25f, 55f, zValueOfOpposedWall),Color.red));
-        innerHoles.Add(new Hole(new Vector3(-15f, 55f, zValueOfOpposedWall),Color.red));
-        innerHoles.Add(new Hole(new Vector3(5f, 65f, zValueOfOpposedWall), Color.red));
-        innerHoles.Add(new Hole(new Vector3(15f, 65f, zValueOfOpposedWall), Color.red));
-        innerHoles.Add(new Hole(new Vector3(-5f, 65f, zValueOfOpposedWall), Color.red));
-        innerHoles.Add(new Hole(new Vector3(25f, 65f, zValueOfOpposedWall), Color.red));
-        innerHoles.Add(new Hole(new Vector3(-15f, 65f, zValueOfOpposedWall), Color.red));
-        innerHoles.Add(new Hole(new Vector3(-25f, 65f, zValueOfOpposedWall), Color.red));
-        innerHoles.Add(new Hole(new Vector3(35f, 65f, zValueOfOpposedWall), Color.red));
-
-        innerHoles.Add(new Hole(new Vector3(5f, 105f, zValueOfOpposedWall), Color.red));
-        innerHoles.Add(new Hole(new Vector3(15f, 95f, zValueOfOpposedWall), Color.red));
-        innerHoles.Add(new Hole(new Vector3(-5f, 95f, zValueOfOpposedWall), Color.red));
-        innerHoles.Add(new Hole(new Vector3(5f, 95f, zValueOfOpposedWall), Color.blue));
-        innerHoles.Add(new Hole(new Vector3(5f, 85f, zValueOfOpposedWall), Color.blue));
-        innerHoles.Add(new Hole(new Vector3(15f, 85f, zValueOfOpposedWall), Color.blue));
-        innerHoles.Add(new Hole(new Vector3(-5f, 85f, zValueOfOpposedWall), Color.blue));
+        innerHoles.Add(new Hole(new Vector3(5f, 65f, zValueOfOpposedWall),Color.blue));
+        innerHoles.Add(new Hole(new Vector3(25f, 65f, zValueOfOpposedWall),Color.blue));
+        innerHoles.Add(new Hole(new Vector3(-15f, 65f, zValueOfOpposedWall),Color.blue));
+        innerHoles.Add(new Hole(new Vector3(45f, 65f, zValueOfOpposedWall),Color.red));
+        innerHoles.Add(new Hole(new Vector3(-35f, 65f, zValueOfOpposedWall),Color.red));
+        innerHoles.Add(new Hole(new Vector3(5f, 85f, zValueOfOpposedWall), Color.red));
         innerHoles.Add(new Hole(new Vector3(25f, 85f, zValueOfOpposedWall), Color.red));
         innerHoles.Add(new Hole(new Vector3(-15f, 85f, zValueOfOpposedWall), Color.red));
-        innerHoles.Add(new Hole(new Vector3(5f, 75f, zValueOfOpposedWall), Color.red));
-        innerHoles.Add(new Hole(new Vector3(15f, 75f, zValueOfOpposedWall), Color.red));
-        innerHoles.Add(new Hole(new Vector3(-5f, 75f, zValueOfOpposedWall), Color.red));
-        innerHoles.Add(new Hole(new Vector3(25f, 75f, zValueOfOpposedWall), Color.red));
-        innerHoles.Add(new Hole(new Vector3(-15f, 75f, zValueOfOpposedWall), Color.red));
-        innerHoles.Add(new Hole(new Vector3(-25f, 75f, zValueOfOpposedWall), Color.red));
-        innerHoles.Add(new Hole(new Vector3(35f, 75f, zValueOfOpposedWall), Color.red));
+        innerHoles.Add(new Hole(new Vector3(45f, 85f, zValueOfOpposedWall), Color.red));
+        innerHoles.Add(new Hole(new Vector3(-35f, 85f, zValueOfOpposedWall), Color.red));
+        innerHoles.Add(new Hole(new Vector3(-55f, 85f, zValueOfOpposedWall), Color.red));
+        innerHoles.Add(new Hole(new Vector3(65f, 85f, zValueOfOpposedWall), Color.red));
+
+        innerHoles.Add(new Hole(new Vector3(5f, 165f, zValueOfOpposedWall), Color.red));
+        innerHoles.Add(new Hole(new Vector3(25f, 145f, zValueOfOpposedWall), Color.red));
+        innerHoles.Add(new Hole(new Vector3(-15f, 145f, zValueOfOpposedWall), Color.red));
+        innerHoles.Add(new Hole(new Vector3(5f, 145f, zValueOfOpposedWall), Color.blue));
+        innerHoles.Add(new Hole(new Vector3(5f, 125f, zValueOfOpposedWall), Color.blue));
+        innerHoles.Add(new Hole(new Vector3(25f, 125f, zValueOfOpposedWall), Color.blue));
+        innerHoles.Add(new Hole(new Vector3(-15f, 125f, zValueOfOpposedWall), Color.blue));
+        innerHoles.Add(new Hole(new Vector3(45f, 125f, zValueOfOpposedWall), Color.red));
+        innerHoles.Add(new Hole(new Vector3(-35f, 125f, zValueOfOpposedWall), Color.red));
+        innerHoles.Add(new Hole(new Vector3(5f, 105f, zValueOfOpposedWall), Color.red));
+        innerHoles.Add(new Hole(new Vector3(25f, 105f, zValueOfOpposedWall), Color.red));
+        innerHoles.Add(new Hole(new Vector3(-15f, 105f, zValueOfOpposedWall), Color.red));
+        innerHoles.Add(new Hole(new Vector3(45f, 105f, zValueOfOpposedWall), Color.red));
+        innerHoles.Add(new Hole(new Vector3(-35f, 105f, zValueOfOpposedWall), Color.red));
+        innerHoles.Add(new Hole(new Vector3(-55f, 105f, zValueOfOpposedWall), Color.red));
+        innerHoles.Add(new Hole(new Vector3(65f, 105f, zValueOfOpposedWall), Color.red));
 
         holes = innerHoles;
     }

@@ -24,7 +24,7 @@ public class ObjectSnapper : MonoBehaviour
         GetComponent<Rigidbody>().isKinematic = true;
         while (Vector3.Distance(posToSnap, transform.position) > 2f)
         {
-            transform.position = Vector3.MoveTowards(transform.position, posToSnap, 10f);
+            transform.position = Vector3.MoveTowards(transform.position, posToSnap, 5f);
             yield return new WaitForSecondsRealtime(0.005f);
         }
         
