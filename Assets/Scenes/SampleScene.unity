@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44271174, g: 0.49184406, b: 0.57163537, a: 1}
+  m_IndirectSpecularColor: {r: 0.44271114, g: 0.4918437, b: 0.5716355, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -412,8 +412,6 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.UI.Slider+SliderEvent, UnityEngine.UI, Version=1.0.0.0,
-      Culture=neutral, PublicKeyToken=null
 --- !u!114 &161794522
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2112,9 +2110,6 @@ MonoBehaviour:
   holeCubeParent: {fileID: 801783006}
   holeCube: {fileID: 7856317819005655551, guid: 07cdd43af29f02e499ba31436a9dca32,
     type: 3}
-  opposedWallCube: {fileID: 3745731350638843126, guid: 0ea590a04a7047a4883c00b869d9d6bf,
-    type: 3}
-  zValueOfOpposedWall: 470
 --- !u!4 &635713749
 Transform:
   m_ObjectHideFlags: 0
@@ -2990,8 +2985,6 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Sprite: {fileID: 21300000, guid: ac19256631dd6f849a91b70a19b3fdc4, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
@@ -3790,8 +3783,6 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
   m_Type: 0
   m_PreserveAspect: 0
@@ -5207,8 +5198,6 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Sprite: {fileID: 21300000, guid: ac19256631dd6f849a91b70a19b3fdc4, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
