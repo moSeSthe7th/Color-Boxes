@@ -5,6 +5,7 @@ using UnityEngine;
 public class LevelCreator : MonoBehaviour
 {
     public Transform holeCubeParent;
+    Transform bilboard;
 
     private LevelData levelData;
 
@@ -12,12 +13,12 @@ public class LevelCreator : MonoBehaviour
 
     List<Vector3> holeCubePositions = new List<Vector3>();
 
-    private List<LevelData.Hole> holes;
-
     void Start()
     {
         levelData = new LevelData();
         Time.timeScale = 3f;
+
+        bilboard = GameObject.FindGameObjectWithTag("Bilboard").transform;
 
         CreateLevel();
         
@@ -26,21 +27,32 @@ public class LevelCreator : MonoBehaviour
     void CreateLevel()
     {
         levelData.Set();
-        holes = levelData.holes;
+       
         CreateHoleCubes();
+        PositionHoleCubes();
     }
 
 
     void CreateHoleCubes()
     {
-        foreach(LevelData.Hole selectedHole in holes)
+        foreach(LevelData.Hole selectedHole in levelData.holes)
         {
             holeCubePositions.Add(selectedHole.position);
             GameObject currentHole = Instantiate(holeCube, selectedHole.position, Quaternion.identity);
             currentHole.GetComponent<HoleCubeScript>().holeColor = selectedHole.color;
             currentHole.transform.parent = holeCubeParent;
         }
-        
+       
+    }
+
+    void PositionHoleCubes()
+    {
+        Vector3 tmpVec = new Vector3(0f, 0f, 520f);
+
+        tmpVec.x -= levelData.mapWidth * (5f / 10f);
+        tmpVec.y -= levelData.mapHeight * (1f / 10f);
+
+        holeCubeParent.position = tmpVec;
     }
 
 

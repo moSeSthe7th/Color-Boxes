@@ -7,12 +7,15 @@ public class TextureToHoleWall
 {
     //public Texture2D tstSprite;
     Color32[] pixels;
-    int HolePosModifier = 5;
+    int HolePosModifier = 20;
 
     public struct SpriteMap
     {
         public int rowNumber;
         public int coloumnNumber;
+
+        public float width;
+        public float height;
 
         //public List<Tuple<Vector3,Color32>> holeData;
         public List<LevelData.Hole> holeData;
@@ -40,6 +43,9 @@ public class TextureToHoleWall
 
         Vector3 currPos;
 
+        int maxRows = 0;
+        int maxCols = 0;
+
         for (int r = 0; r < spriteMap.rowNumber; r++)
         {
             for(int c = 0; c < spriteMap.coloumnNumber; c++)
@@ -51,12 +57,18 @@ public class TextureToHoleWall
                     continue;
                 }
 
+                maxRows = (maxRows < r) ? r : maxRows;
+                maxCols = (maxCols < c) ? c : maxCols;
+
                 currPos = new Vector3(c * HolePosModifier,r * HolePosModifier ,0f);
                 spriteMap.holeData.Add(new LevelData.Hole(currPos,pixels[count]));
 
                 count++;
             }
         }
+
+        spriteMap.height = (maxRows + 1) * HolePosModifier;
+        spriteMap.width = (maxCols + 1)  * HolePosModifier;
 
         return spriteMap;
     }
