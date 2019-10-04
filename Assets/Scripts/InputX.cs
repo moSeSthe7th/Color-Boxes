@@ -151,7 +151,8 @@ namespace UtmostInput
 
     class ExtendedInput
     {
-#if UNITY_EDITOR || UNITY_IPHONE
+
+#if UNITY_EDITOR || UNITY_IPHONE || UNITY_ANDROID
         public static bool isInputEntered()
         {
             if (Input.GetMouseButtonDown(0))
@@ -181,7 +182,7 @@ namespace UtmostInput
             return Input.mousePosition;
         }
 
-#elif UNITY_IPHONE && !UNITY_EDITOR
+#elif UNITY_IPHONE || UNITY_ANDROID && !UNITY_EDITOR
         public static bool isInputEntered()
         {
             if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)

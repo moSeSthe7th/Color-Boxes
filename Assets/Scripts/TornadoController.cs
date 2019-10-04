@@ -5,8 +5,8 @@ using UnityEngine;
 public class TornadoController : MonoBehaviour
 {
     Rigidbody rb;
-    InputManager iManager;
-    InputManager.State iState = 0;
+    //InputManager iManager;
+    //InputManager.State iState = 0;
 
     [Header("Tornado speed : 1-100")]
     public float tornadoSpeed;
@@ -28,7 +28,7 @@ public class TornadoController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        iManager = new InputManager(Screen.width / 3f);
+      //  iManager = new InputManager(Screen.width / 3f);
     }
 
     void Update()
