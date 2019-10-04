@@ -22,7 +22,7 @@ public class LevelData
 
     public LevelData()
     {
-        lvlSprite = (Texture2D)Resources.Load("Image_Sprite/PBoy");
+        lvlSprite = (Texture2D)Resources.Load("LevelSprites/Husnu");
         HoleWall = new TextureToHoleWall(lvlSprite);
     }
 
@@ -33,7 +33,7 @@ public class LevelData
     public void Set()
     {
         holes = HoleWall.spriteMap.holeData;
-        mapHeight = HoleWall.spriteMap.height;
-        mapWidth = HoleWall.spriteMap.width;
+        mapHeight = HoleWall.spriteMap.totHeight;
+        mapWidth = HoleWall.spriteMap.totWidth;
     }
 }

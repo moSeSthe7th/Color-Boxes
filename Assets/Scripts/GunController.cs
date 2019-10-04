@@ -80,7 +80,7 @@ public class GunController : MonoBehaviour
             }
             else
             {
-                touchDeltaX = (gInput.currentPosition.x - touchStartPos.x) / (Screen.width / 2);
+                touchDeltaX = (gInput.currentPosition.x - touchStartPos.x) / (Screen.width);
                 
                 //Debug.Log("TouchDeltax = " + touchDeltaX);
                 if (coroutineAllowed)
