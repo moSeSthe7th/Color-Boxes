@@ -11,7 +11,7 @@ public class ObjectSnapper : MonoBehaviour
     {
         if(other.gameObject.tag == "HoleCube" && !isObjectSnappedToAHole)
         {
-            Debug.Log("triggered");
+            //Debug.Log("triggered");
             GoToHole(other.gameObject);
         }
     }

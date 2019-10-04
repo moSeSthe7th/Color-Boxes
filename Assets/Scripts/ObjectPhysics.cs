@@ -32,7 +32,7 @@ public class ObjectPhysics : MonoBehaviour
             windPhysicsScript = other.gameObject.GetComponent<WindPhysicsScript>();
             explosionForce = windPhysicsScript.windForce * 100f;
             explosionRadius = windPhysicsScript.windForce * 100f;
-            upwardsExplosionModifier = windPhysicsScript.windForce / 1500;
+            upwardsExplosionModifier =windPhysicsScript.windForce / 2000f;
 
             explosionPos = other.gameObject.GetComponent<Collider>().ClosestPointOnBounds(this.transform.position); //other.gameObject.transform.position;
 

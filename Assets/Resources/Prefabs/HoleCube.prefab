@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7856317819005655549}
   - component: {fileID: -6703834268195113767}
   - component: {fileID: 3866619317006719537}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: HoleCube
   m_TagString: HoleCube
   m_Icon: {fileID: 0}
@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 7856317819005655551}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 10, y: 10, z: 1}
+  m_LocalScale: {x: 20, y: 20, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -91,7 +91,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 3
+  m_Radius: 4
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &3866619317006719537
 MonoBehaviour:
@@ -106,3 +106,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isOccupied: 0
+  holeColor: {r: 0, g: 0, b: 0, a: 0}

@@ -5,75 +5,56 @@ using UnityEngine;
 public class LevelCreator : MonoBehaviour
 {
     public Transform holeCubeParent;
+    Transform bilboard;
 
     private LevelData levelData;
 
     public GameObject holeCube;
-    public GameObject opposedWallCube;
-
-    public float zValueOfOpposedWall = 300f;
 
     List<Vector3> holeCubePositions = new List<Vector3>();
-
-    private List<LevelData.Hole> holes;
-
-    Transform HoleCubeParent;
-    Transform OpposedWallParent;
 
     void Start()
     {
         levelData = new LevelData();
         Time.timeScale = 3f;
-        /*CreateHoleCubes();
 
-        foreach(Vector3 holePos in holeCubePositions)
-        {
-            Instantiate(holeCube, holePos, Quaternion.identity);
-        }*/
+        bilboard = GameObject.FindGameObjectWithTag("Bilboard").transform;
 
-        //CreateParents(HoleCubeParent,OpposedWallParent);
         CreateLevel();
         
     }
 
     void CreateLevel()
     {
-        levelData.GetLevelData();
-        holes = levelData.holes;
+        levelData.Set();
+       
         CreateHoleCubes();
-        //CreateOpposedWall();
+        PositionHoleCubes();
     }
 
-    List<Vector3> GetHoleCubePositions()
-    {
-        return holeCubePositions;
-    }
 
     void CreateHoleCubes()
     {
-        foreach(LevelData.Hole selectedHole in holes)
+        foreach(LevelData.Hole selectedHole in levelData.holes)
         {
             holeCubePositions.Add(selectedHole.position);
             GameObject currentHole = Instantiate(holeCube, selectedHole.position, Quaternion.identity);
             currentHole.GetComponent<HoleCubeScript>().holeColor = selectedHole.color;
             currentHole.transform.parent = holeCubeParent;
         }
-        
+       
     }
 
-    
-
-    void CreateOpposedWall()
+    void PositionHoleCubes()
     {
-        for (float x = -55; x <= 55; x += 10)
-        {
-            for (float y = 5f; y <= 145f; y += 10)
-            {
-                if (!holeCubePositions.Contains(new Vector3(x, y, zValueOfOpposedWall)))
-                    Instantiate(opposedWallCube, new Vector3(x, y, zValueOfOpposedWall), Quaternion.identity);
-            }
-        }
+        Vector3 tmpVec = new Vector3(0f, 0f, 520f);
+
+        tmpVec.x -= levelData.mapWidth * (5f / 10f);
+        tmpVec.y -= levelData.mapHeight * (1f / 10f);
+
+        holeCubeParent.position = tmpVec;
     }
+
 
   /*  void CreateParents(params Transform[] transforms)
     {
