@@ -19,7 +19,7 @@ public class LevelCreator : MonoBehaviour
         Time.timeScale = 3f;
 
         bilboard = GameObject.FindGameObjectWithTag("Bilboard").transform;
-
+        Debug.Log(bilboard.lossyScale + " " + bilboard.localScale);
         CreateLevel();
         
     }
@@ -47,10 +47,10 @@ public class LevelCreator : MonoBehaviour
 
     void PositionHoleCubes()
     {
-        Vector3 tmpVec = new Vector3(0f, 0f, 520f);
+        Vector3 tmpVec = new Vector3(0f, bilboard.transform.position.y, bilboard.transform.position.z);
 
-        tmpVec.x -= levelData.mapWidth * (5f / 10f);
-        tmpVec.y -= levelData.mapHeight * (1f / 10f);
+        tmpVec.x -= (levelData.mapWidth / 2f) - (holeCube.transform.localScale.x / 2f); 
+        tmpVec.y += (levelData.mapHeight / 2f) + (holeCube.transform.localScale.y * 3f); 
 
         holeCubeParent.position = tmpVec;
     }

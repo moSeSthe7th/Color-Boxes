@@ -22,7 +22,7 @@ public class LevelData
 
     public LevelData()
     {
-        lvlSprite = (Texture2D)Resources.Load("LevelSprites/Husnu");
+        lvlSprite = (Texture2D)Resources.Load("LevelSprites/home");
         HoleWall = new TextureToHoleWall(lvlSprite);
     }
 

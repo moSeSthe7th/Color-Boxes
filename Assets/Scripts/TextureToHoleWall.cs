@@ -7,7 +7,7 @@ public class TextureToHoleWall
 {
     //public Texture2D tstSprite;
     Color32[] pixels;
-    int HolePosModifier = 18;
+    int HolePosModifier = 10;
 
     public struct SpriteMap
     {
@@ -33,7 +33,12 @@ public class TextureToHoleWall
 
         spriteMap.rowNumber = sprite.height;
         spriteMap.coloumnNumber = sprite.width;
+
+        spriteMap.totHeight = spriteMap.rowNumber * HolePosModifier;
+        spriteMap.totWidth = spriteMap.coloumnNumber * HolePosModifier;
+
         spriteMap.totBlockCount = 0;
+
         pixels = sprite.GetPixels32();
 
         SetSpriteMap();
@@ -45,8 +50,8 @@ public class TextureToHoleWall
 
         Vector3 currPos;
 
-        int maxRows = 0;
-        int maxCols = 0;
+        //int maxRows = 0;
+        //int maxCols = 0;
 
         for (int r = 2; r < spriteMap.rowNumber + 2; r++)  // buraya +2 yi yukarı cıkarmak icin ekledik... kaldırılabilir
         {
@@ -59,8 +64,8 @@ public class TextureToHoleWall
                     continue;
                 }
 
-                maxRows = (maxRows < r) ? r : maxRows;
-                maxCols = (maxCols < c) ? c : maxCols;
+               // maxRows = (maxRows < r) ? r : maxRows;
+               // maxCols = (maxCols < c) ? c : maxCols;
 
                 currPos = new Vector3(c * HolePosModifier,r * HolePosModifier ,0f);
                 spriteMap.holeData.Add(new LevelData.Hole(currPos,pixels[count]));
@@ -69,8 +74,8 @@ public class TextureToHoleWall
             }
         }
 
-        spriteMap.totHeight = (maxRows + 1) * HolePosModifier;
-        spriteMap.totWidth = (maxCols + 1)  * HolePosModifier;
+       // spriteMap.totHeight = (maxRows + 1) * HolePosModifier;
+       // spriteMap.totWidth = (maxCols + 1)  * HolePosModifier;
 
         return spriteMap;
     }
