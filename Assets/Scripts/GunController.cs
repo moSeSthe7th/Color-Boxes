@@ -20,9 +20,7 @@ public class GunController : MonoBehaviour
     private Vector2 touchStartPos;
     private Vector2 touchCurrentPos;
 
-    public GameObject wind;
-    private WindPhysicsScript windPhysicsScript;
-
+    
     private InputX inputX;
 
     Vector3 p0;
@@ -30,7 +28,7 @@ public class GunController : MonoBehaviour
     Vector3 p2;
     Vector3 p3;
 
-    Slider powerSlider;
+   
     bool isTouchEnded;
 
     float touchDeltaX;
@@ -39,9 +37,7 @@ public class GunController : MonoBehaviour
 
     void Start()
     {
-        powerSlider = GetComponentInChildren<Slider>();
-        windPhysicsScript = FindObjectOfType(typeof(WindPhysicsScript)) as WindPhysicsScript;
-
+        
         inputX = new InputX();
 
         p0 = route.GetChild(0).position;
@@ -65,7 +61,7 @@ public class GunController : MonoBehaviour
             if(gInput.phase == IPhase.Began)
             {
                 isTouchEnded = false;
-                StartCoroutine(StartPowerSliderAnimation());
+                StartCoroutine(Fire());
                 touchStartPos = gInput.currentPosition;
             }
             else if(gInput.phase == IPhase.Ended)
@@ -80,6 +76,7 @@ public class GunController : MonoBehaviour
             }
             else
             {
+<<<<<<< Updated upstream
                 touchDeltaX = (gInput.currentPosition.x - touchStartPos.x) / (Screen.width);
                 
                 //Debug.Log("TouchDeltax = " + touchDeltaX);
@@ -88,6 +85,13 @@ public class GunController : MonoBehaviour
                     routeFollower = GoByTheRoute(touchDeltaX, gInput);
                     StartCoroutine(routeFollower);
                 }
+=======
+               // touchDeltaX = (gInput.currentPosition.x - touchStartPos.x) / (Screen.width);
+                touchDelta = (gInput.currentPosition - touchStartPos) / (Screen.width);
+
+                GoByTheRoute(touchDelta);
+                
+>>>>>>> Stashed changes
             }
         }
     }
@@ -145,10 +149,17 @@ public class GunController : MonoBehaviour
 
     void CreateWind(float windForce)
     {
-        //get that force from a slider...
-        windPhysicsScript.CreateWind(transform, windForce, lookPosition);
+       
+        GameObject wind = ObjectPooler.instance.GetPooledObject(DataScript.windObjects);
+        if (wind!=null)
+        {
+            wind.SetActive(true);
+            wind.GetComponent<WindPhysicsScript>().CreateWind(transform, lookPosition);
+        }
+        
     }
 
+<<<<<<< Updated upstream
     IEnumerator StartPowerSliderAnimation( )
     {
         float powerValue = Random.Range(0,100f);
@@ -160,10 +171,21 @@ public class GunController : MonoBehaviour
             powerSlider.value = powerValue;
             powerSlider.GetComponent<GunSliderScript>().SetSliderPowerColors();
             yield return new WaitForSecondsRealtime(0.02f);
+=======
+    IEnumerator Fire()
+    {
+        while(!isTouchEnded)
+        {
+            CreateWind(100f);
+            yield return new WaitForEndOfFrame();
+>>>>>>> Stashed changes
         }
-
-        CreateWind(powerSlider.value);
-
-        StopCoroutine(StartPowerSliderAnimation());
+        StopCoroutine(Fire());
     }
+<<<<<<< Updated upstream
+=======
+
+   
+
+>>>>>>> Stashed changes
 }

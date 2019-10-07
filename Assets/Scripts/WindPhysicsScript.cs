@@ -12,14 +12,20 @@ public class WindPhysicsScript : MonoBehaviour
 
     public Vector3 forceVec;
 
-    private void Start()
+    private void OnEnable()
     {
         initialPos = transform.position;
         rb = GetComponent<Rigidbody>();
         initialScale = transform.localScale;
     }
-    
-    public void CreateWind(Transform gunTransform, float scale, Vector3 directionVec)
+
+    private void Update()
+    {
+        if (transform.position.z > 500f)
+            gameObject.SetActive(false);
+    }
+
+    public void CreateWind(Transform gunTransform, Vector3 directionVec)
     {
         rb.velocity = Vector3.zero;
         transform.localScale = initialScale;
@@ -29,10 +35,6 @@ public class WindPhysicsScript : MonoBehaviour
         
         transform.position = gunTransformVec;
         transform.rotation = gunTransform.rotation;
-
-        Vector3 dummyScaler = transform.localScale;
-        dummyScaler.x = dummyScaler.x * scale;
-        transform.localScale = dummyScaler;
 
         forceVec = (directionVec - transform.position).normalized;
 
