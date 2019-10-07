@@ -10,11 +10,15 @@ public class LevelCreator : MonoBehaviour
     private LevelData levelData;
 
     public GameObject holeCube;
+    public GameObject wind;
 
     List<Vector3> holeCubePositions = new List<Vector3>();
 
     void Start()
     {
+
+        DataScript.windObjects = ObjectPooler.instance.PooltheObjects(wind, 100);
+
         levelData = new LevelData();
         Time.timeScale = 3f;
 
