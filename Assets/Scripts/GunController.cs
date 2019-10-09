@@ -63,7 +63,7 @@ public class GunController : MonoBehaviour
 
         tParamX = 0.5f;
         tParamY = 0.5f;
-        speedModifier = 2f;
+        speedModifier = 15f;
         coroutineAllowed = true;
 
         SetGunPosition();
@@ -96,7 +96,7 @@ public class GunController : MonoBehaviour
             {
                
                 touchDelta = (gInput.currentPosition - touchStartPos) / (Screen.width);
-
+                touchStartPos = gInput.currentPosition;
                 GoByTheRoute(touchDelta);
 
              
@@ -129,7 +129,7 @@ public class GunController : MonoBehaviour
         tParamX += speedModifier * Time.deltaTime * tDelta.x;
         tParamX = Mathf.Clamp01(tParamX);
 
-        tParamY += speedModifier * Time.deltaTime * tDelta.y;
+        tParamY += speedModifier * 1.5f * Time.deltaTime * tDelta.y;
         tParamY = Mathf.Clamp01(tParamY);
 
         SetGunPosition();
