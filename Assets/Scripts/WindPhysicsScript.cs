@@ -10,20 +10,35 @@ public class WindPhysicsScript : MonoBehaviour
     public float windForce; // ForceMode Impulse la eklendigi icin deger kuculebilir
     
     public Vector3 forceVec;
+    private Vector3 initialScale;
+
+    private bool isScalingActive;
+
+    private void Start()
+    {
+        initialScale = transform.localScale;
+    }
 
     private void OnEnable()
     {
+        transform.localScale = initialScale;
         rb = GetComponent<Rigidbody>();
     }
 
     private void Update()
     {
         if (transform.position.z > 500f)
+        {
             gameObject.SetActive(false);
+            isScalingActive = false;
+        }
+            
     }
 
     public void CreateWind(Transform gunTransform, Vector3 directionVec)
     {
+        isScalingActive = true;
+        StartCoroutine(ScaleTheWind());
         rb.velocity = Vector3.zero;
       
         Vector3 gunTransformVec = gunTransform.position;
@@ -35,6 +50,19 @@ public class WindPhysicsScript : MonoBehaviour
         forceVec = (directionVec - transform.position).normalized;
 
         rb.AddForce(forceVec * windForce * 1.3f, ForceMode.Impulse); //Impulse force u anlik hiz degistirerek uyguluyor
+    }
+
+    IEnumerator ScaleTheWind()
+    {
+       
+        while (isScalingActive)
+        {
+            Vector3 dummyScaler = transform.localScale;
+            dummyScaler += Vector3.one * 2f;
+            transform.localScale = dummyScaler;
+            yield return new WaitForEndOfFrame();
+        }
+        StopCoroutine(ScaleTheWind());
     }
 
 }
