@@ -48,13 +48,14 @@ public class LevelCreator : MonoBehaviour
         }
        
     }
-
+    //- bilboard.transform.localScale.z
     void PositionHoleCubes()
     {
-        Vector3 tmpVec = new Vector3(0f, bilboard.transform.position.y, bilboard.transform.position.z);
+        Transform board = bilboard.transform.GetChild(0);
+        Vector3 tmpVec = new Vector3(0f, board.position.y, bilboard.transform.position.z - board.localScale.y + 10f);
 
         tmpVec.x -= (levelData.mapWidth / 2f) - (holeCube.transform.localScale.x / 2f); 
-        tmpVec.y += (levelData.mapHeight / 2f) + (holeCube.transform.localScale.y * 3f); 
+        tmpVec.y -= (levelData.mapHeight / 2f) + (holeCube.transform.localScale.y ); 
 
         holeCubeParent.position = tmpVec;
     }

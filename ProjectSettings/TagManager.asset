@@ -8,6 +8,7 @@ TagManager:
   - HoleCube
   - Wind
   - Bilboard
+  - Platform
   layers:
   - Default
   - TransparentFX

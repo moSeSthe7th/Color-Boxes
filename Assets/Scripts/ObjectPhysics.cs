@@ -54,9 +54,9 @@ public class ObjectPhysics : MonoBehaviour
     {
         if (isInWindZone)
         {
-            rb.AddExplosionForce(explosionForce, explosionPos, explosionRadius, upwardsExplosionModifier, ForceMode.Acceleration);
+            //rb.AddExplosionForce(explosionForce, explosionPos, explosionRadius, upwardsExplosionModifier, ForceMode.Acceleration);
             if (windPhysicsScript != null)
-                rb.AddForce(windPhysicsScript.forceVec * 250,ForceMode.Impulse);
+                rb.AddForce(windPhysicsScript.forceVec * 140 ,ForceMode.Impulse);
             isInWindZone = false;
         }
     }
