@@ -17,23 +17,47 @@ public class LevelData
 
     }
 
+    public static LevelData levelData;
+    string level;
+
     private TextureToHoleWall HoleWall;
     private Texture2D lvlSprite;
 
-    public LevelData()
+    private CubeSetter cubeSetter;
+
+    public LevelData(int lvlData)
     {
-        lvlSprite = (Texture2D)Resources.Load("LevelSprites/felippe");
-        HoleWall = new TextureToHoleWall(lvlSprite);
+        level = lvlData.ToString();
+
+        if(levelData == null)
+        {
+            levelData = this;
+        }
     }
+
+    public List<GameObject> ThorwableCubes = new List<GameObject>();
 
     public List<Hole> holes;
     public float mapWidth;
     public float mapHeight;
+    public int holeCount;
 
-    public void Set()
+    public void SetHoleWall()
     {
+        lvlSprite = (Texture2D)Resources.Load("LevelSprites/LvlSp_" + level);
+        HoleWall = new TextureToHoleWall(lvlSprite);
+
         holes = HoleWall.spriteMap.holeData;
         mapHeight = HoleWall.spriteMap.totHeight;
         mapWidth = HoleWall.spriteMap.totWidth;
+        holeCount = HoleWall.spriteMap.totBlockCount;
     }
+
+    public void SetThrowableCubes()
+    {
+        cubeSetter = new CubeSetter(holeCount);
+
+
+    }
+
 }

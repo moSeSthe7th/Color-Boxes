@@ -32,7 +32,7 @@ public class ObjectPhysics : MonoBehaviour
             windPhysicsScript = other.gameObject.GetComponent<WindPhysicsScript>();
             explosionForce = windPhysicsScript.windForce * 30f;
             explosionRadius = windPhysicsScript.windForce * 30f;
-            upwardsExplosionModifier =windPhysicsScript.windForce / 2000f;
+            upwardsExplosionModifier = windPhysicsScript.windForce / 2000f;
 
             explosionPos = other.gameObject.GetComponent<Collider>().ClosestPointOnBounds(this.transform.position); //other.gameObject.transform.position;
 
@@ -54,7 +54,7 @@ public class ObjectPhysics : MonoBehaviour
     {
         if (isInWindZone)
         {
-            rb.AddExplosionForce(explosionForce, explosionPos, explosionRadius, upwardsExplosionModifier, ForceMode.Acceleration);
+            //rb.AddExplosionForce(explosionForce, explosionPos, explosionRadius, upwardsExplosionModifier, ForceMode.Acceleration);
             if (windPhysicsScript != null)
                 rb.AddForce(windPhysicsScript.forceVec * 140 ,ForceMode.Impulse);
             isInWindZone = false;

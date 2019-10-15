@@ -42,4 +42,9 @@ public class ObjectPlacer : MonoBehaviour
             }
         }
     }
+
+    void CreateCupes()
+    {
+
+    }
 }

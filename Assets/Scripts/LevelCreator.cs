@@ -16,24 +16,26 @@ public class LevelCreator : MonoBehaviour
 
     void Start()
     {
-
         DataScript.windObjects = ObjectPooler.instance.PooltheObjects(wind, 100);
+        int levelNumber = 1; //sadece gostermelik bi level simdilik
 
-        levelData = new LevelData();
+        levelData = new LevelData(levelNumber);
         Time.timeScale = 3f;
 
         bilboard = GameObject.FindGameObjectWithTag("Bilboard").transform;
         Debug.Log(bilboard.lossyScale + " " + bilboard.localScale);
         CreateLevel();
-        
     }
 
     void CreateLevel()
     {
-        levelData.Set();
-       
+        //Create picture on billboard
+        levelData.SetHoleWall();
         CreateHoleCubes();
         PositionHoleCubes();
+
+        //CreateThrowableCubes
+
     }
 
 
