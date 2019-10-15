@@ -6,12 +6,13 @@ public class ObjectSnapper : MonoBehaviour
 {
     public float zDiffWithHole = 5f;
     bool isObjectSnappedToAHole = false;
+
+    bool isHoleCollidersIncreased = false;
    
     private void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.tag == "HoleCube" && !isObjectSnappedToAHole)
         {
-            //Debug.Log("triggered");
             GoToHole(other.gameObject);
         }
     }
@@ -45,6 +46,9 @@ public class ObjectSnapper : MonoBehaviour
             hole.GetComponent<HoleCubeScript>().isOccupied = true;
             Debug.Log("Occupied a hole");
             StartCoroutine(SnapObjectToThePosition(hole));
+            DataScript.succesfullyOccupiedHoleCount++;
+            if (!isHoleCollidersIncreased && (DataScript.succesfullyOccupiedHoleCount >= DataScript.remainingHoleColliderIncreaseThreshold))
+                IncreaseSnapDistanceOfRemainingHoles();
         }
     }
 
@@ -57,8 +61,22 @@ public class ObjectSnapper : MonoBehaviour
 
     void ColorizeTheObject(GameObject hole)
     {
-
         //GetComponent<Renderer>().material.color = hole.GetComponent<HoleCubeScript>().holeColor;      open this if lwrp is not used
         GetComponent<Renderer>().material.SetColor("_BaseColor", hole.GetComponent<HoleCubeScript>().holeColor);
+    }
+
+    void IncreaseSnapDistanceOfRemainingHoles()
+    {
+        if (!isHoleCollidersIncreased)
+        {
+            Debug.Log("Snap distance increased");
+            GameObject[] remainingHoles = GameObject.FindGameObjectsWithTag("HoleCube");
+            foreach(GameObject remainingHole in remainingHoles)
+            {
+                if(!remainingHole.GetComponent<HoleCubeScript>().isOccupied)
+                    remainingHole.GetComponent<SphereCollider>().radius = 17f;
+            }
+        }
+       
     }
 }

@@ -23,7 +23,6 @@ public class LevelCreator : MonoBehaviour
         Time.timeScale = 3f;
 
         bilboard = GameObject.FindGameObjectWithTag("Bilboard").transform;
-        Debug.Log(bilboard.lossyScale + " " + bilboard.localScale);
         CreateLevel();
     }
 
@@ -47,7 +46,12 @@ public class LevelCreator : MonoBehaviour
             GameObject currentHole = Instantiate(holeCube, selectedHole.position, Quaternion.identity);
             currentHole.GetComponent<HoleCubeScript>().holeColor = selectedHole.color;
             currentHole.transform.parent = holeCubeParent;
+           
         }
+
+        DataScript.totalHoleCount = levelData.holes.Count;
+        DataScript.remainingHoleColliderIncreaseThreshold = Mathf.RoundToInt(DataScript.totalHoleCount * 0.9f);
+        
        
     }
     //- bilboard.transform.localScale.z
