@@ -16,7 +16,8 @@ public class WindPhysicsScript : MonoBehaviour
 
     private void Start()
     {
-        initialScale = transform.localScale;
+        initialScale = transform.localScale * 20;
+        transform.localScale = initialScale;
     }
 
     private void OnEnable()
@@ -43,6 +44,8 @@ public class WindPhysicsScript : MonoBehaviour
       
         Vector3 gunTransformVec = gunTransform.position;
         //gunTransformVec.y = initialPos.y;
+        gunTransformVec.y += 25f;
+        gunTransformVec.z += 25f;
 
         transform.position = gunTransformVec;
         transform.rotation = gunTransform.rotation;

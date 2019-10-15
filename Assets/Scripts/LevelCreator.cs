@@ -45,7 +45,12 @@ public class LevelCreator : MonoBehaviour
             GameObject currentHole = Instantiate(holeCube, selectedHole.position, Quaternion.identity);
             currentHole.GetComponent<HoleCubeScript>().holeColor = selectedHole.color;
             currentHole.transform.parent = holeCubeParent;
+           
         }
+
+        DataScript.totalHoleCount = levelData.holes.Count;
+        DataScript.remainingHoleColliderIncreaseThreshold = Mathf.RoundToInt(DataScript.totalHoleCount * 0.9f);
+        
        
     }
     //- bilboard.transform.localScale.z
