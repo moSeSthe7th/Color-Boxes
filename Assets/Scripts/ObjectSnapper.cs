@@ -65,6 +65,8 @@ public class ObjectSnapper : MonoBehaviour
         GetComponent<Renderer>().material.SetColor("_BaseColor", hole.GetComponent<HoleCubeScript>().holeColor);
     }
 
+
+    //Bu degismeli her bir obje tekrar tekrar cagiriyor bu fonksiyonu gereksiz fonksiyon cagirilmis oluyor her birinde. isHoleCollidersIncreased her birinde tutuluyor
     void IncreaseSnapDistanceOfRemainingHoles()
     {
         if (!isHoleCollidersIncreased)

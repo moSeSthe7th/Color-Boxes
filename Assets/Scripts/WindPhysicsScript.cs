@@ -18,12 +18,16 @@ public class WindPhysicsScript : MonoBehaviour
     {
         initialScale = transform.localScale * 20;
         transform.localScale = initialScale;
+        rb = GetComponent<Rigidbody>();
     }
 
     private void OnEnable()
     {
         transform.localScale = initialScale;
-        rb = GetComponent<Rigidbody>();
+        if(rb == null)
+        {
+            rb = GetComponent<Rigidbody>();
+        }
     }
 
     private void Update()
@@ -33,7 +37,17 @@ public class WindPhysicsScript : MonoBehaviour
             gameObject.SetActive(false);
             isScalingActive = false;
         }
-            
+        else
+        {
+            Vector3 dummyScaler = transform.localScale;
+            dummyScaler += Vector3.one * 2f;
+            transform.localScale = dummyScaler;
+        }
+
+       /* Vector3 dummyScaler = transform.localScale;
+        dummyScaler += Vector3.one * 2f;
+        transform.localScale = dummyScaler;*/
+
     }
 
     public void CreateWind(Transform gunTransform, Vector3 directionVec)
@@ -55,6 +69,8 @@ public class WindPhysicsScript : MonoBehaviour
         rb.AddForce(forceVec * windForce * 1.3f, ForceMode.Impulse); //Impulse force u anlik hiz degistirerek uyguluyor
     }
 
+
+    //Update
     IEnumerator ScaleTheWind()
     {
        

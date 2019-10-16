@@ -16,7 +16,6 @@ public class CubeSetter
     {
         int throwableCount;
         public List<Vector3> cubePoss;
-
         public CubeArrengment arrengment;
 
         public ThrowableConstruction(int count)
@@ -37,6 +36,8 @@ public class CubeSetter
 
     void SetCubeConstruction()
     {
+
+
         switch(cubeConst.arrengment)
         {
             default:

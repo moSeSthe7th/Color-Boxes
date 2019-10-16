@@ -35,8 +35,6 @@ public class LevelData
         }
     }
 
-    public List<GameObject> ThorwableCubes = new List<GameObject>();
-
     public List<Hole> holes;
     public float mapWidth;
     public float mapHeight;
@@ -52,6 +50,8 @@ public class LevelData
         mapWidth = HoleWall.spriteMap.totWidth;
         holeCount = HoleWall.spriteMap.totBlockCount;
     }
+
+    public CubeSetter.ThrowableConstruction throwableConst;
 
     public void SetThrowableCubes()
     {

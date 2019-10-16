@@ -35,6 +35,7 @@ public class LevelCreator : MonoBehaviour
 
         //CreateThrowableCubes
 
+
     }
 
 
@@ -54,7 +55,7 @@ public class LevelCreator : MonoBehaviour
         
        
     }
-    //- bilboard.transform.localScale.z
+   
     void PositionHoleCubes()
     {
         Transform board = bilboard.transform.GetChild(0);
