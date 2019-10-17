@@ -17,6 +17,7 @@ public class ForceFieldSphereScript : MonoBehaviour
     IEnumerator StartForceField()
     {
         material.SetFloat("Vector1_E4C38D86", fresnelPower);
+        yield return new WaitForSecondsRealtime(1.5f);
         while (fresnelPower < 5.5f)
         {
             fresnelPower += 0.2f;

@@ -107,7 +107,7 @@ public class CubeSetter
                     Debug.Log("Width Tower count : " + width + ". Height tower count : " + height);
                     Debug.Log("Exrta cubes that cannot be setted on Rectangle count : " + extraCubes);
 
-                    float distBtwTowers = cScale * 2f;
+                    float distBtwTowers = cScale + 0.2f;
                     float yDistBtwCubes = cScale;
 
                     cubeConst.height = height * distBtwTowers;

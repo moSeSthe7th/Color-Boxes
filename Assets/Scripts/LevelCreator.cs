@@ -20,6 +20,7 @@ public class LevelCreator : MonoBehaviour
     void Start()
     {
         DataScript.windObjects = ObjectPooler.instance.PooltheObjects(wind, 100);
+        DataScript.succesfullyOccupiedHoleCount = 0;
 
         throwableCube = (GameObject)Resources.Load("Prefabs/ThrownObject");
         cubeParent = new GameObject("CubeParent");
