@@ -24,16 +24,23 @@ public class LevelData
     private Texture2D lvlSprite;
 
     private CubeSetter cubeSetter;
+    GameObject cube; //throwableCube
+    public Vector3 platformPos = GameObject.FindGameObjectWithTag("Platform").transform.position; //Altigenin en tepesi
 
-    public LevelData(int lvlData)
+    public LevelData(int lvlData,GameObject throwableCube)
     {
         level = lvlData.ToString();
+        cube = throwableCube;
 
         if(levelData == null)
         {
             levelData = this;
         }
     }
+
+    public List<Vector3> ThrowableCubes;
+    public float throwableWidth;
+    public float throwableHeight;
 
     public List<Hole> holes;
     public float mapWidth;
@@ -55,9 +62,11 @@ public class LevelData
 
     public void SetThrowableCubes()
     {
-        cubeSetter = new CubeSetter(holeCount);
+        cubeSetter = new CubeSetter(holeCount, cube.transform.localScale.x);
 
-
+        ThrowableCubes = cubeSetter.cubeConst.cubePoss;
+        throwableHeight = cubeSetter.cubeConst.height;
+        throwableWidth = cubeSetter.cubeConst.width;
     }
 
 }

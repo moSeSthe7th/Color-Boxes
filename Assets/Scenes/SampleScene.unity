@@ -150,7 +150,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!23 &10111019
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3961,7 +3961,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &464703020
 Transform:
   m_ObjectHideFlags: 0
@@ -5029,6 +5029,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -927199367670048503, guid: beac7cd26abc3ab479f6d33437f1a6c4,
         type: 3}
       propertyPath: m_Name
@@ -5596,6 +5600,7 @@ MonoBehaviour:
   holeCube: {fileID: 7856317819005655551, guid: 07cdd43af29f02e499ba31436a9dca32,
     type: 3}
   wind: {fileID: 8068816848035560225, guid: 71329a76b94e191488b18808c37b0dab, type: 3}
+  throwableCube: {fileID: 0}
 --- !u!4 &635713749
 Transform:
   m_ObjectHideFlags: 0
@@ -7696,6 +7701,11 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Untagged
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 2772fa2b3d8202f4ea282a8deb37f5c8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 2772fa2b3d8202f4ea282a8deb37f5c8,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -7801,7 +7811,7 @@ GameObject:
   m_Component:
   - component: {fileID: 871446195}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Platform
   m_TagString: Platform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

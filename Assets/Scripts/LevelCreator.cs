@@ -12,14 +12,20 @@ public class LevelCreator : MonoBehaviour
     public GameObject holeCube;
     public GameObject wind;
 
+    GameObject cubeParent;
+    public GameObject throwableCube;
+
     List<Vector3> holeCubePositions = new List<Vector3>();
 
     void Start()
     {
         DataScript.windObjects = ObjectPooler.instance.PooltheObjects(wind, 100);
-        int levelNumber = 1; //sadece gostermelik bi level simdilik
 
-        levelData = new LevelData(levelNumber);
+        throwableCube = (GameObject)Resources.Load("Prefabs/ThrownObject");
+        cubeParent = new GameObject("CubeParent");
+        int levelNumber = 3; //sadece gostermelik bi level simdilik
+
+        levelData = new LevelData(levelNumber, throwableCube);
         Time.timeScale = 3f;
 
         bilboard = GameObject.FindGameObjectWithTag("Bilboard").transform;
@@ -34,8 +40,9 @@ public class LevelCreator : MonoBehaviour
         PositionHoleCubes();
 
         //CreateThrowableCubes
-
-
+        levelData.SetThrowableCubes();
+        CreateThrowableCubes();
+        PositionThrowableCubes();
     }
 
 
@@ -67,6 +74,23 @@ public class LevelCreator : MonoBehaviour
         holeCubeParent.position = tmpVec;
     }
 
+
+    void CreateThrowableCubes()
+    {
+        foreach (Vector3 cubePos in levelData.ThrowableCubes)
+        {
+            GameObject currCube = Instantiate(throwableCube, cubePos, Quaternion.identity,cubeParent.transform);
+        }
+    }
+
+    void PositionThrowableCubes()
+    {
+        Vector3 pos = levelData.platformPos;
+        pos.x -= levelData.throwableWidth / 2.5f;
+        pos.z -= levelData.throwableHeight / 1.5f;
+
+        cubeParent.transform.position = pos;
+    }
 
   /*  void CreateParents(params Transform[] transforms)
     {
