@@ -15,14 +15,11 @@ public class GunController : MonoBehaviour
     private float tParamY;
     private Vector3 gunPosition;
     public float speedModifier;
-    private bool coroutineAllowed;
 
     public Vector3 lookPosition;
     public float rotationSpeed;
 
     private Vector2 touchStartPos;
-    private Vector2 touchCurrentPos;
-
     private InputX inputX;
 
     Vector3 Xp0;
@@ -37,13 +34,7 @@ public class GunController : MonoBehaviour
 
    
     bool isTouchEnded;
-
     Vector2 touchDelta;
-
-    //float touchDeltaX;
-
-    private IEnumerator routeFollower; //GoByTheRoute corountine i buna esitleniyor sonra bu corountine stoplaniyor
-
     void Start()
     {
         inputX = new InputX();
@@ -64,7 +55,6 @@ public class GunController : MonoBehaviour
         tParamX = 0.5f;
         tParamY = 0.5f;
         speedModifier = 15f;
-        coroutineAllowed = true;
 
         SetGunPosition();
     }
@@ -83,13 +73,7 @@ public class GunController : MonoBehaviour
             }
             else if(gInput.phase == IPhase.Ended)
             {
-                isTouchEnded = true;
-
-                if(routeFollower!=null)
-                    StopCoroutine(routeFollower); //Corountine inputla beraber bitmediginden burada durduruluyor. yukarda alinan input corountine sokuluyor ama sonradan editlenmiyor. 
-
-                coroutineAllowed = true;
-             
+                isTouchEnded = true;             
                 touchDelta = Vector2.zero;
             }
             else
@@ -116,8 +100,9 @@ public class GunController : MonoBehaviour
                     3 * (1 - tParamY) * Mathf.Pow(tParamY, 2) * Yp2 +
                     Mathf.Pow(tParamY, 3) * Yp3;
 
-        gunPosition = xPos + yPos;
-
+        Debug.Log("xPos is " + xPos + " yPos is " + yPos);
+        gunPosition = new Vector3(xPos.x, xPos.y - (xPos.y - yPos.y), (xPos.z + yPos.z) / 2f);
+        //gunPosition.y = yPos.y;
         transform.position = gunPosition;
 
         Quaternion lookRotation = Quaternion.LookRotation(lookPosition - transform.position);

@@ -5,37 +5,25 @@ using UnityEngine;
 public class WindPhysicsScript : MonoBehaviour
 {
     Rigidbody rb;
-
-    
-    public float windForce; // ForceMode Impulse la eklendigi icin deger kuculebilir
+    public float windForce; // ForceMode Impulse la eklendigi icin deger kuculebilir. su anda 200 editor de setlenmis
     
     public Vector3 forceVec;
     private Vector3 initialScale;
 
-    private bool isScalingActive;
 
-    private void Start()
+    private void Awake()
     {
-        initialScale = transform.localScale * 20;
+        initialScale = transform.localScale ;
         transform.localScale = initialScale;
         rb = GetComponent<Rigidbody>();
     }
 
-    private void OnEnable()
-    {
-        transform.localScale = initialScale;
-        if(rb == null)
-        {
-            rb = GetComponent<Rigidbody>();
-        }
-    }
 
-    private void Update()
+    private void LateUpdate()
     {
         if (transform.position.z > 500f)
         {
             gameObject.SetActive(false);
-            isScalingActive = false;
         }
         else
         {
@@ -44,16 +32,12 @@ public class WindPhysicsScript : MonoBehaviour
             transform.localScale = dummyScaler;
         }
 
-       /* Vector3 dummyScaler = transform.localScale;
-        dummyScaler += Vector3.one * 2f;
-        transform.localScale = dummyScaler;*/
 
     }
 
     public void CreateWind(Transform gunTransform, Vector3 directionVec)
     {
-        isScalingActive = true;
-        StartCoroutine(ScaleTheWind());
+        transform.localScale = initialScale;
         rb.velocity = Vector3.zero;
       
         Vector3 gunTransformVec = gunTransform.position;
@@ -70,10 +54,9 @@ public class WindPhysicsScript : MonoBehaviour
     }
 
 
-    //Update
-    IEnumerator ScaleTheWind()
+    //Removed to update
+   /* IEnumerator ScaleTheWind()
     {
-       
         while (isScalingActive)
         {
             Vector3 dummyScaler = transform.localScale;
@@ -82,6 +65,6 @@ public class WindPhysicsScript : MonoBehaviour
             yield return new WaitForEndOfFrame();
         }
         StopCoroutine(ScaleTheWind());
-    }
+    }*/
 
 }

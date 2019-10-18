@@ -44,7 +44,7 @@ public class ObjectSnapper : MonoBehaviour
         {
             isObjectSnappedToAHole = true;
             hole.GetComponent<HoleCubeScript>().isOccupied = true;
-            Debug.Log("Occupied a hole");
+            //Debug.Log("Occupied a hole");
             StartCoroutine(SnapObjectToThePosition(hole));
             DataScript.succesfullyOccupiedHoleCount++;
             if (!isHoleCollidersIncreased && (DataScript.succesfullyOccupiedHoleCount >= DataScript.remainingHoleColliderIncreaseThreshold))
