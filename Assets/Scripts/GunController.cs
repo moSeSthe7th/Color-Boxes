@@ -100,7 +100,7 @@ public class GunController : MonoBehaviour
                     3 * (1 - tParamY) * Mathf.Pow(tParamY, 2) * Yp2 +
                     Mathf.Pow(tParamY, 3) * Yp3;
 
-        Debug.Log("xPos is " + xPos + " yPos is " + yPos);
+       
         gunPosition = new Vector3(xPos.x, xPos.y - (xPos.y - yPos.y), (xPos.z + yPos.z) / 2f);
         //gunPosition.y = yPos.y;
         transform.position = gunPosition;
