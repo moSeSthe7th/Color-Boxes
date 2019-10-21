@@ -48,7 +48,7 @@ public class CubeSetter
 
     void SetCubeConstruction()
     {
-        Debug.Log("Cube construction begins. Cube count is : " + cubeConst.throwableCount);
+        //Debug.Log("Cube construction begins. Cube count is : " + cubeConst.throwableCount);
         //Calculate how many lines of cubes(tower) there will be
         int totalTowerCount = 0;
         int towerHeight; //height of actual tower
@@ -82,7 +82,7 @@ public class CubeSetter
             Debug.Log("Extra remaining cube count : " + extraCubes);
         }
 
-        Debug.Log("Tower Height is : " + towerHeight + ". Total tower count is : " + totalTowerCount);
+        //Debug.Log("Tower Height is : " + towerHeight + ". Total tower count is : " + totalTowerCount);
 
         switch(cubeConst.arrengment)
         {

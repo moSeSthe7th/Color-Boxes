@@ -135,7 +135,7 @@ public class GunController : MonoBehaviour
         while (!isTouchEnded)
         {
             CreateWind();
-            yield return new WaitForSeconds(2*Time.deltaTime);
+            yield return new WaitForEndOfFrame();
         }
         StopCoroutine(Fire());
     }

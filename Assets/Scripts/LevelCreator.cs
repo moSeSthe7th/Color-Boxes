@@ -22,6 +22,7 @@ public class LevelCreator : MonoBehaviour
     void Start()
     {
         int levelNumber = 4; //sadece gostermelik bi level simdilik
+        Application.targetFrameRate = 60;
 
         cubeParent = new GameObject("CubeParent");
         throwableCube = (GameObject)Resources.Load("Prefabs/ThrownObject");

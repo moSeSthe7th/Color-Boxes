@@ -40,15 +40,14 @@ public class LevelManager : MonoBehaviour
     void IncreaseSnapperCollidersSize()
     {
         
-        int i = 0;
+       
         foreach (GameObject remainingHole in LevelData.levelData.holeCubes)
         {
             if (remainingHole.activeSelf)
                 remainingHole.GetComponent<SphereCollider>().radius = increasedColliderRadius;
 
-            i++;
+           
         }
-
-        Debug.Log("Changing sizes times " + i);
+        
     }
 }

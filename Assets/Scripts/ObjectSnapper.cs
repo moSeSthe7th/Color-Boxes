@@ -23,6 +23,7 @@ public class ObjectSnapper : MonoBehaviour
         if (!hole.GetComponent<HoleCubeScript>().isOccupied)
         {
             isObjectSnappedToAHole = true;
+            GetComponent<Collider>().enabled = false;
             hole.GetComponent<HoleCubeScript>().isOccupied = true;
             LevelData.levelData.holeCount -= 1;
 
