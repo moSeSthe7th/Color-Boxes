@@ -82,7 +82,6 @@ public class GunController : MonoBehaviour
                 touchDelta = (gInput.currentPosition - touchStartPos) / (Screen.width);
                 touchStartPos = gInput.currentPosition;
                 GoByTheRoute(touchDelta);
-
              
             }
         }
@@ -123,7 +122,7 @@ public class GunController : MonoBehaviour
 
     void CreateWind()
     {
-        GameObject wind = ObjectPooler.instance.GetPooledObject(DataScript.windObjects);
+        GameObject wind = ObjectPooler.instance.GetPooledObject(LevelData.levelData.windObjects);
         if (wind != null)
         {
             wind.SetActive(true);
@@ -136,7 +135,7 @@ public class GunController : MonoBehaviour
         while (!isTouchEnded)
         {
             CreateWind();
-            yield return new WaitForEndOfFrame();
+            yield return new WaitForSeconds(2*Time.deltaTime);
         }
         StopCoroutine(Fire());
     }

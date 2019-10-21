@@ -20,12 +20,14 @@ public class LevelData
     public static LevelData levelData;
     string level;
 
-    private TextureToHoleWall HoleWall;
+    private BillboardMapper Billboard;
     private Texture2D lvlSprite;
-
     private CubeSetter cubeSetter;
-    GameObject cube; //throwableCube
+
     public Vector3 platformPos = GameObject.FindGameObjectWithTag("Platform").transform.position; //Altigenin en tepesi
+
+    public List<GameObject> holeCubes;
+    public List<GameObject> windObjects;
 
     public LevelData(int lvlData,GameObject throwableCube)
     {
@@ -38,24 +40,28 @@ public class LevelData
         }
     }
 
+    GameObject cube; //throwableCube
     public List<Vector3> ThrowableCubes;
     public float throwableWidth;
     public float throwableHeight;
 
     public List<Hole> holes;
+    public List<Vector3> FillerCubes;
     public float mapWidth;
     public float mapHeight;
     public int holeCount;
 
-    public void SetHoleWall()
+    public void SetBillboard()
     {
         lvlSprite = (Texture2D)Resources.Load("LevelSprites/LvlSp_" + level);
-        HoleWall = new TextureToHoleWall(lvlSprite);
+        Billboard = new BillboardMapper(lvlSprite);
 
-        holes = HoleWall.spriteMap.holeData;
-        mapHeight = HoleWall.spriteMap.totHeight;
-        mapWidth = HoleWall.spriteMap.totWidth;
-        holeCount = HoleWall.spriteMap.totBlockCount;
+        holes = Billboard.spriteMap.holeData;
+        mapHeight = Billboard.spriteMap.totHeight;
+        mapWidth = Billboard.spriteMap.totWidth;
+        holeCount = Billboard.spriteMap.totBlockCount;
+
+        FillerCubes = Billboard.fillerBlocks;
     }
 
     public CubeSetter.ThrowableConstruction throwableConst;

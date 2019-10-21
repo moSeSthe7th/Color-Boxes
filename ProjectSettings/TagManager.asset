@@ -9,6 +9,7 @@ TagManager:
   - Wind
   - Bilboard
   - Platform
+  - BillboardFillerBlock
   layers:
   - Default
   - TransparentFX

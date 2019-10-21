@@ -50,7 +50,7 @@ public class WindPhysicsScript : MonoBehaviour
 
         forceVec = (directionVec - transform.position).normalized;
 
-        rb.AddForce(forceVec * windForce * 1.3f, ForceMode.Impulse); //Impulse force u anlik hiz degistirerek uyguluyor
+        rb.AddForce(forceVec * windForce, ForceMode.Impulse); //Impulse force u anlik hiz degistirerek uyguluyor
     }
 
 

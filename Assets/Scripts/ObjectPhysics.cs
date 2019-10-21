@@ -15,6 +15,8 @@ public class ObjectPhysics : MonoBehaviour
 
     private Vector3 explosionPos;
 
+    private Vector3 appliedForce;
+
     private WindPhysicsScript windPhysicsScript;
 
     void Start()
@@ -32,10 +34,12 @@ public class ObjectPhysics : MonoBehaviour
             windPhysicsScript = other.gameObject.GetComponent<WindPhysicsScript>();
             explosionForce = windPhysicsScript.windForce;
             explosionRadius = windPhysicsScript.windForce;
-            upwardsExplosionModifier = 30f;
+            upwardsExplosionModifier = 20f;
 
             explosionPos = other.gameObject.GetComponent<Collider>().ClosestPointOnBounds(this.transform.position); //other.gameObject.transform.position;
 
+
+            appliedForce = windPhysicsScript.forceVec * 60f;
             /*//find contact point and apply force from here
             RaycastHit hit;
             if (Physics.Raycast(transform.position, transform.forward * -1, out hit))
@@ -54,16 +58,16 @@ public class ObjectPhysics : MonoBehaviour
     {
         if (isInWindZone)
         {
-            rb.AddExplosionForce(explosionForce, explosionPos, explosionRadius, upwardsExplosionModifier, ForceMode.Acceleration);
+            //rb.AddExplosionForce(explosionForce, explosionPos, explosionRadius, upwardsExplosionModifier, ForceMode.Acceleration);
             if (windPhysicsScript != null)
-                rb.AddForce(windPhysicsScript.forceVec * 10f ,ForceMode.Impulse);
+                rb.AddForce(appliedForce, ForceMode.VelocityChange);
             isInWindZone = false;
         }
 
-        if(transform.position.y < LevelData.levelData.platformPos.y - 20f)
+      /*  if(transform.position.y < LevelData.levelData.platformPos.y - 20f)
         {
             this.transform.position = LevelData.levelData.platformPos;
-        }
+        }*/
         
     }
 }

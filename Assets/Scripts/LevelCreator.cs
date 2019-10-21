@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LevelCreator : MonoBehaviour
 {
-    public Transform holeCubeParent;
+    public Transform billboardCubeParent;
     Transform bilboard;
 
     private LevelData levelData;
@@ -14,33 +14,36 @@ public class LevelCreator : MonoBehaviour
     GameObject windParent;
     public GameObject wind;
 
-    GameObject cubeParent;
-    public GameObject throwableCube;
+    GameObject BillboardFillerBlock;
 
-    List<Vector3> holeCubePositions = new List<Vector3>();
+    GameObject cubeParent;
+    GameObject throwableCube;
 
     void Start()
     {
-        windParent = new GameObject("WindParent");
-        DataScript.windObjects = ObjectPooler.instance.PooltheObjects(wind, 100,windParent.transform);
-        DataScript.succesfullyOccupiedHoleCount = 0;
+        int levelNumber = 4; //sadece gostermelik bi level simdilik
 
-        throwableCube = (GameObject)Resources.Load("Prefabs/ThrownObject");
         cubeParent = new GameObject("CubeParent");
-        int levelNumber = 3; //sadece gostermelik bi level simdilik
+        throwableCube = (GameObject)Resources.Load("Prefabs/ThrownObject");
 
         levelData = new LevelData(levelNumber, throwableCube);
         Time.timeScale = 3f;
+       
+        BillboardFillerBlock = (GameObject)Resources.Load("Prefabs/BillboardFillerBlock");
+
+        windParent = new GameObject("WindParent");
+        levelData.windObjects = ObjectPooler.instance.PooltheObjects(wind, 100, windParent.transform);
 
         bilboard = GameObject.FindGameObjectWithTag("Bilboard").transform;
+
         CreateLevel();
     }
 
     void CreateLevel()
     {
         //Create picture on billboard
-        levelData.SetHoleWall();
-        CreateHoleCubes();
+        levelData.SetBillboard();
+        CreateBillboard();
         PositionHoleCubes();
 
         //CreateThrowableCubes
@@ -50,32 +53,36 @@ public class LevelCreator : MonoBehaviour
     }
 
 
-    void CreateHoleCubes()
+    void CreateBillboard()
     {
+        List<GameObject> hCubes = new List<GameObject>(levelData.holeCount);
+
         foreach(LevelData.Hole selectedHole in levelData.holes)
         {
-            holeCubePositions.Add(selectedHole.position);
-            GameObject currentHole = Instantiate(holeCube, selectedHole.position, Quaternion.identity);
+            GameObject currentHole = Instantiate(holeCube, selectedHole.position, Quaternion.identity,billboardCubeParent);
             currentHole.GetComponent<HoleCubeScript>().holeColor = selectedHole.color;
-            currentHole.transform.parent = holeCubeParent;
-           
+
+            hCubes.Add(currentHole);
         }
 
-        DataScript.totalHoleCount = levelData.holes.Count;
-        DataScript.remainingHoleColliderIncreaseThreshold = Mathf.RoundToInt(DataScript.totalHoleCount * 0.9f);
-        
+        levelData.holeCubes = hCubes;
+
+        foreach (Vector3 pos in levelData.FillerCubes)
+        {
+            GameObject currfiller = Instantiate(BillboardFillerBlock,pos,Quaternion.identity,billboardCubeParent);
+        }
        
     }
    
     void PositionHoleCubes()
     {
-        Transform board = bilboard.transform.GetChild(0);
-        Vector3 tmpVec = new Vector3(0f, board.position.y, bilboard.transform.position.z - board.localScale.y + 10f);
+        Transform board = bilboard.transform.GetChild(1);
+        Vector3 tmpVec = new Vector3(0f, board.position.y, bilboard.transform.position.z);
 
         tmpVec.x -= (levelData.mapWidth / 2f) - (holeCube.transform.localScale.x / 2f); 
         tmpVec.y -= (levelData.mapHeight / 2f) + (holeCube.transform.localScale.y ); 
 
-        holeCubeParent.position = tmpVec;
+        billboardCubeParent.position = tmpVec;
     }
 
 

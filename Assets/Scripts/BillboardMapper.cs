@@ -3,7 +3,13 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TextureToHoleWall 
+//Su anki Billboard un buyukulugu genlislik x yukseklik olarak 48x27 oluyor. (bloklarin buyuklugunu 10 olarak kabul edersek) 
+//Sol alt blok pozisyon -240 , 1020 , 220
+//Sag alt blok pozisyon  240 , 1020 , 220
+//Sag ust blok pozisyon  240 , 1290 , 220
+//Sol ust blok pozisyon -240 , 1290 , 220
+
+public class BillboardMapper 
 {
     //public Texture2D tstSprite;
     Color32[] pixels;
@@ -24,9 +30,11 @@ public class TextureToHoleWall
     }
 
     public SpriteMap spriteMap;
+    public List<Vector3> fillerBlocks;
 
-    public TextureToHoleWall(Texture2D sprite)
+    public BillboardMapper(Texture2D sprite)
     {
+        //Set sprite map parameters;
         spriteMap = new SpriteMap();
         //spriteMap.holeData = new List<Tuple<Vector3, Color32>>();
         spriteMap.holeData = new List<LevelData.Hole>();
@@ -38,6 +46,9 @@ public class TextureToHoleWall
         spriteMap.totWidth = spriteMap.coloumnNumber * HolePosModifier;
 
         spriteMap.totBlockCount = 0;
+
+        //Create new filler block object
+        fillerBlocks = new List<Vector3>();
 
         pixels = sprite.GetPixels32();
 
@@ -57,19 +68,19 @@ public class TextureToHoleWall
         {
             for(int c = 0; c < spriteMap.coloumnNumber; c++)
             {
-                //If pixel alpha is 0 dont set it
+                currPos = new Vector3(c * HolePosModifier, r * HolePosModifier, 0f);
+
+                //If pixel alpha is 0 dont set is as spriteMap but set as empty fillberBlock
                 if (Mathf.Approximately(0f, pixels[count].a))
                 {
-                    count++;
-                    continue;
+                    fillerBlocks.Add(currPos);
                 }
-
-               // maxRows = (maxRows < r) ? r : maxRows;
-               // maxCols = (maxCols < c) ? c : maxCols;
-
-                currPos = new Vector3(c * HolePosModifier,r * HolePosModifier ,0f);
-                spriteMap.holeData.Add(new LevelData.Hole(currPos,pixels[count]));
-                spriteMap.totBlockCount += 1;
+                else //if pixel is not alpha its a hole in wall
+                {
+                    spriteMap.holeData.Add(new LevelData.Hole(currPos, pixels[count]));
+                    spriteMap.totBlockCount += 1;
+                }
+                
                 count++;
             }
         }
