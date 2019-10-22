@@ -44,9 +44,11 @@ public class LevelManager : MonoBehaviour
         foreach (GameObject remainingHole in LevelData.levelData.holeCubes)
         {
             if (remainingHole.activeSelf)
+            {
                 remainingHole.GetComponent<SphereCollider>().radius = increasedColliderRadius;
-
-           
+                StartCoroutine(remainingHole.GetComponent<HoleCubeScript>().HoleCubeReflector());
+            }
+                
         }
         
     }
