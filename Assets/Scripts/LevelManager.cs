@@ -38,6 +38,9 @@ public class LevelManager : MonoBehaviour
             isIncreasedCollider = true;
             IncreaseSnapperCollidersSize();
         }
+
+        if (AreAllCubesPlaced())
+            StartCoroutine(AllCubesArePlaced());
     }
 
     bool shouldIncreaseCollSize()
@@ -60,5 +63,25 @@ public class LevelManager : MonoBehaviour
                 
         }
         
+    }
+
+    bool AreAllCubesPlaced()
+    {
+        if (LevelData.levelData.holeCount == 0)
+            return true;
+        else
+            return false;
+    }
+
+    IEnumerator AllCubesArePlaced()
+    {
+        UIManager uIManager = FindObjectOfType(typeof(UIManager)) as UIManager;
+        yield return new WaitForSecondsRealtime(0.1f);
+        uIManager.OpenBlowPanel();
+        LevelData.levelData.isBlowActive = true;
+        GameObject[] cubes = GameObject.FindGameObjectsWithTag("Object");
+        StopCoroutine(AllCubesArePlaced());
+        /*
+        uIManager.LevelPassed();*/
     }
 }

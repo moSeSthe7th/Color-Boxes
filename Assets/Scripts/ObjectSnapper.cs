@@ -25,8 +25,7 @@ public class ObjectSnapper : MonoBehaviour
             isObjectSnappedToAHole = true;
             GetComponent<Collider>().enabled = false;
             hole.GetComponent<HoleCubeScript>().isOccupied = true;
-            LevelData.levelData.holeCount -= 1;
-
+            
             StartCoroutine(SnapObjectToThePosition(hole));
         }
     }
@@ -46,6 +45,7 @@ public class ObjectSnapper : MonoBehaviour
         transform.rotation = Quaternion.identity;
         ColorizeTheObject(hole);
         hole.SetActive(false);
+        LevelData.levelData.holeCount -= 1;
 
         //After snapping finishes request a vibration
         LevelData.levelData.vibrationQue.Enqueue((int)Random.value);

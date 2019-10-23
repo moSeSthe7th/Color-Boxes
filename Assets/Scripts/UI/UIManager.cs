@@ -10,17 +10,14 @@ public class UIManager : MonoBehaviour
     public Button settingsButton;
     public GameObject levelPassedPanel;
 
+    public GameObject blowPanel;
+
     
     void Start()
     {
         settingsPanel.SetActive(false);
         levelPassedPanel.SetActive(false);
-    }
-
-    
-    void Update()
-    {
-        
+        blowPanel.SetActive(false);
     }
 
     public void OpenSettingsPanel()
@@ -36,5 +33,15 @@ public class UIManager : MonoBehaviour
     public void LevelPassed()
     {
         levelPassedPanel.SetActive(true);
+    }
+
+    public void OpenBlowPanel()
+    {
+        blowPanel.SetActive(true);
+    }
+
+    public void CloseBlowPanel()
+    {
+        blowPanel.SetActive(false);
     }
 }

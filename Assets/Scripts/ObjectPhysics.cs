@@ -28,7 +28,7 @@ public class ObjectPhysics : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Wind")
+        if (other.gameObject.tag == "Wind" && !LevelData.levelData.isBlowActive)
         {
 
             windPhysicsScript = other.gameObject.GetComponent<WindPhysicsScript>();

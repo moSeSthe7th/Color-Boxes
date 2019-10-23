@@ -43,7 +43,7 @@ public class WindPhysicsScript : MonoBehaviour
         Vector3 gunTransformVec = gunTransform.position;
         //gunTransformVec.y = initialPos.y;
         //gunTransformVec.y += 25f;
-        gunTransformVec.z += 25f;
+        //gunTransformVec.z += 25f;
 
         transform.position = gunTransformVec;
         transform.rotation = gunTransform.rotation;

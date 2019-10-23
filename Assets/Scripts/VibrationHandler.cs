@@ -13,7 +13,19 @@ public class VibrationHandler
     const string dll = " ";
 #endif
 
-#if UNITY_IPHONE
+#if  UNITY_EDITOR
+    public void vibrate()
+    {
+        Debug.Log("Vibrated");
+    }
+
+#elif UNITY_ANDROID
+    public void vibrate()
+    {
+        Debug.Log ("Vibrated");
+    }
+
+#elif UNITY_IPHONE
 
     [DllImport(dll)]
     private static extern void Vibrate();
@@ -21,18 +33,6 @@ public class VibrationHandler
     public void vibrate()
     {
         Vibrate(1);
-    }
-
-
-#elif UNITY_ANDROID
-    public void vibrate()
-    {
-        Debug.Log ("Vibrated");
-    }
-#elif UNITY_EDITOR
-    public void vibrate()
-    {
-        //Debug.Log("Vibrated");
     }
 #endif
 
