@@ -25,6 +25,7 @@ public class LevelCreator : MonoBehaviour
         Application.targetFrameRate = 60;
 
         cubeParent = new GameObject("CubeParent");
+        cubeParent.tag = "CubeParent";
         throwableCube = (GameObject)Resources.Load("Prefabs/ThrownObject");
 
         levelData = new LevelData(levelNumber, throwableCube);

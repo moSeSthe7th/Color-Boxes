@@ -32,6 +32,7 @@ public class LevelData
     public Queue<int> vibrationQue;
 
     public bool isBlowActive = false;
+    public bool isBlown = false;
 
     public LevelData(int lvlData,GameObject throwableCube)
     {

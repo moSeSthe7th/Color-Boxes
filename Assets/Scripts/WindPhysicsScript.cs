@@ -10,6 +10,7 @@ public class WindPhysicsScript : MonoBehaviour
     public Vector3 forceVec;
     private Vector3 initialScale;
 
+    
 
     private void Awake()
     {
@@ -53,18 +54,18 @@ public class WindPhysicsScript : MonoBehaviour
         rb.AddForce(forceVec * windForce, ForceMode.Impulse); //Impulse force u anlik hiz degistirerek uyguluyor
     }
 
-
-    //Removed to update
-   /* IEnumerator ScaleTheWind()
+    private void OnTriggerEnter(Collider other)
     {
-        while (isScalingActive)
+       
+        if(other.gameObject.tag == "ThrownObject" && LevelData.levelData.isBlowActive && !LevelData.levelData.isBlown)
         {
-            Vector3 dummyScaler = transform.localScale;
-            dummyScaler += Vector3.one * 2f;
-            transform.localScale = dummyScaler;
-            yield return new WaitForEndOfFrame();
+            LevelData.levelData.isBlown = true;
+            GameObject[] thrownObjects = GameObject.FindGameObjectsWithTag("ThrownObject");
+            foreach (GameObject thrownObject in thrownObjects)
+            {
+                thrownObject.GetComponent<Rigidbody>().isKinematic = false;
+                thrownObject.GetComponent<Rigidbody>().AddExplosionForce(42000f, transform.position, 100000f, 850f);
+            }
         }
-        StopCoroutine(ScaleTheWind());
-    }*/
-
+    }
 }

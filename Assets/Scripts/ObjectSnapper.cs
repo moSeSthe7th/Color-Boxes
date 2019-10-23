@@ -17,6 +17,11 @@ public class ObjectSnapper : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        if(LevelData.levelData.isBlowActive)
+            GetComponent<Collider>().enabled = true;
+    }
 
     void GoToHole(GameObject hole)
     {

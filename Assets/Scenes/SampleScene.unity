@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 10111022}
   m_Layer: 0
   m_Name: ForceFieldSphere
-  m_TagString: Untagged
+  m_TagString: Collider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -667,6 +667,85 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2059706281}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &276447022
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 276447023}
+  - component: {fileID: 276447025}
+  - component: {fileID: 276447024}
+  m_Layer: 5
+  m_Name: Blow Text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &276447023
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 276447022}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.00009175818}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1757621212}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0.7}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &276447024
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 276447022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 14
+    m_FontStyle: 0
+    m_BestFit: 1
+    m_MinSize: 10
+    m_MaxSize: 300
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: TOUCH TO BLOW THE WALL
+--- !u!222 &276447025
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 276447022}
+  m_CullTransparentMesh: 0
 --- !u!1 &295219885
 GameObject:
   m_ObjectHideFlags: 0
@@ -833,6 +912,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: d461c78caf2ea184f8e2e05a62b1023b,
+        type: 3}
+      propertyPath: m_TagString
+      value: Collider
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: d461c78caf2ea184f8e2e05a62b1023b,
         type: 3}
@@ -6070,8 +6154,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.017320512, y: 0.019686466, z: 0.10000002}
-  m_Center: {x: 0.0000000019868218, y: 5.323674e-10, z: 0.05000001}
+  m_Size: {x: 0.015, y: 0.016, z: 0.10000002}
+  m_Center: {x: 0, y: 0, z: 0.05000001}
 --- !u!1001 &503084139
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6265,6 +6349,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 406993ae5a247404790c2e86847471ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cubeParentBlowPos: {x: 0, y: 913, z: -275}
 --- !u!114 &635713753
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6789,7 +6874,7 @@ GameObject:
   - component: {fileID: 881976031}
   m_Layer: 8
   m_Name: FrontCollider
-  m_TagString: Untagged
+  m_TagString: Collider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7102,6 +7187,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: d461c78caf2ea184f8e2e05a62b1023b,
+        type: 3}
+      propertyPath: m_TagString
+      value: Collider
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: d461c78caf2ea184f8e2e05a62b1023b,
         type: 3}
@@ -8250,6 +8340,82 @@ MonoBehaviour:
   Yroute: {fileID: 95001826}
   speedModifier: 0
   lookPosition: {x: 0, y: 1000, z: -150}
+--- !u!1 &1757621209
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1757621212}
+  - component: {fileID: 1757621211}
+  - component: {fileID: 1757621210}
+  m_Layer: 5
+  m_Name: BlowPanel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1757621210
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1757621209}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1757621211
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1757621209}
+  m_CullTransparentMesh: 0
+--- !u!224 &1757621212
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1757621209}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 276447023}
+  m_Father: {fileID: 1952934162}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1796233923
 GameObject:
   m_ObjectHideFlags: 0
@@ -8409,7 +8575,7 @@ GameObject:
   - component: {fileID: 1859257354}
   m_Layer: 8
   m_Name: BackCollider
-  m_TagString: Untagged
+  m_TagString: Collider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8665,6 +8831,7 @@ RectTransform:
   - {fileID: 1796233924}
   - {fileID: 66992230}
   - {fileID: 806413424}
+  - {fileID: 1757621212}
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -8688,6 +8855,7 @@ MonoBehaviour:
   settingsPanel: {fileID: 66992227}
   settingsButton: {fileID: 1796233925}
   levelPassedPanel: {fileID: 806413423}
+  blowPanel: {fileID: 1757621209}
 --- !u!1 &1954899248
 GameObject:
   m_ObjectHideFlags: 0

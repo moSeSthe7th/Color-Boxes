@@ -12,7 +12,10 @@ public class LevelManager : MonoBehaviour
     bool isIncreasedCollider;
     float increasedColliderRadius = 15f;
 
+    public Vector3 cubeParentBlowPos;
 
+    bool isBlowCoroutineStarted = false;
+    
     int remainingHoleColliderIncreaseThreshold = 0;
     float threshold = 0.15f;
 
@@ -39,8 +42,12 @@ public class LevelManager : MonoBehaviour
             IncreaseSnapperCollidersSize();
         }
 
-        if (AreAllCubesPlaced())
+        if (AreAllCubesPlaced() && !isBlowCoroutineStarted)
+        {
+            isBlowCoroutineStarted = true;
             StartCoroutine(AllCubesArePlaced());
+        }
+            
     }
 
     bool shouldIncreaseCollSize()
@@ -75,13 +82,27 @@ public class LevelManager : MonoBehaviour
 
     IEnumerator AllCubesArePlaced()
     {
+        
         UIManager uIManager = FindObjectOfType(typeof(UIManager)) as UIManager;
         yield return new WaitForSecondsRealtime(0.1f);
         uIManager.OpenBlowPanel();
+        GameObject cubeParent = GameObject.FindWithTag("CubeParent");
+
+        GameObject[] colliders = GameObject.FindGameObjectsWithTag("Collider");
+        foreach(GameObject collider in colliders)
+        {
+            collider.SetActive(false);
+        }
+        while(cubeParent.transform.position.z > cubeParentBlowPos.z)
+        {
+            cubeParent.transform.position = Vector3.MoveTowards(cubeParent.transform.position, cubeParentBlowPos, 5f);
+            yield return new WaitForEndOfFrame();
+        }
+
+        Debug.Log("fnjsdknfdlsjknfdsk");
         LevelData.levelData.isBlowActive = true;
-        GameObject[] cubes = GameObject.FindGameObjectsWithTag("Object");
+        
         StopCoroutine(AllCubesArePlaced());
-        /*
-        uIManager.LevelPassed();*/
+        
     }
 }
