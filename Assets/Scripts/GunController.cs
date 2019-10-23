@@ -17,7 +17,6 @@ public class GunController : MonoBehaviour
     public float speedModifier;
 
     public Vector3 lookPosition;
-    public float rotationSpeed;
 
     private Vector2 touchStartPos;
     private InputX inputX;
@@ -35,6 +34,10 @@ public class GunController : MonoBehaviour
    
     bool isTouchEnded;
     Vector2 touchDelta;
+
+    private float engineHeat; //bu degere gore ilk basta az donmesi ve kucuk ruzgar atmasi saglaniyor. Min 0 max 1
+    private float rotationSpeed;
+
     void Start()
     {
         inputX = new InputX();
@@ -56,6 +59,10 @@ public class GunController : MonoBehaviour
         tParamY = 0.5f;
         speedModifier = 15f;
 
+        isTouchEnded = true;
+        engineHeat = 0f;
+        rotationSpeed = 10f;
+
         SetGunPosition();
     }
     
@@ -68,7 +75,7 @@ public class GunController : MonoBehaviour
             if(gInput.phase == IPhase.Began)
             {
                 isTouchEnded = false;
-                StartCoroutine(Fire());
+                //StartCoroutine(Fire());
                 touchStartPos = gInput.currentPosition;
             }
             else if(gInput.phase == IPhase.Ended)
@@ -78,13 +85,26 @@ public class GunController : MonoBehaviour
             }
             else
             {
-               
                 touchDelta = (gInput.currentPosition - touchStartPos) / (Screen.width);
                 touchStartPos = gInput.currentPosition;
                 GoByTheRoute(touchDelta);
-             
             }
         }
+    }
+
+    private void LateUpdate()
+    {
+        if (!isTouchEnded)
+        {
+            engineHeat = (engineHeat < 1f) ? engineHeat + 0.01f : engineHeat;
+            CreateWind(engineHeat);
+        }
+        else
+        {
+            engineHeat = (engineHeat > 0f) ? engineHeat +- 0.01f : engineHeat;
+        }
+
+        transform.GetChild(0).Rotate(Vector3.forward * engineHeat * rotationSpeed, Space.Self);
     }
 
     void SetGunPosition()
@@ -120,13 +140,13 @@ public class GunController : MonoBehaviour
     }
 
 
-    void CreateWind()
+    void CreateWind(float eHeat)
     {
         GameObject wind = ObjectPooler.instance.GetPooledObject(LevelData.levelData.windObjects);
         if (wind != null)
         {
             wind.SetActive(true);
-            wind.GetComponent<WindPhysicsScript>().CreateWind(transform, lookPosition);
+            wind.GetComponent<WindPhysicsScript>().CreateWind(transform, lookPosition,engineHeat);
         }
     }
 
@@ -134,7 +154,7 @@ public class GunController : MonoBehaviour
     {
         while (!isTouchEnded)
         {
-            CreateWind();
+           // CreateWind();
             yield return new WaitForSecondsRealtime(0.0001f);
         }
         StopCoroutine(Fire());

@@ -35,14 +35,14 @@ public class WindPhysicsScript : MonoBehaviour
 
     }
 
-    public void CreateWind(Transform gunTransform, Vector3 directionVec)
+    public void CreateWind(Transform gunTransform, Vector3 directionVec,float engineHeat)
     {
-        transform.localScale = initialScale;
+        transform.localScale = initialScale * engineHeat;
         rb.velocity = Vector3.zero;
       
         Vector3 gunTransformVec = gunTransform.position;
         //gunTransformVec.y = initialPos.y;
-        gunTransformVec.y += 25f;
+        //gunTransformVec.y += 25f;
         gunTransformVec.z += 25f;
 
         transform.position = gunTransformVec;

@@ -123,7 +123,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0c7a850e0044044cbe659f8e4d7e1a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  zDiffWithHole: 0
+  zDiffWithHole: 1
   isObjectSnappedToAHole: 0
 --- !u!114 &321454486638929521
 MonoBehaviour:

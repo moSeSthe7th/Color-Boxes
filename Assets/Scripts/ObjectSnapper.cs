@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ObjectSnapper : MonoBehaviour
 {
-    public float zDiffWithHole = 0f;
+    public float zDiffWithHole = 1f;
     public bool isObjectSnappedToAHole = false;
 
     bool isHoleCollidersIncreased = false;
@@ -27,8 +27,6 @@ public class ObjectSnapper : MonoBehaviour
             hole.GetComponent<HoleCubeScript>().isOccupied = true;
             LevelData.levelData.holeCount -= 1;
 
-            //Debug.Log("Occupied a hole");
-
             StartCoroutine(SnapObjectToThePosition(hole));
         }
     }
@@ -48,6 +46,9 @@ public class ObjectSnapper : MonoBehaviour
         transform.rotation = Quaternion.identity;
         ColorizeTheObject(hole);
         hole.SetActive(false);
+
+        //After snapping finishes request a vibration
+        LevelData.levelData.vibrationQue.Enqueue((int)Random.value);
 
         StopCoroutine(SnapObjectToThePosition(hole));
     }

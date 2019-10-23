@@ -29,10 +29,14 @@ public class LevelData
     public List<GameObject> holeCubes;
     public List<GameObject> windObjects;
 
+    public Queue<int> vibrationQue;
+
     public LevelData(int lvlData,GameObject throwableCube)
     {
         level = lvlData.ToString();
         cube = throwableCube;
+
+        vibrationQue = new Queue<int>();
 
         if(levelData == null)
         {

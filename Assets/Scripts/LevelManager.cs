@@ -5,6 +5,9 @@ using UnityEngine;
 public class LevelManager : MonoBehaviour
 {
     //Currently just makes hole objects collider bigger if they remained under %90 of original count
+    //Added vibration handler
+
+    VibrationHandler vibrationHandler;
 
     bool isIncreasedCollider;
     float increasedColliderRadius = 15f;
@@ -15,13 +18,21 @@ public class LevelManager : MonoBehaviour
 
     private void Start()
     {
+        vibrationHandler = new VibrationHandler();
+
         isIncreasedCollider = false;
         remainingHoleColliderIncreaseThreshold = Mathf.RoundToInt(LevelData.levelData.holes.Count * threshold);
-
     }
 
     private void LateUpdate()
     {
+        //If there are any vibration request call vibration. Eger cok fazla titresim olursa burada bi limit belirleyebilir
+        if(LevelData.levelData.vibrationQue.Count > 0)
+        {
+            LevelData.levelData.vibrationQue.Dequeue();
+            vibrationHandler.vibrate();
+        }
+
         if(!isIncreasedCollider && shouldIncreaseCollSize())
         {
             isIncreasedCollider = true;
@@ -39,8 +50,6 @@ public class LevelManager : MonoBehaviour
 
     void IncreaseSnapperCollidersSize()
     {
-        
-       
         foreach (GameObject remainingHole in LevelData.levelData.holeCubes)
         {
             if (remainingHole.activeSelf)
