@@ -28,7 +28,7 @@ public class VibrationHandler
 #elif UNITY_IPHONE
 
     [DllImport(dll)]
-    private static extern void Vibrate();
+    private static extern void Vibrate(int x);
 
     public void vibrate()
     {
