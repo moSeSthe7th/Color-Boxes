@@ -6242,7 +6242,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: ee128e0604f621b40a1b869a01978e8d, type: 2}
+      objectReference: {fileID: 2100000, guid: 736ce26637cc9f04698f59eb2d698d69, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 069a3a591d1aa334ba2ecb21d2cdbe7e, type: 3}
 --- !u!1 &531452942
@@ -8371,7 +8371,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:

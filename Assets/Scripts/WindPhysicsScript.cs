@@ -59,12 +59,13 @@ public class WindPhysicsScript : MonoBehaviour
        
         if(other.gameObject.tag == "ThrownObject" && LevelData.levelData.isBlowActive && !LevelData.levelData.isBlown)
         {
+            Time.timeScale = 5f;
             LevelData.levelData.isBlown = true;
             GameObject[] thrownObjects = GameObject.FindGameObjectsWithTag("ThrownObject");
             foreach (GameObject thrownObject in thrownObjects)
             {
                 thrownObject.GetComponent<Rigidbody>().isKinematic = false;
-                thrownObject.GetComponent<Rigidbody>().AddExplosionForce(42000f, transform.position, 100000f, 850f);
+                thrownObject.GetComponent<Rigidbody>().AddExplosionForce(42000f, transform.position, 100000f, 4000f);
             }
         }
     }

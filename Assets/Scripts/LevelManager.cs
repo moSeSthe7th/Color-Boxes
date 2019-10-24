@@ -13,6 +13,7 @@ public class LevelManager : MonoBehaviour
     float increasedColliderRadius = 15f;
 
     public Vector3 cubeParentBlowPos;
+    UIManager uIManager;
 
     bool isBlowCoroutineStarted = false;
     
@@ -21,6 +22,7 @@ public class LevelManager : MonoBehaviour
 
     private void Start()
     {
+        uIManager = FindObjectOfType(typeof(UIManager)) as UIManager;
         vibrationHandler = new VibrationHandler();
 
         isIncreasedCollider = false;
@@ -83,7 +85,7 @@ public class LevelManager : MonoBehaviour
     IEnumerator AllCubesArePlaced()
     {
         
-        UIManager uIManager = FindObjectOfType(typeof(UIManager)) as UIManager;
+        
         yield return new WaitForSecondsRealtime(0.1f);
         uIManager.OpenBlowPanel();
         GameObject cubeParent = GameObject.FindWithTag("CubeParent");

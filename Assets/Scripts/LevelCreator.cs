@@ -23,6 +23,7 @@ public class LevelCreator : MonoBehaviour
     {
         int levelNumber = 4; //sadece gostermelik bi level simdilik
         Application.targetFrameRate = 60;
+        Time.timeScale = 1f;
 
         cubeParent = new GameObject("CubeParent");
         cubeParent.tag = "CubeParent";
