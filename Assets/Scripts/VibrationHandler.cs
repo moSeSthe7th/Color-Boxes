@@ -10,25 +10,25 @@ public class VibrationHandler
 #elif UNITY_ANDROID
     const string dll = "VibrationDLL";
 #elif UNITY_EDITOR
-    const string dll = " ";
+    const string dll = "";
 #endif
 
 #if  UNITY_EDITOR
     public void vibrate()
     {
-        Debug.Log("Vibrated");
+        //Debug.Log("Vibrated");
     }
 
 #elif UNITY_ANDROID
     public void vibrate()
     {
-        Debug.Log ("Vibrated");
+       // Debug.Log ("Vibrated");
     }
 
 #elif UNITY_IPHONE
 
     [DllImport(dll)]
-    private static extern void Vibrate();
+    private static extern void Vibrate(int x);
 
     public void vibrate()
     {

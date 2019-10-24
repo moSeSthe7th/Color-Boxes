@@ -89,11 +89,12 @@ public class LevelManager : MonoBehaviour
         GameObject cubeParent = GameObject.FindWithTag("CubeParent");
 
         GameObject[] colliders = GameObject.FindGameObjectsWithTag("Collider");
-        foreach(GameObject collider in colliders)
+        foreach (GameObject collider in colliders)
         {
             collider.SetActive(false);
         }
-        while(cubeParent.transform.position.z > cubeParentBlowPos.z)
+
+        while (cubeParent.transform.position.z > cubeParentBlowPos.z)
         {
             cubeParent.transform.position = Vector3.MoveTowards(cubeParent.transform.position, cubeParentBlowPos, 5f);
             yield return new WaitForEndOfFrame();
