@@ -17,7 +17,7 @@ public class HoleCubeScript : MonoBehaviour
         bool toRed = true;
         Color toColor = Color.red; //start from converting to red
 
-        float ping = 0.025f;
+        float ping = 0.15f;
 
         while (!isOccupied)
         {
@@ -27,20 +27,20 @@ public class HoleCubeScript : MonoBehaviour
             {
                 toColor = origColor;
                 toRed = false;
-                ping = 0.04f;
+                
             }
             else if(!toRed && tmpColor.grayscale >= origColor.grayscale - 0.05f)
             {
                 toColor = Color.red;
                 toRed = true;
-                ping = 0.025f;
+                
             }
 
             tmpColor = Color.Lerp(tmpColor,toColor, ping);
 
             holeCubeMat.SetColor("_BaseColor", tmpColor);
 
-            yield return new WaitForSeconds(0.001f);
+            yield return new WaitForSeconds(Time.deltaTime);
 
         }
 
