@@ -18,11 +18,12 @@ public class LevelData
     }
 
     public static LevelData levelData;
-    string level;
+    int level;
 
     private BillboardMapper Billboard;
     private Texture2D lvlSprite;
     private CubeSetter cubeSetter;
+    private ColorData cData;
 
     public Vector3 platformPos = GameObject.FindGameObjectWithTag("Platform").transform.position; //Altigenin en tepesi
 
@@ -36,12 +37,11 @@ public class LevelData
 
     public LevelData(int lvlData,GameObject throwableCube)
     {
-        level = lvlData.ToString();
+        level = lvlData;
         cube = throwableCube;
-
         vibrationQue = new Queue<int>();
 
-        if(levelData == null)
+        if (levelData == null)
         {
             levelData = this;
         }
@@ -61,6 +61,14 @@ public class LevelData
     public void SetBillboard()
     {
         lvlSprite = (Texture2D)Resources.Load("LevelSprites/LvlSp_" + level);
+        //simdilik dursun diye eger bossa ilk bolume al
+        if (lvlSprite == null)
+        {
+            level = 1;
+            PlayerPrefs.SetInt("Level", level);
+            lvlSprite = (Texture2D)Resources.Load("LevelSprites/LvlSp_" + level);
+        }
+
         Billboard = new BillboardMapper(lvlSprite);
 
         holes = Billboard.spriteMap.holeData;
@@ -80,6 +88,31 @@ public class LevelData
         ThrowableCubes = cubeSetter.cubeConst.cubePoss;
         throwableHeight = cubeSetter.cubeConst.height;
         throwableWidth = cubeSetter.cubeConst.width;
+    }
+
+    public ColorData.ColorDataHolder SetColors()
+    {
+        cData = new ColorData();
+        ColorData.ColorDataHolder dataHolder = cData.SetLevelColors(level);
+
+        return dataHolder;
+    }
+
+    public void LevelPassed()
+    {
+        level += 1;
+        PlayerPrefs.SetInt("Level", level);
+
+        Reset();
+    }
+
+
+    void Reset()
+    {
+        if(levelData != null)
+        {
+            levelData = null;
+        }
     }
 
 }

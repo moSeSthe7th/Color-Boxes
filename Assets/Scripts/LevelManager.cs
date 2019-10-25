@@ -49,6 +49,14 @@ public class LevelManager : MonoBehaviour
             isBlowCoroutineStarted = true;
             StartCoroutine(AllCubesArePlaced());
         }
+
+        if(LevelData.levelData.isBlown)
+        {
+
+
+            uIManager.CloseBlowPanel();
+            uIManager.LevelPassed();
+        }
             
     }
 
@@ -84,8 +92,6 @@ public class LevelManager : MonoBehaviour
 
     IEnumerator AllCubesArePlaced()
     {
-        
-        
         yield return new WaitForSecondsRealtime(0.1f);
         uIManager.OpenBlowPanel();
         GameObject cubeParent = GameObject.FindWithTag("CubeParent");
@@ -102,7 +108,6 @@ public class LevelManager : MonoBehaviour
             yield return new WaitForEndOfFrame();
         }
 
-        Debug.Log("fnjsdknfdlsjknfdsk");
         LevelData.levelData.isBlowActive = true;
         
         StopCoroutine(AllCubesArePlaced());

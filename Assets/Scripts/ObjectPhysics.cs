@@ -25,7 +25,6 @@ public class ObjectPhysics : MonoBehaviour
     }
 
 
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Wind" && !LevelData.levelData.isBlowActive)

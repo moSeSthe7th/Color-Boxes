@@ -29,7 +29,7 @@ public class WindPhysicsScript : MonoBehaviour
         else
         {
             Vector3 dummyScaler = transform.localScale;
-            dummyScaler += Vector3.one * 2f;
+            dummyScaler += Vector3.one * 1.5f;
             transform.localScale = dummyScaler;
         }
 

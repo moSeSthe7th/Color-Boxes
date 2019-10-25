@@ -5,10 +5,7 @@ using UnityEngine;
 public class ObjectSnapper : MonoBehaviour
 {
     public float zDiffWithHole = 1f;
-    public bool isObjectSnappedToAHole = false;
-
-    bool isHoleCollidersIncreased = false;
-   
+    public bool isObjectSnappedToAHole = false;   
     private void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.tag == "HoleCube" && !isObjectSnappedToAHole)

@@ -12,6 +12,7 @@ TagManager:
   - BillboardFillerBlock
   - CubeParent
   - Collider
+  - hexagonGround
   layers:
   - Default
   - TransparentFX

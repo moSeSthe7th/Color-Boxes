@@ -49,7 +49,6 @@ public class GunController : MonoBehaviour
         Xp2 = Xroute.GetChild(2).position;
         Xp3 = Xroute.GetChild(3).position;
 
-
         Yp0 = Yroute.GetChild(0).position;
         Yp1 = Yroute.GetChild(1).position;
         Yp2 = Yroute.GetChild(2).position;

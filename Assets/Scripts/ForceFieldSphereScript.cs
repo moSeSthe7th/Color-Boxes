@@ -10,7 +10,7 @@ public class ForceFieldSphereScript : MonoBehaviour
     void Start()
     {
         material = GetComponent<Renderer>().material;
-        fresnelPower = 1f;
+        fresnelPower = 1.5f;
         StartCoroutine(StartForceField());
     }
 
@@ -18,7 +18,7 @@ public class ForceFieldSphereScript : MonoBehaviour
     {
         material.SetFloat("Vector1_E4C38D86", fresnelPower);
         yield return new WaitForSecondsRealtime(1.5f);
-        while (fresnelPower < 5.5f)
+        while (fresnelPower < 10f)
         {
             fresnelPower += 0.2f;
             material.SetFloat("Vector1_E4C38D86", fresnelPower);

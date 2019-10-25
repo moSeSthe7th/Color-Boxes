@@ -21,7 +21,19 @@ public class LevelCreator : MonoBehaviour
 
     void Start()
     {
-        int levelNumber = 4; //sadece gostermelik bi level simdilik
+        int levelNumber = 0;
+
+        if (PlayerPrefs.HasKey("Level"))
+        {
+             levelNumber = PlayerPrefs.GetInt("Level");
+        }
+        //That means it`s first game played
+        else
+        {
+            levelNumber = 1;
+            PlayerPrefs.SetInt("Level", levelNumber);
+        }
+               
         Application.targetFrameRate = 60;
         Time.timeScale = 1f;
 
@@ -38,8 +50,23 @@ public class LevelCreator : MonoBehaviour
         levelData.windObjects = ObjectPooler.instance.PooltheObjects(wind, 100, windParent.transform);
 
         bilboard = GameObject.FindGameObjectWithTag("Bilboard").transform;
-
+        SetLevelColors();
         CreateLevel();
+    }
+
+    void SetLevelColors()
+    {
+        ColorData.ColorDataHolder holder = levelData.SetColors();
+
+        foreach(Renderer r in bilboard.GetComponentsInChildren<Renderer>())
+        {
+            r.material.SetColor("_BaseColor", holder.billboardColor);
+        }
+
+        BillboardFillerBlock.GetComponent<Renderer>().sharedMaterial.SetColor("_BaseColor", holder.billboardColor);
+        throwableCube.GetComponent<Renderer>().sharedMaterial.SetColor("_BaseColor", holder.throwableCubeColor);
+
+        GameObject.FindGameObjectWithTag("hexagonGround").GetComponent<Renderer>().material.SetColor("_BaseColor", holder.platformColor);
     }
 
     void CreateLevel()

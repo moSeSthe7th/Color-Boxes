@@ -76,7 +76,6 @@ public class CubeSetter
 
             float tmpTowerCount = (float)cubeConst.throwableCount / (float)towerHeight;
             float floatingPoint = tmpTowerCount - (int)tmpTowerCount;
-            Debug.Log(floatingPoint);
             totalTowerCount = (int)tmpTowerCount;
             extraCubes = Mathf.RoundToInt(floatingPoint * towerHeight);
             Debug.Log("Extra remaining cube count : " + extraCubes);

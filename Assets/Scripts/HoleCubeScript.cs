@@ -40,7 +40,7 @@ public class HoleCubeScript : MonoBehaviour
 
             holeCubeMat.SetColor("_BaseColor", tmpColor);
 
-            yield return new WaitForSeconds(Time.deltaTime);
+            yield return null;
 
         }
 
