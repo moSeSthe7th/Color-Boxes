@@ -13,7 +13,7 @@ public class NextLevel : MonoBehaviour
 
     public void NextLevelPressed()
     {
-        LevelData.levelData.LevelPassed();
         SceneManager.LoadScene(0, LoadSceneMode.Single);
+        LevelData.levelData.LevelPassed();
     }
 }

@@ -52,8 +52,6 @@ public class LevelManager : MonoBehaviour
 
         if(LevelData.levelData.isBlown)
         {
-
-
             uIManager.CloseBlowPanel();
             uIManager.LevelPassed();
         }

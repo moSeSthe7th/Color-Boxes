@@ -84,7 +84,7 @@ public class GunController : MonoBehaviour
             }
             else
             {
-                touchDelta = (gInput.currentPosition - touchStartPos) / (Screen.width);
+                touchDelta = (gInput.currentPosition - touchStartPos) / (Screen.width / 2f);
                 touchStartPos = gInput.currentPosition;
                 GoByTheRoute(touchDelta);
             }

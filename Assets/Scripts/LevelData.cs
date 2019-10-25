@@ -35,15 +35,45 @@ public class LevelData
     public bool isBlowActive = false;
     public bool isBlown = false;
 
+    float ID;
+
     public LevelData(int lvlData,GameObject throwableCube)
     {
+        ID = Random.value;
         level = lvlData;
-        cube = throwableCube;
-        vibrationQue = new Queue<int>();
 
         if (levelData == null)
         {
+            Debug.Log("Initial level data created ID : " + ID);
             levelData = this;
+        }
+        else if (levelData.ID != ID) //that means level has changed reset current leveldata and create new one
+        {
+            Debug.Log("This is a new level ID : " + ID);
+            levelData.ResetLevelData();
+            levelData = this;
+        }
+        else //Wrong levelData creation
+        {
+            Debug.LogError("There is a already a level data in current level. Cant create a new one.");
+        }
+
+        cube = throwableCube;
+        vibrationQue = new Queue<int>();
+
+        vibrationHandler = new VibrationHandler();
+    }
+
+    ~LevelData()
+    {
+        Debug.LogWarning("Level destroyed ID : " + ID);
+    }
+
+    void ResetLevelData()
+    {
+        if (levelData != null)
+        {
+            levelData = null;
         }
     }
 
@@ -102,17 +132,14 @@ public class LevelData
     {
         level += 1;
         PlayerPrefs.SetInt("Level", level);
-
-        Reset();
     }
 
-
-    void Reset()
+    VibrationHandler vibrationHandler;
+    public void SimpleVibration()
     {
-        if(levelData != null)
-        {
-            levelData = null;
-        }
+        vibrationHandler.vibrate();
     }
+
+   
 
 }
