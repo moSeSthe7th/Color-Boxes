@@ -14,6 +14,6 @@ public class NextLevel : MonoBehaviour
     public void NextLevelPressed()
     {
         SceneManager.LoadScene(0, LoadSceneMode.Single);
-        LevelData.levelData.LevelPassed();
+        LevelData.levelData.IncreaseLevel();
     }
 }

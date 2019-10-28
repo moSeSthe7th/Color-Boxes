@@ -32,11 +32,13 @@ public class GunController : MonoBehaviour
     Vector3 Yp3;
 
    
-    bool isTouchEnded;
+    bool isTouch;
     Vector2 touchDelta;
 
     private float engineHeat; //bu degere gore ilk basta az donmesi ve kucuk ruzgar atmasi saglaniyor. Min 0 max 1
     private float rotationSpeed;
+
+    Coroutine fireLoop;
 
     void Start()
     {
@@ -58,7 +60,7 @@ public class GunController : MonoBehaviour
         tParamY = 0.5f;
         speedModifier = 15f;
 
-        isTouchEnded = true;
+        isTouch = false;
         engineHeat = 0f;
         rotationSpeed = 10f;
 
@@ -73,13 +75,17 @@ public class GunController : MonoBehaviour
           
             if(gInput.phase == IPhase.Began)
             {
-                isTouchEnded = false;
-                //StartCoroutine(Fire());
+                isTouch = true;
+
+                if (fireLoop != null)
+                    StopCoroutine(fireLoop);        
+    
+                fireLoop = StartCoroutine(Fire());
                 touchStartPos = gInput.currentPosition;
             }
             else if(gInput.phase == IPhase.Ended)
             {
-                isTouchEnded = true;             
+                isTouch = false;             
                 touchDelta = Vector2.zero;
             }
             else
@@ -89,21 +95,6 @@ public class GunController : MonoBehaviour
                 GoByTheRoute(touchDelta);
             }
         }
-    }
-
-    private void LateUpdate()
-    {
-        if (!isTouchEnded)
-        {
-            engineHeat = (engineHeat < 1f) ? engineHeat + 0.01f : engineHeat;
-            CreateWind(engineHeat);
-        }
-        else
-        {
-            engineHeat = (engineHeat > 0f) ? engineHeat +- 0.01f : engineHeat;
-        }
-
-        transform.GetChild(0).Rotate(Vector3.forward * engineHeat * rotationSpeed, Space.Self);
     }
 
     void SetGunPosition()
@@ -151,10 +142,28 @@ public class GunController : MonoBehaviour
 
     IEnumerator Fire()
     {
-        while (!isTouchEnded)
+        bool shooterLoop = true;
+        while (shooterLoop)
         {
-           // CreateWind();
-            yield return new WaitForSecondsRealtime(0.0001f);
+            //Rotate object in z axis
+            transform.GetChild(0).Rotate(Vector3.forward * engineHeat * rotationSpeed, Space.Self);
+
+            if (isTouch)
+            {
+                engineHeat = (engineHeat < 1f) ? engineHeat + 0.01f : engineHeat;
+                CreateWind(engineHeat);
+            }
+            else
+            {
+                if(engineHeat < 0.01f)
+                {
+                    shooterLoop = false;
+                }
+                
+                engineHeat = (engineHeat > 0f) ? engineHeat + -0.01f : engineHeat;
+            }
+
+            yield return new WaitForSecondsRealtime(0.008f);
         }
         StopCoroutine(Fire());
     }

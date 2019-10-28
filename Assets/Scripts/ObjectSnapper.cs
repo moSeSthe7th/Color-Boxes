@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ObjectSnapper : MonoBehaviour
 {
-    public float zDiffWithHole = 1f;
+    public float zDiffWithHole = 6f;
     public bool isObjectSnappedToAHole = false;   
     private void OnTriggerEnter(Collider other)
     {

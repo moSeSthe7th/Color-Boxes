@@ -77,6 +77,9 @@ public class BillboardMapper
                 }
                 else //if pixel is not alpha its a hole in wall
                 {
+                    //eger obje throwablesa z posizyonunu biraz daha geriye al
+                    currPos.z += 5f;
+
                     spriteMap.holeData.Add(new LevelData.Hole(currPos, pixels[count]));
                     spriteMap.totBlockCount += 1;
                 }

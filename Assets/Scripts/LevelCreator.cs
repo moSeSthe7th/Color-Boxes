@@ -21,27 +21,15 @@ public class LevelCreator : MonoBehaviour
 
     void Start()
     {
-        int levelNumber = 0;
-
-        if (PlayerPrefs.HasKey("Level"))
-        {
-             levelNumber = PlayerPrefs.GetInt("Level");
-        }
-        //That means it`s first game played
-        else
-        {
-            levelNumber = 1;
-            PlayerPrefs.SetInt("Level", levelNumber);
-        }
-               
-        Application.targetFrameRate = 60;
+        
+        QualitySettings.vSyncCount = 1;
         Time.timeScale = 1f;
 
         cubeParent = new GameObject("CubeParent");
         cubeParent.tag = "CubeParent";
         throwableCube = (GameObject)Resources.Load("Prefabs/ThrownObject");
 
-        levelData = new LevelData(levelNumber, throwableCube);
+        levelData = new LevelData( throwableCube);
         Time.timeScale = 3f;
        
         BillboardFillerBlock = (GameObject)Resources.Load("Prefabs/BillboardFillerBlock");

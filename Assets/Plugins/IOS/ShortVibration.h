@@ -6,9 +6,34 @@
 //  Copyright © 2018 Sinan Cem Çaylı. All rights reserved.
 //
 
-#ifndef ShortVibration_h
+/*#ifndef ShortVibration_h
 #define ShortVibration_h
 
 extern "C" void Vibrate(int x);
 
-#endif /* ShortVibration_h */
+#endif*//* ShortVibration_h */
+
+#ifndef ShortVibration_h
+#define ShortVibration_h
+
+#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+
+typedef enum {
+    FeedbackType_Selection,
+    FeedbackType_Impact_Light,
+    FeedbackType_Impact_Medium,
+    FeedbackType_Impact_Heavy,
+    FeedbackType_Notification_Success,
+    FeedbackType_Notification_Warning,
+    FeedbackType_Notification_Error
+}FeedbackType;
+
+@interface HapticHelper : NSObject
+
++ (void)generateFeedback:(FeedbackType)type;
+
+@end
+
+
+#endif

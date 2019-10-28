@@ -37,10 +37,10 @@ public class LevelData
 
     float ID;
 
-    public LevelData(int lvlData,GameObject throwableCube)
+    public LevelData(GameObject throwableCube)
     {
         ID = Random.value;
-        level = lvlData;
+        level = GetLevel();
 
         if (levelData == null)
         {
@@ -128,10 +128,26 @@ public class LevelData
         return dataHolder;
     }
 
-    public void LevelPassed()
+    public void IncreaseLevel()
     {
         level += 1;
         PlayerPrefs.SetInt("Level", level);
+    }
+
+    int GetLevel()
+    {
+        if (PlayerPrefs.HasKey("Level"))
+        {
+            level = PlayerPrefs.GetInt("Level");
+        }
+        //That means it`s first game played
+        else
+        {
+            level = 1;
+            PlayerPrefs.SetInt("Level", level);
+        }
+
+        return level;
     }
 
     VibrationHandler vibrationHandler;

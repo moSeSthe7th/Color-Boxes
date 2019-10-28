@@ -81,9 +81,9 @@ public class CubeSetter
             Debug.Log("Extra remaining cube count : " + extraCubes);
         }
 
-        //Debug.Log("Tower Height is : " + towerHeight + ". Total tower count is : " + totalTowerCount);
+        float yDistBtwCubes = cScale;
 
-        switch(cubeConst.arrengment)
+        switch (cubeConst.arrengment)
         {
             //Beta rectangle placement
             case CubeArrengment.Rectangle:
@@ -107,7 +107,7 @@ public class CubeSetter
                     Debug.Log("Exrta cubes that cannot be setted on Rectangle count : " + extraCubes);
 
                     float distBtwTowers = cScale + 0.2f;
-                    float yDistBtwCubes = cScale;
+                    
 
                     cubeConst.height = height * distBtwTowers;
                     cubeConst.width = width * distBtwTowers;
@@ -136,7 +136,7 @@ public class CubeSetter
                             cubeConst.cubePoss.Add(rightCube);
                         }
 
-                        //Build extra cubes towers
+                        //Build extra cubes as towers
                         if(extraCubes > 0)
                         {
                             for(int e = 0; e < extraCubes / towerHeight; e++)
@@ -148,17 +148,7 @@ public class CubeSetter
                         }
                     }
 
-                    extraCubes -= buildedExtraCubes;
-                    //tower olarak yetersiz extra cubeler 
-                    if (extraCubes > 0)
-                    {
-                        for (int e = 0; e < extraCubes; e++)
-                        {
-                            Vector3 currCube = cubeConst.cubePoss[cubeConst.cubePoss.Count - extraCubes];
-                            currCube.y += (yDistBtwCubes);
-                            cubeConst.cubePoss.Add(currCube);
-                        }
-                    }
+                   
 
                     Debug.Log("Cube consruction done. Cube count is : " + cubeConst.cubePoss.Count);
 
@@ -169,7 +159,19 @@ public class CubeSetter
                break;
             }
         }
-            
+
+        extraCubes -= buildedExtraCubes;
+        //tower olarak yetersiz extra cubeler 
+        if (extraCubes > 0)
+        {
+            for (int e = 0; e < extraCubes; e++)
+            {
+                Vector3 currCube = cubeConst.cubePoss[cubeConst.cubePoss.Count - extraCubes];
+                currCube.y += (yDistBtwCubes);
+                cubeConst.cubePoss.Add(currCube);
+            }
+        }
+
 
     }
 
