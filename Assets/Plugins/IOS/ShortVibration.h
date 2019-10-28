@@ -6,14 +6,14 @@
 //  Copyright © 2018 Sinan Cem Çaylı. All rights reserved.
 //
 
-/*#ifndef ShortVibration_h
+#ifndef ShortVibration_h
 #define ShortVibration_h
 
 extern "C" void Vibrate(int x);
 
-#endif*//* ShortVibration_h */
+#endif/* ShortVibration_h */
 
-#ifndef ShortVibration_h
+/*#ifndef ShortVibration_h
 #define ShortVibration_h
 
 #import <Foundation/Foundation.h>
@@ -36,4 +36,4 @@ typedef enum {
 @end
 
 
-#endif
+#endif*/

@@ -26,15 +26,15 @@ public class WindPhysicsScript : MonoBehaviour
         {
             gameObject.SetActive(false);
         }
-        else
+        else if(transform.localScale.x < initialScale.x * 2f)
         {
             Vector3 dummyScaler = transform.localScale;
             dummyScaler += Vector3.one * 1.5f;
             transform.localScale = dummyScaler;
         }
-
-
     }
+
+
 
     public void CreateWind(Transform gunTransform, Vector3 directionVec,float engineHeat)
     {
@@ -54,19 +54,4 @@ public class WindPhysicsScript : MonoBehaviour
         rb.AddForce(forceVec * windForce, ForceMode.Impulse); //Impulse force u anlik hiz degistirerek uyguluyor
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-       
-        if(other.gameObject.tag == "ThrownObject" && LevelData.levelData.isBlowActive && !LevelData.levelData.isBlown)
-        {
-            Time.timeScale = 5f;
-            LevelData.levelData.isBlown = true;
-            GameObject[] thrownObjects = GameObject.FindGameObjectsWithTag("ThrownObject");
-            foreach (GameObject thrownObject in thrownObjects)
-            {
-                thrownObject.GetComponent<Rigidbody>().isKinematic = false;
-                thrownObject.GetComponent<Rigidbody>().AddExplosionForce(42000f, transform.position, 100000f, 4000f);
-            }
-        }
-    }
 }

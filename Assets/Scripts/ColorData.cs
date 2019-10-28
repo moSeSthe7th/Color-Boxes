@@ -16,6 +16,9 @@ public class ColorData
         public Color32 throwableCubeColor;
         public Color32 forceFieldColor;
         public Color32 platformColor;
+
+        public Color emissionBillboardColor;
+        public Color emissionPlatformColor;
     }
 
     ColorMode cMode;
@@ -30,10 +33,13 @@ public class ColorData
         {
             case ColorMode.Classic:
             {
-                colors.billboardColor = new Color32(255, 255, 0, 255);
+                colors.billboardColor = new Color32(255, 255, 255, 255);
                 colors.throwableCubeColor = new Color32(255,255,255,255);
                 colors.forceFieldColor = new Color32(43,0,191,255);
-                colors.platformColor = new Color32(102,0,171,255);
+                colors.platformColor = new Color32(255,255,255,255);
+
+                colors.emissionBillboardColor = new Color(0.3679245f, 0.3679245f, 0.3679245f);
+                colors.emissionPlatformColor = new Color(0.4245283f, 0.4245283f, 0.4245283f);
 
                 break;
             }

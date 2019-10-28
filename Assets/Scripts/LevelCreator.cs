@@ -25,8 +25,9 @@ public class LevelCreator : MonoBehaviour
         QualitySettings.vSyncCount = 1;
         Time.timeScale = 1f;
 
-        cubeParent = new GameObject("CubeParent");
-        cubeParent.tag = "CubeParent";
+        cubeParent = (GameObject)Resources.Load("Prefabs/CubeParent");
+        cubeParent = Instantiate(cubeParent);
+
         throwableCube = (GameObject)Resources.Load("Prefabs/ThrownObject");
 
         levelData = new LevelData( throwableCube);
@@ -49,12 +50,18 @@ public class LevelCreator : MonoBehaviour
         foreach(Renderer r in bilboard.GetComponentsInChildren<Renderer>())
         {
             r.material.SetColor("_BaseColor", holder.billboardColor);
+            r.material.SetColor("_EmissionColor", holder.emissionBillboardColor);
         }
 
-        BillboardFillerBlock.GetComponent<Renderer>().sharedMaterial.SetColor("_BaseColor", holder.billboardColor);
         throwableCube.GetComponent<Renderer>().sharedMaterial.SetColor("_BaseColor", holder.throwableCubeColor);
 
-        GameObject.FindGameObjectWithTag("hexagonGround").GetComponent<Renderer>().material.SetColor("_BaseColor", holder.platformColor);
+        Material billboardFiller = BillboardFillerBlock.GetComponent<Renderer>().sharedMaterial;
+        billboardFiller.SetColor("_BaseColor", holder.billboardColor);
+        billboardFiller.SetColor("_EmissionColor", holder.emissionBillboardColor);
+
+        Material PlatformMaterial = GameObject.FindGameObjectWithTag("hexagonGround").GetComponent<Renderer>().material;
+        PlatformMaterial.SetColor("_BaseColor", holder.platformColor);
+        PlatformMaterial.SetColor("_EmissionColor", holder.emissionPlatformColor);
     }
 
     void CreateLevel()
@@ -68,6 +75,9 @@ public class LevelCreator : MonoBehaviour
         levelData.SetThrowableCubes();
         CreateThrowableCubes();
         PositionThrowableCubes();
+
+        //Set cube parents position for blowing
+        SetCubeParentBlowPosition();
     }
 
 
@@ -103,13 +113,33 @@ public class LevelCreator : MonoBehaviour
         billboardCubeParent.position = tmpVec;
     }
 
+    void SetCubeParentBlowPosition()
+    {
+        //z position is -250
+        Vector3 blowPos = new Vector3(-20f, 900f, -250f);
+
+        blowPos.y += (levelData.mapHeight); //- 
+        //blowPos.x -= (levelData.mapWidth / 16f); //billboardCubeParent.position.x; //- 
+        blowPos.x = (levelData.mapWidth / 32f > 5f) ? blowPos.x - levelData.mapWidth / 32f : blowPos.x;
+        blowPos.y = (blowPos.y > 1000) ? 1000 : blowPos.y;
+
+
+        levelData.CubeParentBlowPosition = blowPos;
+    }
+
 
     void CreateThrowableCubes()
     {
-        foreach (Vector3 cubePos in levelData.ThrowableCubes)
+        List<GameObject> tCubes = new List<GameObject>(levelData.holeCount);
+
+        foreach (Vector3 cubePos in levelData.ThrowableCubePositions)
         {
             GameObject currCube = Instantiate(throwableCube, cubePos, Quaternion.identity,cubeParent.transform);
+            tCubes.Add(currCube);
         }
+
+        levelData.throwableCubes = tCubes;
+
     }
 
     void PositionThrowableCubes()
@@ -120,14 +150,5 @@ public class LevelCreator : MonoBehaviour
 
         cubeParent.transform.position = pos;
     }
-
-  /*  void CreateParents(params Transform[] transforms)
-    {
-        Debug.Log(transforms[0].);
-        for(int i = 0; i < transforms.Length; i++)
-        {
-            transforms[i] = new GameObject { name = transforms[i].ToString() , tag = transforms[i].ToString() }.transform;
-        }
-    }*/
 
 }

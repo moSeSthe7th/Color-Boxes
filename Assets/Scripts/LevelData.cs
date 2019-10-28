@@ -27,10 +27,14 @@ public class LevelData
 
     public Vector3 platformPos = GameObject.FindGameObjectWithTag("Platform").transform.position; //Altigenin en tepesi
 
+    public List<GameObject> throwableCubes;
     public List<GameObject> holeCubes;
     public List<GameObject> windObjects;
 
     public Queue<int> vibrationQue;
+
+    //En sonda patlatılan cube lerin hangi konuma alınacağı
+    public Vector3 CubeParentBlowPosition; 
 
     public bool isBlowActive = false;
     public bool isBlown = false;
@@ -78,7 +82,7 @@ public class LevelData
     }
 
     GameObject cube; //throwableCube
-    public List<Vector3> ThrowableCubes;
+    public List<Vector3> ThrowableCubePositions;
     public float throwableWidth;
     public float throwableHeight;
 
@@ -115,7 +119,7 @@ public class LevelData
     {
         cubeSetter = new CubeSetter(holeCount, cube.transform.localScale.x);
 
-        ThrowableCubes = cubeSetter.cubeConst.cubePoss;
+        ThrowableCubePositions = cubeSetter.cubeConst.cubePoss;
         throwableHeight = cubeSetter.cubeConst.height;
         throwableWidth = cubeSetter.cubeConst.width;
     }

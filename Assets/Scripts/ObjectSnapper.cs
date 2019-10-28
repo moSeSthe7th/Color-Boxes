@@ -6,18 +6,13 @@ public class ObjectSnapper : MonoBehaviour
 {
     public float zDiffWithHole = 6f;
     public bool isObjectSnappedToAHole = false;   
+
     private void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.tag == "HoleCube" && !isObjectSnappedToAHole)
         {
             GoToHole(other.gameObject);
         }
-    }
-
-    private void Update()
-    {
-        if(LevelData.levelData.isBlowActive)
-            GetComponent<Collider>().enabled = true;
     }
 
     void GoToHole(GameObject hole)

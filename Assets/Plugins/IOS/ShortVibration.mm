@@ -1,4 +1,4 @@
-/*#import <Foundation/Foundation.h>
+#import <Foundation/Foundation.h>
 #import <AudioToolbox/AudioToolbox.h>
 #import "ShortVibration.h"
 #import <UIKit/UIKit.h>
@@ -9,8 +9,9 @@ extern "C"
     {
         if(x == 1)
         {
-            UInt32 pop = SystemSoundID(1520);
-            AudioServicesPlaySystemSound(pop);
+            [self generateImpactFeedback:UIImpactFeedbackStyleLight];
+           // UInt32 pop = SystemSoundID(1520);
+            //AudioServicesPlaySystemSound(pop);
         }
         else if (x == 2)
         {
@@ -18,9 +19,9 @@ extern "C"
             AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
         }
     }
-}*/
+}
 
-
+/*
 #import "ShortVibration_h"
 
 @implementation HapticHelper
@@ -80,3 +81,4 @@ extern "C"
 }
 
 @end
+*/

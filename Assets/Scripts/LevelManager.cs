@@ -95,20 +95,23 @@ public class LevelManager : MonoBehaviour
         GameObject cubeParent = GameObject.FindWithTag("CubeParent");
 
         GameObject[] colliders = GameObject.FindGameObjectsWithTag("Collider");
-        foreach (GameObject collider in colliders)
+
+        foreach (GameObject coll in colliders)
         {
-            collider.SetActive(false);
+            coll.SetActive(false);
         }
 
-        while (cubeParent.transform.position.z > cubeParentBlowPos.z)
+        while (Vector3.Distance(cubeParent.transform.position, LevelData.levelData.CubeParentBlowPosition) > 1f)
         {
-            cubeParent.transform.position = Vector3.MoveTowards(cubeParent.transform.position, cubeParentBlowPos, 5f);
+            cubeParent.transform.position = Vector3.MoveTowards(cubeParent.transform.position, LevelData.levelData.CubeParentBlowPosition, 5f);
             yield return new WaitForEndOfFrame();
         }
 
+        cubeParent.GetComponent<BoxCollider>().enabled = true;
         LevelData.levelData.isBlowActive = true;
         
         StopCoroutine(AllCubesArePlaced());
         
     }
+
 }
