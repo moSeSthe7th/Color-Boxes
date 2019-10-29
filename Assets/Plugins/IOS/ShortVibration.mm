@@ -9,20 +9,33 @@ extern "C"
     {
         if(x == 1)
         {
-            [self generateImpactFeedback:UIImpactFeedbackStyleLight];
-           // UInt32 pop = SystemSoundID(1520);
+            generateFeedback:UIImpactFeedbackStyleLight;
+            //generateImpactFeedback:UIImpactFeedbackStyleLight;
+            //UInt32 pop = SystemSoundID(1520);
             //AudioServicesPlaySystemSound(pop);
         }
         else if (x == 2)
         {
-            //UInt32 pop = SystemSoundID(1102);
-            AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+            generateFeedback:UIImpactFeedbackStyleMedium;
+        }
+        else if (x == 3)
+        {
+            generateFeedback:UIImpactFeedbackStyleHeavy;
+        }
+        else if (x == 4)
+        {
+            generateFeedback:UINotificationFeedbackTypeSuccess;
+        }
+        else if (x == 5)
+        {
+            generateFeedback:UINotificationFeedbackTypeWarning;
+        }
+        else if (x == 6)
+        {
+            generateFeedback:UINotificationFeedbackTypeError;
         }
     }
 }
-
-/*
-#import "ShortVibration_h"
 
 @implementation HapticHelper
 
@@ -81,4 +94,4 @@ extern "C"
 }
 
 @end
-*/
+

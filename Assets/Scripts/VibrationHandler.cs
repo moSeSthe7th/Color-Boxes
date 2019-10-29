@@ -16,7 +16,7 @@ public class VibrationHandler
 
 #if UNITY_EDITOR
 
-    public void vibrate()
+    public void vibrate(int vibrationStyle)
     {
         //Debug.Log("Vibrated");
     }
@@ -25,7 +25,7 @@ public class VibrationHandler
 
 
 #elif UNITY_ANDROID
-    public void vibrate()
+    public void vibrate(int vibrationStyle)
     {
        // Debug.Log ("Vibrated");
     }
@@ -33,11 +33,11 @@ public class VibrationHandler
 #elif UNITY_IPHONE
 
      [DllImport(dll)]
-     private static extern void generateFeedback();
+     private static extern void Vibrate(int x);
 
-     public void vibrate()
+     public void vibrate(int vibrationStyle)
      {
-         generateFeedback();
+         Vibrate(vibrationStyle);
      }
 
 

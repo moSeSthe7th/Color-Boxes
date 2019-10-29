@@ -32,13 +32,19 @@ public class LevelManager : MonoBehaviour
     private void LateUpdate()
     {
         //If there are any vibration request call vibration. Eger cok fazla titresim olursa burada bi limit belirleyebilir
-        if(LevelData.levelData.vibrationQue.Count > 0)
+     /*   if(LevelData.levelData.vibrationQue.Count > 0)
         {
             LevelData.levelData.vibrationQue.Dequeue();
-            vibrationHandler.vibrate();
+            vibrationHandler.vibrate(1);
+        }*/
+
+        if(!LevelData.levelData.isLevelStarted && (Input.touchCount > 0 || Input.anyKeyDown))
+        {
+            LevelData.levelData.isLevelStarted = true;
+            uIManager.CloseStartingPanel();
         }
 
-        if(!isIncreasedCollider && shouldIncreaseCollSize())
+        if (!isIncreasedCollider && shouldIncreaseCollSize())
         {
             isIncreasedCollider = true;
             IncreaseSnapperCollidersSize();

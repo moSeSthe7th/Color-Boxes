@@ -69,7 +69,7 @@ public class GunController : MonoBehaviour
     
     void Update()
     {
-        if(inputX.IsInput())
+        if(inputX.IsInput() && LevelData.levelData.isLevelStarted)
         {
             GeneralInput gInput = inputX.GetInput(0);
           

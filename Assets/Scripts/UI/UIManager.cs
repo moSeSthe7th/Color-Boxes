@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-
+    public GameObject StartingPanel;
     public GameObject settingsPanel;
     public Button settingsButton;
     public GameObject levelPassedPanel;
@@ -18,6 +18,11 @@ public class UIManager : MonoBehaviour
         settingsPanel.SetActive(false);
         levelPassedPanel.SetActive(false);
         blowPanel.SetActive(false);
+
+        if (!LevelData.levelData.isLevelStarted)
+            StartingPanel.SetActive(true);
+        else
+            StartingPanel.SetActive(false);
     }
 
     public void OpenSettingsPanel()
@@ -43,5 +48,10 @@ public class UIManager : MonoBehaviour
     public void CloseBlowPanel()
     {
         blowPanel.SetActive(false);
+    }
+
+    public void CloseStartingPanel()
+    {
+        StartingPanel.SetActive(false);
     }
 }
