@@ -9,12 +9,12 @@ extern "C"
     {
         if(x == 1)
         {
-            generateFeedback:UIImpactFeedbackStyleLight;
+            generateFeedback:(FeedbackType)FeedbackType_Impact_Light;
             //generateImpactFeedback:UIImpactFeedbackStyleLight;
             //UInt32 pop = SystemSoundID(1520);
             //AudioServicesPlaySystemSound(pop);
         }
-        else if (x == 2)
+       /* else if (x == 2)
         {
             generateFeedback:UIImpactFeedbackStyleMedium;
         }
@@ -33,11 +33,11 @@ extern "C"
         else if (x == 6)
         {
             generateFeedback:UINotificationFeedbackTypeError;
-        }
+        }*/
     }
 }
 
-@implementation HapticHelper
+
 
 +(void)generateFeedback:(FeedbackType)type{
     
@@ -93,5 +93,5 @@ extern "C"
     generator = nil;
 }
 
-@end
+
 

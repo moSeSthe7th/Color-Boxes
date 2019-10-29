@@ -23,11 +23,11 @@ typedef enum {
     FeedbackType_Notification_Error
 }FeedbackType;
 
-@interface HapticHelper : NSObject
+
 
 + (void)generateFeedback:(FeedbackType)type;
 
-@end
+
 
 
 #endif   */ /*ShortVibration_h*/

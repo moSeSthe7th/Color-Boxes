@@ -69,8 +69,13 @@ public class GunController : MonoBehaviour
     
     void Update()
     {
-        if(inputX.IsInput() && LevelData.levelData.isLevelStarted)
+
+       // if (!LevelData.levelData.isLevelStarted)
+         //   return;
+
+        if (inputX.IsInput())
         {
+
             GeneralInput gInput = inputX.GetInput(0);
           
             if(gInput.phase == IPhase.Began)
@@ -95,6 +100,7 @@ public class GunController : MonoBehaviour
                 GoByTheRoute(touchDelta);
             }
         }
+
     }
 
     void SetGunPosition()

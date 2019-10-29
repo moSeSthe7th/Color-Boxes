@@ -35,14 +35,8 @@ public class LevelManager : MonoBehaviour
      /*   if(LevelData.levelData.vibrationQue.Count > 0)
         {
             LevelData.levelData.vibrationQue.Dequeue();
-            vibrationHandler.vibrate(1);
+            vibrationHandler.vibrate(LevelData.levelData.vibrationStyle);
         }*/
-
-        if(!LevelData.levelData.isLevelStarted && (Input.touchCount > 0 || Input.anyKeyDown))
-        {
-            LevelData.levelData.isLevelStarted = true;
-            uIManager.CloseStartingPanel();
-        }
 
         if (!isIncreasedCollider && shouldIncreaseCollSize())
         {

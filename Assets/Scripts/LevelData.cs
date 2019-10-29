@@ -40,6 +40,7 @@ public class LevelData
     public bool isBlown = false;
 
     public bool isLevelStarted = false;
+    public int vibrationStyle = 1;
 
     float ID;
 
@@ -52,7 +53,7 @@ public class LevelData
         {
             Debug.Log("Initial level data created ID : " + ID);
             levelData = this;
-            isLevelStarted = false;
+            //isLevelStarted = false;
         }
         else if (levelData.ID != ID) //that means level has changed reset current leveldata and create new one
         {
@@ -60,7 +61,7 @@ public class LevelData
             levelData.ResetLevelData();
             levelData = this;
             //eğer bi sonraki bbölümse starting panel i hiç açma.
-            isLevelStarted = true;
+            //isLevelStarted = true;
         }
         else //Wrong levelData creation
         {
@@ -162,9 +163,7 @@ public class LevelData
     VibrationHandler vibrationHandler;
     public void SimpleVibration()
     {
-        vibrationHandler.vibrate(1);
+        vibrationHandler.vibrate(levelData.vibrationStyle);
     }
-
-   
 
 }

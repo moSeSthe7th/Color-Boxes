@@ -52,6 +52,8 @@ public class UIManager : MonoBehaviour
 
     public void CloseStartingPanel()
     {
+        LevelData.levelData.isLevelStarted = true;
         StartingPanel.SetActive(false);
+        
     }
 }
