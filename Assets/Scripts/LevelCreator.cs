@@ -97,6 +97,7 @@ public class LevelCreator : MonoBehaviour
 
         foreach (Vector3 pos in levelData.FillerCubes)
         {
+            Debug.Log("Billboardfillerblockcreated");
             GameObject currfiller = Instantiate(BillboardFillerBlock,pos,Quaternion.identity,billboardCubeParent);
         }
        
