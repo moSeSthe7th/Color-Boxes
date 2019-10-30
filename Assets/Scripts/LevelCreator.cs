@@ -23,7 +23,6 @@ public class LevelCreator : MonoBehaviour
 
     void Start()
     {
-        
         QualitySettings.vSyncCount = 1;
         Time.timeScale = 1f;
 
@@ -34,7 +33,7 @@ public class LevelCreator : MonoBehaviour
 
         levelData = new LevelData( throwableCube);
         Time.timeScale = 3f;
-       
+
         BillboardFillerBlock = (GameObject)Resources.Load("Prefabs/BillboardFillerBlock");
 
         windParent = new GameObject("WindParent");
@@ -43,6 +42,7 @@ public class LevelCreator : MonoBehaviour
         bilboard = GameObject.FindGameObjectWithTag("Bilboard").transform;
         SetLevelColors();
         CreateLevel();
+        LevelData.levelData.isVibrationActive = PlayerPrefs.GetInt("Vibration", 1);
     }
 
     void SetLevelColors()

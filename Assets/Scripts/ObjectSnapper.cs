@@ -46,7 +46,8 @@ public class ObjectSnapper : MonoBehaviour
 
         //After snapping finishes request a vibration
         //LevelData.levelData.vibrationQue.Enqueue((int)Random.value);
-        LevelData.levelData.SimpleVibration();
+        if(LevelData.levelData.isVibrationActive == 1)
+            LevelData.levelData.SimpleVibration();
 
         StopCoroutine(SnapObjectToThePosition(hole));
     }
