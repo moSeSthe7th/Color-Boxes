@@ -26,7 +26,7 @@ public class WindPhysicsScript : MonoBehaviour
         {
             gameObject.SetActive(false);
         }
-        else if(transform.localScale.x < initialScale.x * 2f)
+        else //if(transform.localScale.x < initialScale.x * 1f)
         {
             Vector3 dummyScaler = transform.localScale;
             dummyScaler += Vector3.one * 1.5f;

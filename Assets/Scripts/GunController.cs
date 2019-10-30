@@ -62,7 +62,7 @@ public class GunController : MonoBehaviour
 
         isTouch = false;
         engineHeat = 0f;
-        rotationSpeed = 10f;
+        rotationSpeed = 15f;
 
         SetGunPosition();
     }
@@ -70,8 +70,8 @@ public class GunController : MonoBehaviour
     void Update()
     {
 
-       // if (!LevelData.levelData.isLevelStarted)
-         //   return;
+        if (!LevelData.levelData.isLevelStarted)
+            return;
 
         if (inputX.IsInput())
         {
@@ -151,7 +151,8 @@ public class GunController : MonoBehaviour
         bool shooterLoop = true;
         while (shooterLoop)
         {
-            //Rotate object in z axis
+           
+            //Rotate object in z axis. Su anki silahta pervaneler ilk child sılahı degıstırınce degısmeli
             transform.GetChild(0).Rotate(Vector3.forward * engineHeat * rotationSpeed, Space.Self);
 
             if (isTouch)

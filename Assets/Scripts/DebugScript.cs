@@ -9,13 +9,13 @@ public class DebugScript : MonoBehaviour
 
     public enum VibrationStyle
     {
+        Pop,
         impactLight,
         impactMedium,
         impactHeavy,
         notificationSuccess,
         notificationWarning,
-        notificationError,
-        Pop
+        notificationError
     }
 
     public Dropdown dropdown;
@@ -37,7 +37,6 @@ public class DebugScript : MonoBehaviour
     {
         string[] enumNames = Enum.GetNames(typeof(VibrationStyle));
         List<string> names = new List<string>(enumNames);
-        Debug.Log(names);
 
         dropdown.AddOptions(names);
         
