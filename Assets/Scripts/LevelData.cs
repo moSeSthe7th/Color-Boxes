@@ -40,7 +40,7 @@ public class LevelData
     public bool isBlown = false;
 
     public bool isLevelStarted = false;
-    public int vibrationStyle = 1;
+    public int vibrationStyle = 2;
 
     float ID;
 

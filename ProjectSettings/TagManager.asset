@@ -13,6 +13,8 @@ TagManager:
   - CubeParent
   - Collider
   - hexagonGround
+  - Gun
+  - Fog
   layers:
   - Default
   - TransparentFX
