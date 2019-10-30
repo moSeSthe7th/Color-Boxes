@@ -12,12 +12,15 @@ public class UIManager : MonoBehaviour
 
     public GameObject blowPanel;
 
+    public Button backgroundButton;
+
     
     void Start()
     {
         settingsPanel.SetActive(false);
         levelPassedPanel.SetActive(false);
         blowPanel.SetActive(false);
+        backgroundButton.gameObject.SetActive(false);
 
         if (!LevelData.levelData.isLevelStarted)
             StartingPanel.SetActive(true);
@@ -25,14 +28,20 @@ public class UIManager : MonoBehaviour
             StartingPanel.SetActive(false);
     }
 
-    public void OpenSettingsPanel()
+    public void SettingsButtonPressed()
     {
-        settingsPanel.SetActive(true);
-    }
-    
-    public void CloseSettingsPanel()
-    {
-        settingsPanel.SetActive(false);
+        if (settingsPanel.activeSelf)
+        {
+            settingsPanel.SetActive(false);
+            backgroundButton.gameObject.SetActive(false);
+        }
+
+        else
+        {
+            settingsPanel.SetActive(true);
+            backgroundButton.gameObject.SetActive(true);
+        }
+            
     }
 
     public void LevelPassed()
@@ -53,7 +62,15 @@ public class UIManager : MonoBehaviour
     public void CloseStartingPanel()
     {
         LevelData.levelData.isLevelStarted = true;
-        StartingPanel.SetActive(false);
+        CloseAllPanels();
         
+    }
+
+    public void CloseAllPanels()
+    {
+        if (StartingPanel.activeSelf)
+            StartingPanel.SetActive(false);
+        if (settingsPanel.activeSelf)
+            settingsPanel.SetActive(false);
     }
 }

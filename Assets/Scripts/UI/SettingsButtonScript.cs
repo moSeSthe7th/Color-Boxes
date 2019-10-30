@@ -13,6 +13,6 @@ public class SettingsButtonScript : MonoBehaviour
 
     public void SettingsButtonPressed()
     {
-        uIManager.OpenSettingsPanel();
+        uIManager.SettingsButtonPressed();
     }
 }
