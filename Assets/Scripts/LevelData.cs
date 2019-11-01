@@ -57,7 +57,7 @@ public class LevelData
             levelData = this;
             //isLevelStarted = false;
         }
-        else if (levelData.ID != ID) //that means level has changed reset current leveldata and create new one
+        else if (levelData.level != level) //that means level has changed reset current leveldata and create new one
         {
             Debug.Log("This is a new level ID : " + ID);
             levelData.ResetLevelData();
@@ -107,7 +107,7 @@ public class LevelData
         if (lvlSprite == null)
         {
             level = 1;
-            PlayerPrefs.SetInt("Level", level);
+            PlayerPrefs.SetInt("Level", 1);
             lvlSprite = (Texture2D)Resources.Load("LevelSprites/LvlSp_" + level);
         }
 
@@ -142,8 +142,7 @@ public class LevelData
 
     public void IncreaseLevel()
     {
-        level += 1;
-        PlayerPrefs.SetInt("Level", level);
+        PlayerPrefs.SetInt("Level", level + 1);
     }
 
     int GetLevel()

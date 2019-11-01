@@ -29,7 +29,7 @@ public class WindPhysicsScript : MonoBehaviour
         else //if(transform.localScale.x < initialScale.x * 1f)
         {
             Vector3 dummyScaler = transform.localScale;
-            dummyScaler += Vector3.one * 1.5f;
+            dummyScaler += Vector3.one * 2f;
             transform.localScale = dummyScaler;
         }
     }

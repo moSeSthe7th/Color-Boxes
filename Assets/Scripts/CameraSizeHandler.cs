@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraSizeHandler : MonoBehaviour
+public class CameraSizeHandler 
 {
     //Fixed size is iPhoneX Size 2436x1125
     Vector2 fixedSize = new Vector2(1125, 2436);
@@ -16,14 +16,12 @@ public class CameraSizeHandler : MonoBehaviour
 
     int currentFof = 0;
 
-    void Start()
+    public void SetCameraFieldOfView(Camera mainCam)
     {
         currentFof = CalculateFofAccordingtoScreen();
 
-        //Set camera field of view value
-        Camera thisCam = this.GetComponent<Camera>();
-        if (thisCam)
-            thisCam.fieldOfView = currentFof;
+        if (mainCam)
+            mainCam.fieldOfView = currentFof;
         else
             Debug.LogError("CameraSizeHandler should be attached to a Camera");
     }

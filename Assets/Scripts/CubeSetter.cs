@@ -10,7 +10,8 @@ public class CubeSetter
 
    public enum CubeArrengment
     {
-        Rectangle,
+        Square,
+        SquareFilled,
         Circle,
         CircularSpiral,
         Default
@@ -29,7 +30,7 @@ public class CubeSetter
         {
            this.throwableCount = count;
            cubePoss = new List<Vector3>(count);
-           arrengment = CubeArrengment.Rectangle;
+           arrengment = CubeArrengment.SquareFilled;
 
             width = 0;
             height = 0;
@@ -56,7 +57,7 @@ public class CubeSetter
         int extraCubes = 0; // tam kule yapmak icin yeterli olmayan kupler
         int buildedExtraCubes = 0; //for keeping track
 
-        for(towerHeight = minTowerHeight;towerHeight <= maxTowerHeight;towerHeight++)
+      /*  for(towerHeight = minTowerHeight;towerHeight <= maxTowerHeight;towerHeight++)
         {
             float tmpTowerCount = (float)cubeConst.throwableCount / (float)towerHeight;
             float floatingPoint = tmpTowerCount - (int)tmpTowerCount;
@@ -79,41 +80,49 @@ public class CubeSetter
             totalTowerCount = (int)tmpTowerCount;
             extraCubes = Mathf.RoundToInt(floatingPoint * towerHeight);
             Debug.Log("Extra remaining cube count : " + extraCubes);
-        }
+        }*/
 
+        towerHeight = 10;
+
+        float tmpTowerCount = (float)cubeConst.throwableCount / (float)towerHeight;
+        float floatingPoint = tmpTowerCount - (int)tmpTowerCount;
+        totalTowerCount = (int)tmpTowerCount;
+        extraCubes = Mathf.RoundToInt(floatingPoint * towerHeight);
+        Debug.Log("Extra remaining cube count : " + extraCubes);
+
+
+        int width; //her bir cizgide kac tane tower oldugu
+        int height;
+        //Set side length of rectangle
+        float squareLength ;
+
+        float distBtwTowers = cScale * 1.1f;
         float yDistBtwCubes = cScale;
 
         switch (cubeConst.arrengment)
         {
             //Beta rectangle placement
-            case CubeArrengment.Rectangle:
+            case CubeArrengment.Square:
             {
-                    Debug.Log("Build Rectangle");
-                    int width ; //her bir cizgide kac tane tower oldugu
-                    int height;
-                    //Set side length of rectangle
+                    Debug.Log("Build Square");
 
-                    float squareLength = totalTowerCount / 4f;
-
-                    float floatingPoint = squareLength - (int)squareLength; // 4 secenek var 0.0 , 0.25 , 0.50 , 0.75
+                    squareLength = totalTowerCount / 4f;
+                    float floatingPTower = squareLength - (int)squareLength; // 4 secenek var 0.0 , 0.25 , 0.50 , 0.75
 
                     width = (int)squareLength;
                     height = (int)squareLength;
 
-                    extraCubes += Mathf.RoundToInt(floatingPoint * 4 * towerHeight); // 4 kenar var 
-
+                    extraCubes += Mathf.RoundToInt(floatingPTower * 4 * towerHeight); // 4 kenar var 
 
                     Debug.Log("Width Tower count : " + width + ". Height tower count : " + height);
                     Debug.Log("Exrta cubes that cannot be setted on Rectangle count : " + extraCubes);
 
-                    float distBtwTowers = cScale;
-                    
-
                     cubeConst.height = height * distBtwTowers;
                     cubeConst.width = width * distBtwTowers;
 
+
                     //Start from left down corner to left upper corner. First build height than width than heigth again than width
-                    for(int i = 0; i < towerHeight; i++)
+                    for (int i = 0; i < towerHeight; i++)
                     {
                         for (int j = 0; j < width; j++)
                         {
@@ -147,10 +156,52 @@ public class CubeSetter
                             }
                         }
                     }
+                    Debug.Log("Square consruction done. Cube count is : " + cubeConst.cubePoss.Count);
 
-                   
+                    break;
+            }
+            case CubeArrengment.SquareFilled:
+            {
+                    Debug.Log("Build FilledSquare");
 
-                    Debug.Log("Cube consruction done. Cube count is : " + cubeConst.cubePoss.Count);
+                    //x is width , y is height
+                    Vector2 sides = FindFilledSquareSideLenghts(totalTowerCount);
+
+                    float floatingPTower = totalTowerCount - (sides.x * sides.y);
+
+                    width = (int)sides.x;
+                    height = (int)sides.y;
+
+                    extraCubes += Mathf.RoundToInt(floatingPTower * towerHeight); // 4 kenar var 
+
+                    Debug.Log("Width Tower count : " + width + ". Height tower count : " + height);
+                    Debug.Log("Exrta cubes that cannot be setted on Rectangle count : " + extraCubes);
+
+                    cubeConst.height = height * distBtwTowers;
+                    cubeConst.width = width * distBtwTowers;
+
+                    for (int towerH = 0; towerH < towerHeight;towerH++)
+                    {
+                        for (int w = 0; w < width; w++)
+                        {
+                            for (int h = 0; h < height; h++)
+                            {
+                                Vector3 cubePos = new Vector3(w * distBtwTowers , (cScale / 2f) + towerH * yDistBtwCubes , h * distBtwTowers);
+                                cubeConst.cubePoss.Add(cubePos);
+                            }
+                        }
+                    }
+
+                    //Build extra cubes as towers
+                    /*if (extraCubes > 0)
+                    {
+                        for (int e = 0; e < extraCubes / towerHeight; e++)
+                        {
+                            Vector3 extraCube = new Vector3(e * distBtwTowers, (cScale / 2f) + (i * yDistBtwCubes), cubeConst.width + (3 * distBtwTowers));
+                            cubeConst.cubePoss.Add(extraCube);
+                            buildedExtraCubes += 1;
+                        }
+                    }*/
 
                     break;
             }
@@ -160,19 +211,68 @@ public class CubeSetter
             }
         }
 
+
+        //en son kalan blok varsa en ustlere yerlestir
         extraCubes -= buildedExtraCubes;
         //tower olarak yetersiz extra cubeler 
         if (extraCubes > 0)
         {
             for (int e = 0; e < extraCubes; e++)
             {
-                Vector3 currCube = cubeConst.cubePoss[cubeConst.cubePoss.Count - extraCubes];
-                currCube.y += (yDistBtwCubes);
-                cubeConst.cubePoss.Add(currCube);
+                Vector3 currPos = cubeConst.cubePoss[cubeConst.cubePoss.Count - extraCubes];
+                currPos.y += (yDistBtwCubes);
+                cubeConst.cubePoss.Add(currPos);
             }
         }
 
 
+    }
+
+
+    Vector2 FindFilledSquareSideLenghts(int towerCount)
+    {
+        //x is width , y is height
+        Vector2 sides = Vector2.zero;
+
+        bool found = false;
+
+        //first assume height is 6 and look if its acceptable
+        int height = 6;
+        while(!found)
+        {
+            int width = towerCount / height;
+
+            if(height - 1 <= width && width <= height + 1)
+            {
+                if(width > height)
+                {
+                    sides.x = width;
+                    sides.y = height;
+                }
+                else
+                {
+                    sides.x = height;
+                    sides.y = width;
+                }
+                found = true;
+                continue;
+            }
+
+            //eger buraya geldiyse demek ki heigth widt orani tutmuyor
+            //width cok kucukse heigth i kucult. width cok buyukse heigth i yukselt
+            if(width < height - 1)
+            {
+                height -= 1;
+            }
+            else //if(width > height + 1)
+            {
+                height += 1;
+            }
+
+        }
+
+
+        return sides;
     }
 
 }

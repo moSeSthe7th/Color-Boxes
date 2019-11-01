@@ -31,12 +31,19 @@ public class ObjectSnapper : MonoBehaviour
     IEnumerator SnapObjectToThePosition(GameObject hole)
     {
         Vector3 posToSnap = GetSnapPosition(hole);
-        GetComponent<Rigidbody>().isKinematic = true;
+
+        Rigidbody cubeRb = GetComponent<Rigidbody>();
+        Vector3 rotSpd = cubeRb.angularVelocity;
+        cubeRb.isKinematic = true;
+
         while (Vector3.Distance(posToSnap, transform.position) > 2f)
         {
             transform.position = Vector3.MoveTowards(transform.position, posToSnap, 5f);
+            transform.Rotate(rotSpd);
             yield return new WaitForSecondsRealtime(0.005f);
         }
+
+        
 
         transform.position = posToSnap;
         transform.rotation = Quaternion.identity;

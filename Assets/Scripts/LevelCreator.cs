@@ -23,9 +23,6 @@ public class LevelCreator : MonoBehaviour
 
     void Start()
     {
-        QualitySettings.vSyncCount = 1;
-        Time.timeScale = 1f;
-
         cubeParent = (GameObject)Resources.Load("Prefabs/CubeParent");
         cubeParent = Instantiate(cubeParent);
 
