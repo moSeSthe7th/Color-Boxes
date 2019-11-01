@@ -7,7 +7,6 @@ public class ColorData
     enum ColorMode
     {
         Purple, // Sari mor klasik renk
-        Blue,
         Cyan,
         Green,
         Yellow,
@@ -42,28 +41,17 @@ public class ColorData
         {
             case ColorMode.Purple:
                 colors.billboardColor = new Color32(255, 255, 255, 255);
-                colors.throwableCubeColor = new Color32(255,255,255,255);
+                colors.throwableCubeColor = new Color32(206,255,0,255);
                 colors.forceFieldColor = new Color32(43,0,191,255);
                 colors.platformColor = new Color32(255,255,255,255);
-                colors.fogColor = Color.blue; //mor icin bakmadım henüz bunu değistirrrrrrr..........................
-                colors.gunColor = Color.blue;
+                colors.fogColor = new Color32(160, 0, 255, 116);
+                colors.gunColor = new Color32(152, 0, 255, 255);
 
                 colors.emissionBillboardColor = new Color(0.3679245f, 0.3679245f, 0.3679245f);
                 colors.emissionPlatformColor = new Color(0.4245283f, 0.4245283f, 0.4245283f);
 
-                break;
-            
-            case ColorMode.Blue:
-                colors.billboardColor = new Color32(255, 255, 255, 255);
-                colors.throwableCubeColor = new Color32(255, 242, 197, 255);
-                colors.forceFieldColor = new Color32(0, 30, 191, 255);
-                colors.platformColor = new Color32(255, 255, 255, 255);
-                colors.fogColor = new Color32(98, 116,214, 116);
-                colors.gunColor = new Color32(68, 122, 161, 255);
-
-                colors.emissionBillboardColor = new Color(0.3679245f, 0.3679245f, 0.3679245f);
-                colors.emissionPlatformColor = new Color(0.4245283f, 0.4245283f, 0.4245283f);
-                break;
+                break;            
+           
             case ColorMode.Cyan:
                 colors.billboardColor = new Color32(255, 255, 255, 255);
                 colors.throwableCubeColor = new Color32(243, 182, 155, 255);
