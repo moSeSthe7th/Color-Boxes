@@ -58,7 +58,6 @@ public class BillboardMapper
     SpriteMap SetSpriteMap()
     {
         int count = 0;
-
         Vector3 currPos;
 
         //int maxRows = 0;

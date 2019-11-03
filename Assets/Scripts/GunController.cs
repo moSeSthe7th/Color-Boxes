@@ -62,7 +62,7 @@ public class GunController : MonoBehaviour
 
         isTouch = false;
         engineHeat = 0f;
-        rotationSpeed = 15f;
+        rotationSpeed = 25f;
 
         SetGunPosition();
     }

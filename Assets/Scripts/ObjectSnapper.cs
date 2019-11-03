@@ -36,14 +36,17 @@ public class ObjectSnapper : MonoBehaviour
         Vector3 rotSpd = cubeRb.angularVelocity;
         cubeRb.isKinematic = true;
 
-        while (Vector3.Distance(posToSnap, transform.position) > 2f)
-        {
-            transform.position = Vector3.MoveTowards(transform.position, posToSnap, 5f);
-            transform.Rotate(rotSpd);
-            yield return new WaitForSecondsRealtime(0.005f);
-        }
+        float distance = Vector3.Distance(posToSnap, transform.position);
 
-        
+        while (distance > 2f)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, posToSnap, Mathf.Sqrt(distance));
+            transform.Rotate(rotSpd);
+
+            distance = Vector3.Distance(posToSnap, transform.position);
+
+            yield return new WaitForSecondsRealtime(Time.fixedDeltaTime);
+        }
 
         transform.position = posToSnap;
         transform.rotation = Quaternion.identity;

@@ -62,7 +62,7 @@ public class LevelData
             Debug.Log("This is a new level ID : " + ID);
             levelData.ResetLevelData();
             levelData = this;
-            //eğer bi sonraki bbölümse starting panel i hiç açma.
+            //eğer bi sonraki bölümse starting panel i hiç açma.
             //isLevelStarted = true;
         }
         else //Wrong levelData creation

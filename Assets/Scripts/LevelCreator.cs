@@ -123,13 +123,11 @@ public class LevelCreator : MonoBehaviour
     void SetCubeParentBlowPosition()
     {
         //z position is -250
-        Vector3 blowPos = new Vector3(-20f, 900f, -250f);
+        Vector3 blowPos = new Vector3(-20f, 900f, -300f);
 
-        blowPos.y += (levelData.mapHeight); //- 
+        blowPos.y += (blowPos.y + levelData.mapHeight > 1000) ? 1000 - blowPos.y : levelData.mapHeight;
         //blowPos.x -= (levelData.mapWidth / 16f); //billboardCubeParent.position.x; //- 
         blowPos.x = (levelData.mapWidth / 32f > 5f) ? blowPos.x - levelData.mapWidth / 32f : blowPos.x;
-        blowPos.y = (blowPos.y > 1000) ? 1000 : blowPos.y;
-
 
         levelData.CubeParentBlowPosition = blowPos;
     }

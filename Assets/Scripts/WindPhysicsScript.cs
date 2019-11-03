@@ -29,7 +29,7 @@ public class WindPhysicsScript : MonoBehaviour
         else //if(transform.localScale.x < initialScale.x * 1f)
         {
             Vector3 dummyScaler = transform.localScale;
-            dummyScaler += Vector3.one * 2f;
+            dummyScaler += Vector3.one * 3f;
             transform.localScale = dummyScaler;
         }
     }
@@ -42,9 +42,6 @@ public class WindPhysicsScript : MonoBehaviour
         rb.velocity = Vector3.zero;
       
         Vector3 gunTransformVec = gunTransform.position;
-        //gunTransformVec.y = initialPos.y;
-        //gunTransformVec.y += 25f;
-        //gunTransformVec.z += 25f;
 
         transform.position = gunTransformVec;
         transform.rotation = gunTransform.rotation;

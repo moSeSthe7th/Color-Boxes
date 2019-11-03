@@ -7,7 +7,24 @@ public class HoleCubeScript : MonoBehaviour
     public bool isOccupied = false;
     public Color holeColor;
 
-    public IEnumerator HoleCubeReflector()
+    float ping = 0.2f;
+    bool startedReflecting = false;
+
+    public void StartReflecting()
+    {
+        if(!startedReflecting)
+        {
+            StartCoroutine(HoleCubeReflector());
+        }
+        else
+        {
+            ping += 0.15f;
+        }
+
+        startedReflecting = true;
+    }
+
+    IEnumerator HoleCubeReflector()
     {
         Material holeCubeMat = GetComponent<Renderer>().material;
         Color origColor = holeCubeMat.GetColor("_BaseColor");
@@ -17,12 +34,9 @@ public class HoleCubeScript : MonoBehaviour
         bool toRed = true;
         Color toColor = Color.red; //start from converting to red
 
-        float ping = 0.15f;
-
-        while (!isOccupied)
+        while (gameObject.activeSelf)
         {
             //for pinging around red and orig color. Check grayScale to compare colors
-
             if (toRed && tmpColor.grayscale <= Color.red.grayscale + 0.1f)
             {
                 toColor = origColor;
@@ -37,14 +51,14 @@ public class HoleCubeScript : MonoBehaviour
             }
 
             tmpColor = Color.Lerp(tmpColor,toColor, ping);
-
             holeCubeMat.SetColor("_BaseColor", tmpColor);
 
             yield return null;
 
         }
 
+        holeCubeMat.SetColor("_BaseColor", origColor);
+
         StopCoroutine(HoleCubeReflector());
-       
     }
 }

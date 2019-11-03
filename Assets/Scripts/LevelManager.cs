@@ -10,7 +10,9 @@ public class LevelManager : MonoBehaviour
     VibrationHandler vibrationHandler;
 
     bool isIncreasedCollider;
+    bool isSecondIncreasedCollider;
     float increasedColliderRadius = 15f;
+    float secondIncreasedColliderRadius = 25f;
 
     public Vector3 cubeParentBlowPos;
     UIManager uIManager;
@@ -18,7 +20,9 @@ public class LevelManager : MonoBehaviour
     bool isBlowCoroutineStarted = false;
     
     int remainingHoleColliderIncreaseThreshold = 0;
+    int secondRemainingHoleColliderIncreaseThreshold = 0;
     float threshold = 0.15f;
+    float secondThreshold = 0.02f;
 
     private void Start()
     {
@@ -26,7 +30,9 @@ public class LevelManager : MonoBehaviour
         vibrationHandler = new VibrationHandler();
 
         isIncreasedCollider = false;
+        isSecondIncreasedCollider = false;
         remainingHoleColliderIncreaseThreshold = Mathf.RoundToInt(LevelData.levelData.holes.Count * threshold);
+        secondRemainingHoleColliderIncreaseThreshold = Mathf.RoundToInt(LevelData.levelData.holes.Count * secondThreshold);
     }
 
     private void LateUpdate()
@@ -38,9 +44,9 @@ public class LevelManager : MonoBehaviour
             vibrationHandler.vibrate(LevelData.levelData.vibrationStyle);
         }*/
 
-        if (!isIncreasedCollider && shouldIncreaseCollSize())
+        if (shouldIncreaseCollSize())
         {
-            isIncreasedCollider = true;
+            Debug.Log("Increasing collider sizes");
             IncreaseSnapperCollidersSize();
         }
 
@@ -60,22 +66,32 @@ public class LevelManager : MonoBehaviour
 
     bool shouldIncreaseCollSize()
     {
-        if (remainingHoleColliderIncreaseThreshold >= LevelData.levelData.holeCount)
+        if (remainingHoleColliderIncreaseThreshold >= LevelData.levelData.holeCount && !isIncreasedCollider)
+        {
+            isIncreasedCollider = true;
             return true;
+        }
+        else if (secondRemainingHoleColliderIncreaseThreshold >= LevelData.levelData.holeCount && !isSecondIncreasedCollider)
+        {
+            isSecondIncreasedCollider = true;
+            return true;
+        }
         else
             return false;
+           
     }
 
     void IncreaseSnapperCollidersSize()
     {
+        float radius = (isSecondIncreasedCollider) ? secondIncreasedColliderRadius : increasedColliderRadius;
+
         foreach (GameObject remainingHole in LevelData.levelData.holeCubes)
         {
             if (remainingHole.activeSelf)
             {
-                remainingHole.GetComponent<SphereCollider>().radius = increasedColliderRadius;
-                StartCoroutine(remainingHole.GetComponent<HoleCubeScript>().HoleCubeReflector());
-            }
-                
+                remainingHole.GetComponent<SphereCollider>().radius = radius;
+                remainingHole.GetComponent<HoleCubeScript>().StartReflecting();
+            }  
         }
         
     }
@@ -103,10 +119,10 @@ public class LevelManager : MonoBehaviour
 
         while (Vector3.Distance(cubeParent.transform.position, LevelData.levelData.CubeParentBlowPosition) > 1f)
         {
-            cubeParent.transform.position = Vector3.MoveTowards(cubeParent.transform.position, LevelData.levelData.CubeParentBlowPosition, 5f);
-            yield return new WaitForEndOfFrame();
+            cubeParent.transform.position = Vector3.MoveTowards(cubeParent.transform.position, LevelData.levelData.CubeParentBlowPosition, 10f);
+            yield return new WaitForSecondsRealtime(0.008f);
         }
-
+        yield return new WaitForSecondsRealtime(0.1f);
         cubeParent.GetComponent<BoxCollider>().enabled = true;
         LevelData.levelData.isBlowActive = true;
         
