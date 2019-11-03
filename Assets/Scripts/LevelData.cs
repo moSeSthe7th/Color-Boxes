@@ -167,4 +167,9 @@ public class LevelData
         vibrationHandler.vibrate(levelData.vibrationStyle);
     }
 
+    public void CustomVibration(DebugScript.VibrationStyle style)
+    {
+        vibrationHandler.vibrate((int)style);
+    }
+
 }

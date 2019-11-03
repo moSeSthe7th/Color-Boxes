@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class BlowerScript : MonoBehaviour
 {
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Wind") && LevelData.levelData.isBlowActive && !LevelData.levelData.isBlown)
@@ -13,6 +12,7 @@ public class BlowerScript : MonoBehaviour
             LevelData.levelData.isBlown = true;
             //LevelData.levelData.ThrowableCubes;
             //GameObject[] thrownObjects = GameObject.FindGameObjectsWithTag("ThrownObject");
+            LevelData.levelData.CustomVibration(DebugScript.VibrationStyle.impactHeavy);
             foreach (GameObject thrownObject in LevelData.levelData.throwableCubes)
             {
                 thrownObject.GetComponent<Collider>().enabled = true;
