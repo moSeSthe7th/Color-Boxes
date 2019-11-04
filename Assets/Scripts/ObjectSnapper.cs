@@ -9,7 +9,7 @@ public class ObjectSnapper : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag == "HoleCube" && !isObjectSnappedToAHole)
+        if(other.CompareTag("HoleCube") && !isObjectSnappedToAHole)
         {
             GoToHole(other.gameObject);
         }

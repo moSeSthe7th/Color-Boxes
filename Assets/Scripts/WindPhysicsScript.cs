@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class WindPhysicsScript : MonoBehaviour
 {
-    Rigidbody rb;
     public float windForce; // ForceMode Impulse la eklendigi icin deger kuculebilir. su anda 200 editor de setlenmis
     
     public Vector3 forceVec;
@@ -16,11 +15,11 @@ public class WindPhysicsScript : MonoBehaviour
     {
         initialScale = transform.localScale ;
         transform.localScale = initialScale;
-        rb = GetComponent<Rigidbody>();
+        //rb = GetComponent<Rigidbody>();
     }
 
 
-    private void LateUpdate()
+    private void Update()
     {
         if (transform.position.z > 500f)
         {
@@ -31,6 +30,8 @@ public class WindPhysicsScript : MonoBehaviour
             Vector3 dummyScaler = transform.localScale;
             dummyScaler += Vector3.one * 3f;
             transform.localScale = dummyScaler;
+
+            this.transform.Translate(forceVec * windForce * Time.deltaTime,Space.World);
         }
     }
 
@@ -38,17 +39,13 @@ public class WindPhysicsScript : MonoBehaviour
 
     public void CreateWind(Transform gunTransform, Vector3 directionVec,float engineHeat)
     {
-        transform.localScale = initialScale * engineHeat;
-        rb.velocity = Vector3.zero;
-      
-        Vector3 gunTransformVec = gunTransform.position;
+        transform.localScale = initialScale * engineHeat;      
+        //Vector3 gunTransformVec = gunTransform.position;
 
-        transform.position = gunTransformVec;
+        transform.position = gunTransform.position;
         transform.rotation = gunTransform.rotation;
 
         forceVec = (directionVec - transform.position).normalized;
-
-        rb.AddForce(forceVec * windForce, ForceMode.Impulse); //Impulse force u anlik hiz degistirerek uyguluyor
     }
 
 }

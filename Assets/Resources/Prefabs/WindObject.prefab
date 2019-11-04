@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 8068816848035560228}
   - component: {fileID: 8068816848035560227}
   - component: {fileID: 8068816848035560226}
-  - component: {fileID: 8068816848035560231}
   m_Layer: 12
   m_Name: WindObject
   m_TagString: Wind
@@ -108,19 +107,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   windForce: 200
   forceVec: {x: 0, y: 0, z: 0}
---- !u!54 &8068816848035560231
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8068816848035560225}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 112
-  m_CollisionDetection: 0
