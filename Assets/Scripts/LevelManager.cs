@@ -11,8 +11,8 @@ public class LevelManager : MonoBehaviour
 
     bool isIncreasedCollider;
     bool isSecondIncreasedCollider;
-    float increasedColliderRadius = 15f;
-    float secondIncreasedColliderRadius = 25f;
+    float increasedColliderRadius = 20f;
+    float secondIncreasedColliderRadius = 30f;
 
     public Vector3 cubeParentBlowPos;
     UIManager uIManager;

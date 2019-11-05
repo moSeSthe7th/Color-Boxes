@@ -38,7 +38,7 @@ public class ObjectPhysics : MonoBehaviour
             explosionPos = other.gameObject.GetComponent<Collider>().ClosestPointOnBounds(this.transform.position); //other.gameObject.transform.position;
 
 
-            appliedForce = windPhysicsScript.forceVec * 60f;
+            appliedForce = windPhysicsScript.forceVec * 200f;
             /*//find contact point and apply force from here
             RaycastHit hit;
             if (Physics.Raycast(transform.position, transform.forward * -1, out hit))
@@ -57,9 +57,13 @@ public class ObjectPhysics : MonoBehaviour
     {
         if (isInWindZone)
         {
-            //rb.AddExplosionForce(explosionForce, explosionPos, explosionRadius, upwardsExplosionModifier, ForceMode.Acceleration);
+            //
             if (windPhysicsScript != null)
+            {
                 rb.AddForce(appliedForce, ForceMode.VelocityChange);
+                //rb.AddExplosionForce(explosionForce, explosionPos, explosionRadius, upwardsExplosionModifier, ForceMode.Acceleration);
+            }
+                
             isInWindZone = false;
         }
 

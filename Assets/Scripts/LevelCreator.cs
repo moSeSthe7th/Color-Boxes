@@ -48,17 +48,17 @@ public class LevelCreator : MonoBehaviour
 
         foreach(Renderer r in bilboard.GetComponentsInChildren<Renderer>())
         {
-            r.material.SetColor("_BaseColor", holder.billboardColor);
-            r.material.SetColor("_EmissionColor", holder.emissionBillboardColor);
+            r.sharedMaterial.SetColor("_BaseColor", holder.billboardColor);
+            r.sharedMaterial.SetColor("_EmissionColor", holder.emissionBillboardColor);
         }
 
         throwableCube.GetComponent<Renderer>().sharedMaterial.SetColor("_BaseColor", holder.throwableCubeColor);
 
-        Material billboardFiller = BillboardFillerBlock.GetComponent<Renderer>().sharedMaterial;
+        /*Material billboardFiller = BillboardFillerBlock.GetComponent<Renderer>().sharedMaterial;
         billboardFiller.SetColor("_BaseColor", holder.billboardColor);
-        billboardFiller.SetColor("_EmissionColor", holder.emissionBillboardColor);
+        billboardFiller.SetColor("_EmissionColor", holder.emissionBillboardColor);*/
 
-        Material PlatformMaterial = GameObject.FindGameObjectWithTag("hexagonGround").GetComponent<Renderer>().material;
+        /*Material PlatformMaterial = GameObject.FindGameObjectWithTag("hexagonGround").GetComponent<Renderer>().material;
         PlatformMaterial.SetColor("_BaseColor", holder.platformColor);
         PlatformMaterial.SetColor("_EmissionColor", holder.emissionPlatformColor);
 
@@ -123,11 +123,11 @@ public class LevelCreator : MonoBehaviour
     void SetCubeParentBlowPosition()
     {
         //z position is -250
-        Vector3 blowPos = new Vector3(-20f, 900f, -300f);
+        Vector3 blowPos = new Vector3(-20f, 900f, -450f);
 
-        blowPos.y += (blowPos.y + levelData.mapHeight > 1000) ? 1000 - blowPos.y : levelData.mapHeight;
+        /*blowPos.y += (blowPos.y + levelData.mapHeight > 1000) ? 1000 - blowPos.y : levelData.mapHeight;
         //blowPos.x -= (levelData.mapWidth / 16f); //billboardCubeParent.position.x; //- 
-        blowPos.x = (levelData.mapWidth / 32f > 5f) ? blowPos.x - levelData.mapWidth / 32f : blowPos.x;
+        blowPos.x = (levelData.mapWidth / 32f > 5f) ? blowPos.x - levelData.mapWidth / 32f : blowPos.x;*/
 
         levelData.CubeParentBlowPosition = blowPos;
     }
