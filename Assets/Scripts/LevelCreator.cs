@@ -62,8 +62,8 @@ public class LevelCreator : MonoBehaviour
         PlatformMaterial.SetColor("_BaseColor", holder.platformColor);
         PlatformMaterial.SetColor("_EmissionColor", holder.emissionPlatformColor);
 
-        Material fogMaterial = GameObject.FindGameObjectWithTag("Fog").GetComponent<Renderer>().material;
-        fogMaterial.SetColor("_BaseColor", holder.fogColor);
+       /* Material fogMaterial = GameObject.FindGameObjectWithTag("Fog").GetComponent<Renderer>().material;
+        fogMaterial.SetColor("_BaseColor", holder.fogColor);*/
 
         Material gunMaterial = GameObject.FindWithTag("Gun").GetComponent<Renderer>().sharedMaterial;
         gunMaterial.SetColor("_BaseColor", holder.gunColor);
