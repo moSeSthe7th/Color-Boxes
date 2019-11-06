@@ -37,6 +37,7 @@ public class LevelCreator : MonoBehaviour
         levelData.windObjects = ObjectPooler.instance.PooltheObjects(wind, 100, windParent.transform);
 
         bilboard = GameObject.FindGameObjectWithTag("Bilboard").transform;
+
         SetLevelColors();
         CreateLevel();
         LevelData.levelData.isVibrationActive = PlayerPrefs.GetInt("Vibration", 1);
@@ -112,18 +113,25 @@ public class LevelCreator : MonoBehaviour
     void PositionHoleCubes()
     {
         Transform board = bilboard.transform.GetChild(1);
-        Vector3 tmpVec = new Vector3(0f, board.position.y, bilboard.transform.position.z);
+        Vector3 tmpVec = new Vector3(0f, board.position.y, board.position.z);
+
+
+        Quaternion tmpQuternion = board.localRotation;
+        tmpQuternion.eulerAngles = new Vector3(tmpQuternion.eulerAngles.y, 0f, 0f);
 
         tmpVec.x -= (levelData.mapWidth / 2f) - (holeCube.transform.localScale.x / 2f); 
-        tmpVec.y -= (levelData.mapHeight / 2f) + (holeCube.transform.localScale.y ); 
+        tmpVec.y -= (levelData.mapHeight / 2f) - (holeCube.transform.localScale.y / 2f);
+        tmpVec.z -= (tmpQuternion.eulerAngles.y * 5f);
+       
 
+        billboardCubeParent.rotation = tmpQuternion;
         billboardCubeParent.position = tmpVec;
     }
 
     void SetCubeParentBlowPosition()
     {
         //z position is -250
-        Vector3 blowPos = new Vector3(-20f, 900f, -450f);
+        Vector3 blowPos = new Vector3(0f, -50f, -400f);
 
         /*blowPos.y += (blowPos.y + levelData.mapHeight > 1000) ? 1000 - blowPos.y : levelData.mapHeight;
         //blowPos.x -= (levelData.mapWidth / 16f); //billboardCubeParent.position.x; //- 

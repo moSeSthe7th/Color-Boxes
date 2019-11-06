@@ -63,7 +63,7 @@ public class BillboardMapper
         //int maxRows = 0;
         //int maxCols = 0;
 
-        for (int r = 2; r < spriteMap.rowNumber + 2; r++)  // buraya +2 yi yukarı cıkarmak icin ekledik... kaldırılabilir
+        for (int r = 0; r < spriteMap.rowNumber; r++)  // buraya +2 yi yukarı cıkarmak icin ekledik... kaldırılabilir
         {
             for(int c = 0; c < spriteMap.coloumnNumber; c++)
             {
