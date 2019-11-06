@@ -7,6 +7,7 @@ public class ColorData
     enum ColorMode
     {
         Purple, // Sari mor klasik renk
+        Blue,
         Cyan,
         Green,
         Yellow,
@@ -21,8 +22,8 @@ public class ColorData
         public Color32 billboardColor;
         public Color32 throwableCubeColor;
         public Color32 forceFieldColor;
-        public Color32 platformColor;
-        public Color32 fogColor;
+        public Color32 backgroundColor;
+        public Color32 streetColor;
         public Color32 gunColor;
 
         public Color emissionBillboardColor;
@@ -40,81 +41,93 @@ public class ColorData
         switch(cMode)
         {
             case ColorMode.Purple:
-                colors.billboardColor = new Color32(220, 26, 238, 255);
-                colors.throwableCubeColor = new Color32(213,255,216,255);
-                colors.forceFieldColor = new Color32(79,0,191,255);
-                colors.platformColor = new Color32(255,255,255,255);
-                colors.fogColor = new Color32(135, 51, 134, 116);
-                colors.gunColor = new Color32(220, 26, 238, 255);
+                
+                colors.throwableCubeColor = new Color32(184,255,200,255);
+                colors.backgroundColor = new Color32(188,172,255,255);
+                colors.streetColor = new Color32(135, 51, 134, 255);
+                colors.gunColor = new Color32(184, 255, 200, 255);
 
+                colors.billboardColor = new Color32(220, 26, 238, 255);
+                colors.forceFieldColor = new Color32(79, 0, 191, 255);
                 colors.emissionBillboardColor = new Color(0.3679245f, 0.3679245f, 0.3679245f);
                 colors.emissionPlatformColor = new Color(0.4245283f, 0.4245283f, 0.4245283f);
 
-                break;            
+                break;
+            case ColorMode.Blue:
+                colors.throwableCubeColor = new Color32(255, 148, 0, 255);
+                colors.backgroundColor = new Color32(191, 222, 255, 255);
+                colors.streetColor = new Color32(0, 125, 255, 255);
+                colors.gunColor = new Color32(255, 148, 0, 255);
+
+                colors.billboardColor = new Color32(220, 26, 238, 255);
+                colors.forceFieldColor = new Color32(79, 0, 191, 255);
+                colors.emissionBillboardColor = new Color(0.3679245f, 0.3679245f, 0.3679245f);
+                colors.emissionPlatformColor = new Color(0.4245283f, 0.4245283f, 0.4245283f);
+                break;
            
             case ColorMode.Cyan:
-                colors.billboardColor = new Color32(100, 136, 255, 255);
-                colors.throwableCubeColor = new Color32(243, 195, 185, 255);
-                colors.forceFieldColor = new Color32(27, 58, 132, 255);
-                colors.platformColor = new Color32(255, 255, 255, 255);
-                colors.fogColor = new Color32(31, 38, 135, 116);
-                colors.gunColor = new Color32(100, 136, 255, 255);
+                colors.throwableCubeColor = new Color32(255, 0, 27, 255);
+                colors.backgroundColor = new Color32(206, 254, 255, 255);
+                colors.streetColor = new Color32(0, 255, 246, 116);
+                colors.gunColor = new Color32(255, 0, 27, 255);
 
+                colors.billboardColor = new Color32(220, 26, 238, 255);
+                colors.forceFieldColor = new Color32(79, 0, 191, 255);
                 colors.emissionBillboardColor = new Color(0.3679245f, 0.3679245f, 0.3679245f);
                 colors.emissionPlatformColor = new Color(0.4245283f, 0.4245283f, 0.4245283f);
                 break;
             case ColorMode.Green:
-                colors.billboardColor = new Color32(89, 161, 132, 255);
-                colors.throwableCubeColor = new Color32(255, 189, 223, 255);
-                colors.forceFieldColor = new Color32(31, 118, 87, 255);
-                colors.platformColor = new Color32(255, 255, 255, 255);
-                colors.fogColor = new Color32(31, 130, 91, 116);
-                colors.gunColor = new Color32(89, 161, 132, 255);
+                colors.throwableCubeColor = new Color32(227, 133, 185, 255);
+                colors.backgroundColor = new Color32(197, 229, 218, 255);
+                colors.streetColor = new Color32(0, 255, 181, 116);
+                colors.gunColor = new Color32(227, 133, 185, 255);
 
+                colors.billboardColor = new Color32(220, 26, 238, 255);
+                colors.forceFieldColor = new Color32(79, 0, 191, 255);
                 colors.emissionBillboardColor = new Color(0.3679245f, 0.3679245f, 0.3679245f);
                 colors.emissionPlatformColor = new Color(0.4245283f, 0.4245283f, 0.4245283f);
                 break;
             case ColorMode.Yellow:
-                colors.billboardColor = new Color32(159, 157, 47, 255);
-                colors.throwableCubeColor = new Color32(168, 192, 255, 255);
-                colors.forceFieldColor = new Color32(107, 111, 25, 255);
-                colors.platformColor = new Color32(255, 255, 255, 255);
-                colors.fogColor = new Color32(160, 166, 35, 116);
-                colors.gunColor = new Color32(159, 157, 47, 255);
+                colors.throwableCubeColor = new Color32(105, 133, 255, 255);
+                colors.backgroundColor = new Color32(230, 233, 215, 255);
+                colors.streetColor = new Color32(255, 248, 150, 116);
+                colors.gunColor = new Color32(105, 133, 255, 255);
 
+                colors.billboardColor = new Color32(220, 26, 238, 255);
+                colors.forceFieldColor = new Color32(79, 0, 191, 255);
                 colors.emissionBillboardColor = new Color(0.3679245f, 0.3679245f, 0.3679245f);
                 colors.emissionPlatformColor = new Color(0.4245283f, 0.4245283f, 0.4245283f);
                 break;
             case ColorMode.Orange:
-                colors.billboardColor = new Color32(147, 111, 29, 255);
-                colors.throwableCubeColor = new Color32(187, 211, 255, 255);
-                colors.forceFieldColor = new Color32(111, 71, 25, 255);
-                colors.platformColor = new Color32(255, 255, 255, 255);
-                colors.fogColor = new Color32(166, 80, 35, 116);
-                colors.gunColor = new Color32(147, 111, 29, 255);
+                colors.throwableCubeColor = new Color32(106, 181, 255, 255);
+                colors.backgroundColor = new Color32(217, 188, 175, 255);
+                colors.streetColor = new Color32(255, 109, 0, 116);
+                colors.gunColor = new Color32(106, 181, 255, 255);
 
+                colors.billboardColor = new Color32(220, 26, 238, 255);
+                colors.forceFieldColor = new Color32(79, 0, 191, 255);
                 colors.emissionBillboardColor = new Color(0.3679245f, 0.3679245f, 0.3679245f);
                 colors.emissionPlatformColor = new Color(0.4245283f, 0.4245283f, 0.4245283f);
                 break;
             case ColorMode.Red:
-                colors.billboardColor = new Color32(183, 28, 49, 255);
-                colors.throwableCubeColor = new Color32(203, 255, 252, 255);
-                colors.forceFieldColor = new Color32(111, 27, 25, 255);
-                colors.platformColor = new Color32(255, 255, 255, 255);
-                colors.fogColor = new Color32(166, 35, 38, 116);
-                colors.gunColor = new Color32(183, 28, 49, 255);
+                colors.throwableCubeColor = new Color32(106, 255, 250, 255);
+                colors.backgroundColor = new Color32(255, 158, 162, 255);
+                colors.streetColor = new Color32(255, 0, 27, 116);
+                colors.gunColor = new Color32(106, 255, 250, 255);
 
+                colors.billboardColor = new Color32(220, 26, 238, 255);
+                colors.forceFieldColor = new Color32(79, 0, 191, 255);
                 colors.emissionBillboardColor = new Color(0.3679245f, 0.3679245f, 0.3679245f);
                 colors.emissionPlatformColor = new Color(0.4245283f, 0.4245283f, 0.4245283f);
                 break;
             case ColorMode.Pink:
-                colors.billboardColor = new Color32(217, 111, 202, 255);
-                colors.throwableCubeColor = new Color32(180, 255, 230, 255);
-                colors.forceFieldColor = new Color32(123, 40, 120, 255);
-                colors.platformColor = new Color32(255, 255, 255, 255);
-                colors.fogColor = new Color32(188, 81, 165, 116);
-                colors.gunColor = new Color32(217, 111, 202, 255);
+                colors.throwableCubeColor = new Color32(124, 255, 204, 255);
+                colors.backgroundColor = new Color32(255, 206, 236, 255);
+                colors.streetColor = new Color32(255, 129, 223, 116);
+                colors.gunColor = new Color32(124, 255, 204, 255);
 
+                colors.billboardColor = new Color32(220, 26, 238, 255);
+                colors.forceFieldColor = new Color32(79, 0, 191, 255);
                 colors.emissionBillboardColor = new Color(0.3679245f, 0.3679245f, 0.3679245f);
                 colors.emissionPlatformColor = new Color(0.4245283f, 0.4245283f, 0.4245283f);
                 break;

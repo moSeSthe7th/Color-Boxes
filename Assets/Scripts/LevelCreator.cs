@@ -47,11 +47,11 @@ public class LevelCreator : MonoBehaviour
     {
         ColorData.ColorDataHolder holder = levelData.SetColors();
 
-        foreach(Renderer r in bilboard.GetComponentsInChildren<Renderer>())
+        /*foreach(Renderer r in bilboard.GetComponentsInChildren<Renderer>())
         {
             r.sharedMaterial.SetColor("_BaseColor", holder.billboardColor);
             r.sharedMaterial.SetColor("_EmissionColor", holder.emissionBillboardColor);
-        }
+        }*/
 
         throwableCube.GetComponent<Renderer>().sharedMaterial.SetColor("_BaseColor", holder.throwableCubeColor);
 
@@ -69,7 +69,9 @@ public class LevelCreator : MonoBehaviour
         Material gunMaterial = GameObject.FindWithTag("Gun").GetComponent<Renderer>().sharedMaterial;
         gunMaterial.SetColor("_BaseColor", holder.gunColor);
 
-        forceFieldMaterial.SetColor("Color_CDE56FBB", holder.forceFieldColor);
+        GameObject.FindWithTag("hexagonGround").GetComponent<Renderer>().sharedMaterial.SetColor("_BaseColor", holder.streetColor);
+
+        Camera.main.backgroundColor = holder.backgroundColor;
     }
 
     void CreateLevel()
@@ -119,19 +121,19 @@ public class LevelCreator : MonoBehaviour
         Quaternion tmpQuternion = board.localRotation;
         tmpQuternion.eulerAngles = new Vector3(tmpQuternion.eulerAngles.y, 0f, 0f);
 
-        tmpVec.x -= (levelData.mapWidth / 2f) - (holeCube.transform.localScale.x / 2f); 
-        tmpVec.y -= (levelData.mapHeight / 2f) - (holeCube.transform.localScale.y / 2f);
-        tmpVec.z -= (tmpQuternion.eulerAngles.y * 5f);
-       
+        tmpVec.x -= (levelData.mapWidth / 2f) - (holeCube.transform.localScale.x); 
+        tmpVec.y -= (levelData.mapHeight / 2f) - (holeCube.transform.localScale.y) - (tmpQuternion.eulerAngles.x / 4f);
+        tmpVec.z -= (tmpQuternion.eulerAngles.x * 2f);
 
-        billboardCubeParent.rotation = tmpQuternion;
+
+        billboardCubeParent.RotateAround(board.transform.position, tmpQuternion.eulerAngles, tmpQuternion.eulerAngles.x); //= tmpQuternion;
         billboardCubeParent.position = tmpVec;
     }
 
     void SetCubeParentBlowPosition()
     {
         //z position is -250
-        Vector3 blowPos = new Vector3(0f, -50f, -400f);
+        Vector3 blowPos = new Vector3(-30f, -25f, -450f);
 
         /*blowPos.y += (blowPos.y + levelData.mapHeight > 1000) ? 1000 - blowPos.y : levelData.mapHeight;
         //blowPos.x -= (levelData.mapWidth / 16f); //billboardCubeParent.position.x; //- 
