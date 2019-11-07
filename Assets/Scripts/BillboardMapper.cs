@@ -15,6 +15,9 @@ public class BillboardMapper
     Color32[] pixels;
     int HolePosModifier = 10;
 
+    //Collider map holds data of hole cubes position in actual sprite and hole cubes corresponding index of holeCubes list.
+    //vector2 which holds the position is in the format of (column index, row index)
+    List<Tuple<Vector2, int>> ColliderMap;
     public struct SpriteMap
     {
         public int rowNumber;
@@ -25,8 +28,11 @@ public class BillboardMapper
 
         public int totBlockCount;
 
+        public int actualSpriteRow;
+        public int actualSpriteColumn;
+
         //public List<Tuple<Vector3,Color32>> holeData;
-        public List<LevelData.Hole> holeData;
+        public List<LevelData.Hole> holeData { get; set; }
     }
 
     public SpriteMap spriteMap;
@@ -47,12 +53,18 @@ public class BillboardMapper
 
         spriteMap.totBlockCount = 0;
 
+        spriteMap.actualSpriteColumn = 0;
+        spriteMap.actualSpriteRow = 0;
+
         //Create new filler block object
         fillerBlocks = new List<Vector3>();
 
         pixels = sprite.GetPixels32();
 
+        ColliderMap = new List<Tuple<Vector2, int>>();
+
         SetSpriteMap();
+        SetColliderData();
     }
 
     SpriteMap SetSpriteMap()
@@ -60,11 +72,14 @@ public class BillboardMapper
         int count = 0;
         Vector3 currPos;
 
-        //int maxRows = 0;
-        //int maxCols = 0;
+        int maxRows = 0;
+        int maxCols = 0;
 
-        for (int r = 0; r < spriteMap.rowNumber; r++)  // buraya +2 yi yukarı cıkarmak icin ekledik... kaldırılabilir
+
+        for (int r = 0; r < spriteMap.rowNumber; r++) 
         {
+            maxCols = 0;
+
             for(int c = 0; c < spriteMap.coloumnNumber; c++)
             {
                 currPos = new Vector3(c * HolePosModifier, r * HolePosModifier, 0f);
@@ -79,7 +94,27 @@ public class BillboardMapper
                     //eger obje throwablesa z posizyonunu biraz daha geriye al
                     currPos.z += 5f;
 
-                    spriteMap.holeData.Add(new LevelData.Hole(currPos, pixels[count]));
+                    //Calculate actual sprites Row Column. This assumes sprite ıs a rectangle
+                    if(maxRows < r + 1)
+                    {
+                        maxRows ++;
+                        spriteMap.actualSpriteRow++;
+                    }
+
+                    if(maxCols < c + 1)
+                    {
+                        maxCols++;
+                        if(spriteMap.actualSpriteColumn < maxCols)
+                        {
+                            spriteMap.actualSpriteColumn++;
+                        }
+                    }
+
+                    ColliderMap.Add(new Tuple<Vector2, int>(new Vector2(c, spriteMap.actualSpriteRow),spriteMap.totBlockCount));
+
+                    LevelData.ColliderRound round = LevelData.ColliderRound.LastColliders;
+
+                    spriteMap.holeData.Add(new LevelData.Hole(currPos, pixels[count],round));
                     spriteMap.totBlockCount += 1;
                 }
                 
@@ -91,6 +126,50 @@ public class BillboardMapper
        // spriteMap.totWidth = (maxCols + 1)  * HolePosModifier;
 
         return spriteMap;
+    }
+
+    public int firstColliderCount = 0;
+    public int secondColliderCount = 0;
+    public int thirdColliderCount = 0;
+
+    void SetColliderData()
+    {
+        foreach(Tuple<Vector2,int> tuple in ColliderMap)
+        {
+            if((float)tuple.Item1.y < spriteMap.actualSpriteRow * 0.6f)
+            {
+                if((float)tuple.Item1.y < spriteMap.actualSpriteRow * 0.4f && ((float)tuple.Item1.x > spriteMap.actualSpriteColumn * 0.3f && (float)tuple.Item1.x < spriteMap.actualSpriteColumn * 0.7f) || (float)tuple.Item1.y < spriteMap.actualSpriteRow * 0.2f)
+                {
+                    LevelData.Hole tmp = spriteMap.holeData[tuple.Item2];
+                    tmp.cRound = LevelData.ColliderRound.FirstRound;
+                    spriteMap.holeData[tuple.Item2] = new LevelData.Hole(tmp.position, tmp.color, tmp.cRound);
+
+                    firstColliderCount++;
+                }
+                else if((float)tuple.Item1.y >= spriteMap.actualSpriteRow * 0.4f)
+                {
+                    LevelData.Hole tmp = spriteMap.holeData[tuple.Item2];
+                    tmp.cRound = LevelData.ColliderRound.ThirdRound;
+                    spriteMap.holeData[tuple.Item2] = new LevelData.Hole(tmp.position, tmp.color, tmp.cRound);
+
+                    thirdColliderCount++;
+                }
+                else
+                {
+                    LevelData.Hole tmp = spriteMap.holeData[tuple.Item2];
+                    tmp.cRound = LevelData.ColliderRound.SecondRound;
+                    spriteMap.holeData[tuple.Item2] = new LevelData.Hole(tmp.position, tmp.color, tmp.cRound);
+
+                    secondColliderCount++;
+                }
+            }
+            else
+            {
+                LevelData.Hole tmp = spriteMap.holeData[tuple.Item2];
+                tmp.cRound = LevelData.ColliderRound.LastColliders;
+                spriteMap.holeData[tuple.Item2] = new LevelData.Hole(tmp.position, tmp.color, tmp.cRound);
+            }
+        }
     }
 
 

@@ -4,17 +4,24 @@ using UnityEngine;
 
 public class LevelData
 {
+    public enum ColliderRound
+    {
+        FirstRound,
+        SecondRound,
+        ThirdRound,
+        LastColliders
+    }
     public struct Hole
     {
         public Vector3 position;
         public Color32 color;
-
-        public Hole(Vector3 position,Color32 color)
+        public ColliderRound cRound { get; set; }
+        public Hole(Vector3 position,Color32 color,ColliderRound round)
         {
             this.position = position;
             this.color = color;
+            this.cRound = round;
         }
-
     }
 
     public static LevelData levelData;
@@ -45,6 +52,30 @@ public class LevelData
     public int isVibrationActive;
 
     float ID;
+    public Colliders colliders;
+    public struct Colliders
+    {
+        public List<Collider> firstColliders;
+        public List<Collider> secondColliders;
+        public List<Collider> thirdColliders;
+        public List<Collider> AllColliders;
+
+        public int firstThreshold;
+        public int secondThreshold;
+        public int thirdThreshold;
+
+        public Colliders(int cubeCount,int firstCount,int secondCount,int thirdCount)
+        {
+            firstColliders = new List<Collider>(firstCount);
+            secondColliders = new List<Collider>(secondCount);
+            thirdColliders = new List<Collider>(thirdCount);
+            AllColliders = new List<Collider>(cubeCount);
+
+            firstThreshold = firstCount / 2;
+            secondThreshold = firstCount + (int)(secondCount / 4);
+            thirdThreshold = firstCount + secondCount;
+        }
+    };
 
     public LevelData(GameObject throwableCube)
     {
@@ -119,6 +150,8 @@ public class LevelData
         holeCount = Billboard.spriteMap.totBlockCount;
 
         FillerCubes = Billboard.fillerBlocks;
+
+        colliders = new Colliders(holeCount, Billboard.firstColliderCount, Billboard.secondColliderCount, Billboard.thirdColliderCount);
     }
 
     public CubeSetter.ThrowableConstruction throwableConst;

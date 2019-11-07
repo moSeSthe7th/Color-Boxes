@@ -16,12 +16,14 @@ public class ObjectPhysics : MonoBehaviour
     private Vector3 explosionPos;
 
     private Vector3 appliedForce;
-
     private WindPhysicsScript windPhysicsScript;
+
+    float windZoneTimer;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        windZoneTimer = 0f;
     }
 
 
@@ -37,34 +39,41 @@ public class ObjectPhysics : MonoBehaviour
 
             explosionPos = other.gameObject.GetComponent<Collider>().ClosestPointOnBounds(this.transform.position); //other.gameObject.transform.position;
 
+            appliedForce += windPhysicsScript.forceVec;
 
-            appliedForce = windPhysicsScript.forceVec * 60f;
-            /*//find contact point and apply force from here
-            RaycastHit hit;
-            if (Physics.Raycast(transform.position, transform.forward * -1, out hit))
-            {
-                explosionPos = hit.point;
-            }
-            //*/
-
-
+            //appliedForce = windPhysicsScript.forceVec * 50f;
+            windZoneTimer += Time.fixedDeltaTime * 5f;
             //explosionPos = other.gameObject.transform.position;
-            isInWindZone = true;
+            if (!isInWindZone)
+            {
+                appliedForce += windPhysicsScript.forceVec * 20f; // bir defalik yuksek guc ekle
+                isInWindZone = true;
+            }
+                
         }
     }
 
     private void FixedUpdate()
     {
-        if (isInWindZone)
+        if (windZoneTimer > 0.05f)
         {
-            //
+            windZoneTimer -= Time.fixedDeltaTime;
+
             if (windPhysicsScript != null)
             {
-                rb.AddForce(appliedForce, ForceMode.VelocityChange);
+                rb.AddForceAtPosition(appliedForce, explosionPos, ForceMode.VelocityChange);
+               // rb.AddForce(appliedForce, ForceMode.VelocityChange);
                 //rb.AddExplosionForce(explosionForce, explosionPos, explosionRadius, upwardsExplosionModifier, ForceMode.Acceleration);
+            }    
+        }
+        else
+        {
+            if (isInWindZone)
+            {
+                appliedForce = Vector3.zero;
+                isInWindZone = false;
+                windZoneTimer = 0f;
             }
-                
-            isInWindZone = false;
         }
 
       /*  if(transform.position.y < LevelData.levelData.platformPos.y - 20f)

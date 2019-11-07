@@ -24,6 +24,16 @@ public class LevelManager : MonoBehaviour
     float threshold = 0.15f;
     float secondThreshold = 0.02f;
 
+    enum colliderState
+    {
+        firstOpen,
+        secondOpen,
+        thirdOpen,
+        allOpen
+    }
+
+    float openColliderTimer = 0f;
+    colliderState openColliderState;
     private void Start()
     {
         uIManager = FindObjectOfType(typeof(UIManager)) as UIManager;
@@ -33,6 +43,8 @@ public class LevelManager : MonoBehaviour
         isSecondIncreasedCollider = false;
         remainingHoleColliderIncreaseThreshold = Mathf.RoundToInt(LevelData.levelData.holes.Count * threshold);
         secondRemainingHoleColliderIncreaseThreshold = Mathf.RoundToInt(LevelData.levelData.holes.Count * secondThreshold);
+
+        openColliderState = colliderState.firstOpen;
     }
 
     private void LateUpdate()
@@ -48,6 +60,13 @@ public class LevelManager : MonoBehaviour
         {
             Debug.Log("Increasing collider sizes");
             IncreaseSnapperCollidersSize();
+        }
+
+        openColliderTimer += Time.deltaTime;
+        if (openColliderTimer > 1f && didColliderThresholdReached())
+        {
+            openColliderTimer = 0f;
+            OpenColliders();
         }
 
         if (AreAllCubesPlaced() && !isBlowCoroutineStarted)
@@ -128,6 +147,92 @@ public class LevelManager : MonoBehaviour
         
         StopCoroutine(AllCubesArePlaced());
         
+    }
+
+    public void OpenColliders()
+    {
+        switch(openColliderState)
+        {
+            case colliderState.firstOpen:
+
+                foreach(Collider coll in LevelData.levelData.colliders.secondColliders)
+                {
+                    if(coll.gameObject.activeInHierarchy && !coll.enabled)
+                    {
+                        coll.enabled = true;
+                    }
+                }
+
+                openColliderState = colliderState.secondOpen;
+
+                break;
+
+            case colliderState.secondOpen:
+
+                foreach (Collider coll in LevelData.levelData.colliders.thirdColliders)
+                {
+                    if (coll.gameObject.activeInHierarchy && !coll.enabled)
+                    {
+                        coll.enabled = true;
+                    }
+                }
+
+                openColliderState = colliderState.thirdOpen;
+
+                break;
+
+            case colliderState.thirdOpen:
+
+                foreach (Collider coll in LevelData.levelData.colliders.AllColliders)
+                {
+                    if (coll.gameObject.activeInHierarchy && !coll.enabled)
+                    {
+                        coll.enabled = true;
+                    }
+                }
+
+                openColliderState = colliderState.allOpen;
+
+                break;
+
+
+            default:
+                break;
+        }
+            
+
+    }
+
+    public bool didColliderThresholdReached()
+    {
+        switch (openColliderState)
+        {
+            case colliderState.firstOpen:
+
+                if (LevelData.levelData.holeCount >= LevelData.levelData.colliders.firstThreshold)
+                    return true;
+
+                break;
+
+            case colliderState.secondOpen:
+
+                if (LevelData.levelData.holeCount >= LevelData.levelData.colliders.secondThreshold)
+                    return true;
+
+                break;
+
+            case colliderState.thirdOpen:
+
+                if (LevelData.levelData.holeCount >= LevelData.levelData.colliders.thirdThreshold)
+                    return true;
+
+                break;
+
+            default:
+                break;
+        }
+
+        return false;
     }
 
 }

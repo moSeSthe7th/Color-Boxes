@@ -100,6 +100,26 @@ public class LevelCreator : MonoBehaviour
             GameObject currentHole = Instantiate(holeCube, selectedHole.position, Quaternion.identity,billboardCubeParent);
             currentHole.GetComponent<HoleCubeScript>().holeColor = selectedHole.color;
 
+            Collider coll = currentHole.GetComponent<Collider>();
+
+            if (selectedHole.cRound == LevelData.ColliderRound.FirstRound)
+            {
+                coll.enabled = true;
+                levelData.colliders.firstColliders.Add(coll);
+            }
+            else if (selectedHole.cRound == LevelData.ColliderRound.SecondRound)
+            {
+                coll.enabled = false;
+                levelData.colliders.secondColliders.Add(coll);
+            }
+            else if (selectedHole.cRound == LevelData.ColliderRound.ThirdRound)
+            {
+                coll.enabled = false;
+                levelData.colliders.thirdColliders.Add(coll);
+            }
+
+            levelData.colliders.AllColliders.Add(coll);
+
             hCubes.Add(currentHole);
         }
 

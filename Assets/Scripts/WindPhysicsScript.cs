@@ -46,6 +46,7 @@ public class WindPhysicsScript : MonoBehaviour
         transform.rotation = gunTransform.rotation;
 
         forceVec = (directionVec - transform.position).normalized;
+        //forceVec.z *= 1.3f;
     }
 
 }
