@@ -63,6 +63,7 @@ public class UIManager : MonoBehaviour
     {
         LevelData.levelData.isLevelStarted = true;
         CloseAllPanels();
+        settingsButton.gameObject.SetActive(false);
         
     }
 
@@ -73,4 +74,6 @@ public class UIManager : MonoBehaviour
         if (settingsPanel.activeSelf)
             settingsPanel.SetActive(false);
     }
+
+    
 }
