@@ -14,9 +14,14 @@ public class UIManager : MonoBehaviour
 
     public Button backgroundButton;
 
+    public ParticleSystem levelPassedParticleSystem;
+
+    private bool isLevelPassed;
+
     
     void Start()
     {
+        isLevelPassed = false;
         settingsPanel.SetActive(false);
         levelPassedPanel.SetActive(false);
         blowPanel.SetActive(false);
@@ -46,7 +51,8 @@ public class UIManager : MonoBehaviour
 
     public void LevelPassed()
     {
-        levelPassedPanel.SetActive(true);
+        if(!isLevelPassed)
+            StartCoroutine(LevelPassedEnum());
     }
 
     public void OpenBlowPanel()
@@ -63,6 +69,7 @@ public class UIManager : MonoBehaviour
     {
         LevelData.levelData.isLevelStarted = true;
         CloseAllPanels();
+        settingsButton.gameObject.SetActive(false);
         
     }
 
@@ -72,5 +79,16 @@ public class UIManager : MonoBehaviour
             StartingPanel.SetActive(false);
         if (settingsPanel.activeSelf)
             settingsPanel.SetActive(false);
+    }
+
+    public IEnumerator LevelPassedEnum()
+    {
+        isLevelPassed = true;
+       
+        levelPassedParticleSystem.gameObject.SetActive(true);
+        levelPassedParticleSystem.Play();
+        yield return new WaitForSecondsRealtime(2f);
+        levelPassedPanel.SetActive(true);
+        StopCoroutine(LevelPassedEnum());
     }
 }

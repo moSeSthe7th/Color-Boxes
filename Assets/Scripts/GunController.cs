@@ -170,7 +170,7 @@ public class GunController : MonoBehaviour
                 engineHeat = (engineHeat > 0f) ? engineHeat + -0.01f : engineHeat;
             }
 
-            yield return new WaitForSecondsRealtime(0.008f);
+            yield return new WaitForSecondsRealtime(0.2f);
         }
         StopCoroutine(Fire());
     }

@@ -47,6 +47,8 @@ public class ObjectPhysics : MonoBehaviour
             if (!isInWindZone)
             {
                 appliedForce += windPhysicsScript.forceVec * 80f; // bir defalik yuksek guc ekle
+                appliedForce += windPhysicsScript.forceVec * 50f; // bir defalik yuksek guc ekle
+
                 isInWindZone = true;
             }
                 

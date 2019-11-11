@@ -14,8 +14,11 @@ public class WindPhysicsScript : MonoBehaviour
     private void Awake()
     {
         initialScale = transform.localScale ;
+    }
+
+    private void OnEnable()
+    {
         transform.localScale = initialScale;
-        //rb = GetComponent<Rigidbody>();
     }
 
 
@@ -39,7 +42,7 @@ public class WindPhysicsScript : MonoBehaviour
 
     public void CreateWind(Transform gunTransform, Vector3 directionVec,float engineHeat)
     {
-        transform.localScale = initialScale * engineHeat;      
+        //transform.localScale = initialScale * engineHeat;      
         //Vector3 gunTransformVec = gunTransform.position;
 
         transform.position = gunTransform.position;

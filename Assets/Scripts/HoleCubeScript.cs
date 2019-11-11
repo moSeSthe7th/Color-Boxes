@@ -12,6 +12,7 @@ public class HoleCubeScript : MonoBehaviour
 
     public void StartReflecting()
     {
+        
         if(!startedReflecting)
         {
             StartCoroutine(HoleCubeReflector());
@@ -26,6 +27,7 @@ public class HoleCubeScript : MonoBehaviour
 
     IEnumerator HoleCubeReflector()
     {
+        
         Material holeCubeMat = GetComponent<Renderer>().material;
         Color origColor = holeCubeMat.GetColor("_BaseColor");
 
