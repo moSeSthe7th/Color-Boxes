@@ -46,7 +46,7 @@ public class ObjectPhysics : MonoBehaviour
             //explosionPos = other.gameObject.transform.position;
             if (!isInWindZone)
             {
-                appliedForce += windPhysicsScript.forceVec * 20f; // bir defalik yuksek guc ekle
+                appliedForce += windPhysicsScript.forceVec * 80f; // bir defalik yuksek guc ekle
                 isInWindZone = true;
             }
                 

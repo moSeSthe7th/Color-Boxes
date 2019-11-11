@@ -102,6 +102,17 @@ public class LevelCreator : MonoBehaviour
 
             Collider coll = currentHole.GetComponent<Collider>();
 
+            if(selectedHole.colliderRound == 0)
+            {
+                coll.enabled = true;
+            }
+            else
+            {
+                coll.enabled = false;
+            }
+
+            levelData.colliders.ColliderDict.Add(new System.Tuple<int, Collider>(selectedHole.colliderRound, coll));
+            /*
             if (selectedHole.cRound == LevelData.ColliderRound.FirstRound)
             {
                 coll.enabled = true;
@@ -117,7 +128,7 @@ public class LevelCreator : MonoBehaviour
                 coll.enabled = false;
                 levelData.colliders.thirdColliders.Add(coll);
             }
-
+            */
             levelData.colliders.AllColliders.Add(coll);
 
             hCubes.Add(currentHole);

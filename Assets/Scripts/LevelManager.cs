@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -34,6 +35,8 @@ public class LevelManager : MonoBehaviour
 
     float openColliderTimer = 0f;
     colliderState openColliderState;
+
+    int openedColliderRound;
     private void Start()
     {
         uIManager = FindObjectOfType(typeof(UIManager)) as UIManager;
@@ -45,6 +48,7 @@ public class LevelManager : MonoBehaviour
         secondRemainingHoleColliderIncreaseThreshold = Mathf.RoundToInt(LevelData.levelData.holes.Count * secondThreshold);
 
         openColliderState = colliderState.firstOpen;
+        openedColliderRound = 0;
     }
 
     private void LateUpdate()
@@ -63,7 +67,7 @@ public class LevelManager : MonoBehaviour
         }
 
         openColliderTimer += Time.deltaTime;
-        if (openColliderTimer > 1f && didColliderThresholdReached())
+        if (openColliderTimer >5f && didColliderThresholdReached())
         {
             openColliderTimer = 0f;
             OpenColliders();
@@ -151,7 +155,17 @@ public class LevelManager : MonoBehaviour
 
     public void OpenColliders()
     {
-        switch(openColliderState)
+        openedColliderRound += 1;
+        Debug.Log("openCollider");
+        foreach(Tuple<int,Collider> coll in LevelData.levelData.colliders.ColliderDict)
+        {
+            if(coll.Item1 == openedColliderRound && coll.Item2.gameObject.activeInHierarchy && !coll.Item2.enabled)
+            {
+                coll.Item2.enabled = true;
+            }
+        }
+
+      /*  switch (openColliderState)
         {
             case colliderState.firstOpen:
 
@@ -198,13 +212,25 @@ public class LevelManager : MonoBehaviour
 
             default:
                 break;
-        }
+        }*/
             
 
     }
 
     public bool didColliderThresholdReached()
     {
+        // openedColliderRound
+        
+        if (LevelData.levelData.holeCount <= LevelData.levelData.colliders.threshold)
+        {
+            Debug.Log("Threshold : " + LevelData.levelData.colliders.threshold);
+            LevelData.levelData.colliders.threshold -= LevelData.levelData.colliders.cubePerRound / 2;
+            return true;
+        }
+
+        return false;
+
+        /*
         switch (openColliderState)
         {
             case colliderState.firstOpen:
@@ -232,7 +258,7 @@ public class LevelManager : MonoBehaviour
                 break;
         }
 
-        return false;
+        return false; */
     }
 
 }

@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,11 +17,16 @@ public class LevelData
         public Vector3 position;
         public Color32 color;
         public ColliderRound cRound { get; set; }
-        public Hole(Vector3 position,Color32 color,ColliderRound round)
+        public int colliderRound;
+
+        public Hole(Vector3 position,Color32 color,ColliderRound round,int r)
         {
             this.position = position;
             this.color = color;
             this.cRound = round;
+
+            colliderRound = r;
+
         }
     }
 
@@ -64,22 +70,36 @@ public class LevelData
         public int secondThreshold;
         public int thirdThreshold;
 
-        public Colliders(int cubeCount,int firstCount,int secondCount,int thirdCount)
+        public int threshold;
+
+        public List<Tuple<int, Collider>> ColliderDict; //Index hangi sırada açılcak collider olduğunu gösteriyor.
+
+        int roundCount;
+        public int cubePerRound;
+
+        public Colliders(int cubeCount,int firstCount,int secondCount,int thirdCount,int roundCount,int cpr)
         {
             firstColliders = new List<Collider>(firstCount);
             secondColliders = new List<Collider>(secondCount);
             thirdColliders = new List<Collider>(thirdCount);
             AllColliders = new List<Collider>(cubeCount);
 
+            ColliderDict = new List<Tuple<int, Collider>>();
+
+            cubePerRound = cpr;
+            this.roundCount = roundCount;
+            threshold = cubeCount - (cpr / 3);
             firstThreshold = firstCount / 2;
             secondThreshold = firstCount + (int)(secondCount / 4);
             thirdThreshold = firstCount + secondCount;
+
+            Debug.Log("Collider round count is : " + this.roundCount + " Cube per round is : " + cpr);
         }
     };
 
     public LevelData(GameObject throwableCube)
     {
-        ID = Random.value;
+        ID = UnityEngine.Random.value;
         level = GetLevel();
 
         if (levelData == null)
@@ -151,7 +171,7 @@ public class LevelData
 
         FillerCubes = Billboard.fillerBlocks;
 
-        colliders = new Colliders(holeCount, Billboard.firstColliderCount, Billboard.secondColliderCount, Billboard.thirdColliderCount);
+        colliders = new Colliders(holeCount, Billboard.firstColliderCount, Billboard.secondColliderCount, Billboard.thirdColliderCount,Billboard.roundCount,Billboard.cubePerRound);
     }
 
     public CubeSetter.ThrowableConstruction throwableConst;
