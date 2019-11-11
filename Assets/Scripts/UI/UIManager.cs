@@ -84,9 +84,10 @@ public class UIManager : MonoBehaviour
     public IEnumerator LevelPassedEnum()
     {
         isLevelPassed = true;
-        yield return new WaitForSecondsRealtime(1.3f);
+       
         levelPassedParticleSystem.gameObject.SetActive(true);
         levelPassedParticleSystem.Play();
+        yield return new WaitForSecondsRealtime(2f);
         levelPassedPanel.SetActive(true);
         StopCoroutine(LevelPassedEnum());
     }
