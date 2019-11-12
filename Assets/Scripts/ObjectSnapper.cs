@@ -5,7 +5,14 @@ using UnityEngine;
 public class ObjectSnapper : MonoBehaviour
 {
     public float zDiffWithHole = 6f;
-    public bool isObjectSnappedToAHole = false;   
+    public bool isObjectSnappedToAHole = false;
+
+    private UIManager uIManager;
+
+    private void Start()
+    {
+        uIManager = FindObjectOfType(typeof(UIManager)) as UIManager;
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -53,6 +60,8 @@ public class ObjectSnapper : MonoBehaviour
         ColorizeTheObject(hole);
         hole.SetActive(false);
         LevelData.levelData.holeCount -= 1;
+        uIManager.IncreaseCubeCounterSlider();
+       
 
         //After snapping finishes request a vibration
         //LevelData.levelData.vibrationQue.Enqueue((int)Random.value);

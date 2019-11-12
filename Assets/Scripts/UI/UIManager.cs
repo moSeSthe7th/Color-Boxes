@@ -18,6 +18,8 @@ public class UIManager : MonoBehaviour
 
     private bool isLevelPassed;
 
+    public Slider cubeCounterSlider;
+
     
     void Start()
     {
@@ -26,6 +28,8 @@ public class UIManager : MonoBehaviour
         levelPassedPanel.SetActive(false);
         blowPanel.SetActive(false);
         backgroundButton.gameObject.SetActive(false);
+
+        cubeCounterSlider.maxValue = LevelData.levelData.holeCount;
 
         if (!LevelData.levelData.isLevelStarted)
             StartingPanel.SetActive(true);
@@ -90,5 +94,10 @@ public class UIManager : MonoBehaviour
         yield return new WaitForSecondsRealtime(2f);
         levelPassedPanel.SetActive(true);
         StopCoroutine(LevelPassedEnum());
+    }
+
+    public void IncreaseCubeCounterSlider()
+    {
+        cubeCounterSlider.value += 1;
     }
 }
