@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 0.5
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.37919444, g: 0.51806587, b: 0.6126277, a: 0.5}
+  m_IndirectSpecularColor: {r: 0.38013038, g: 0.5180999, b: 0.6127899, a: 0.5}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -7332,6 +7332,7 @@ MonoBehaviour:
   Yroute: {fileID: 95001826}
   speedModifier: 0
   lookPosition: {x: 0, y: 50, z: -300}
+  windParticleSys: {fileID: 726902347}
 --- !u!1 &691007713 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -927199367670048503, guid: d461c78caf2ea184f8e2e05a62b1023b,
@@ -11743,13 +11744,13 @@ ParticleSystem:
     attachRibbonsToTransform: 0
     colorOverLifetime:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 1
       minColor: {r: 1, g: 1, b: 1, a: 1}
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
-        key1: {r: 1, g: 0, b: 0, a: 1}
+        key1: {r: 0.24528301, g: 0.24528301, b: 0.24528301, a: 0}
         key2: {r: 1, g: 0, b: 0, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
@@ -12967,6 +12968,7 @@ MonoBehaviour:
   Yroute: {fileID: 95001826}
   speedModifier: 0
   lookPosition: {x: 0, y: 1000, z: -150}
+  windParticleSys: {fileID: 0}
 --- !u!4 &890006719 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4216859302048453862, guid: 0424fa6e1fdc0fb4792dbb7cf580d5d5,
@@ -14124,6 +14126,7 @@ MonoBehaviour:
   Yroute: {fileID: 95001826}
   speedModifier: 0
   lookPosition: {x: 0, y: 1000, z: -150}
+  windParticleSys: {fileID: 0}
 --- !u!4 &1722834219 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4216859302048453862, guid: e1c841cfa1fd4b0449f78ea0d6846735,
@@ -14885,7 +14888,7 @@ MonoBehaviour:
   levelPassedPanel: {fileID: 806413423}
   blowPanel: {fileID: 1757621209}
   backgroundButton: {fileID: 1820679852}
-  levelPassedParticleSystem: {fileID: 0}
+  levelPassedParticleSystem: {fileID: 448686389}
 --- !u!1 &1954899248
 GameObject:
   m_ObjectHideFlags: 0

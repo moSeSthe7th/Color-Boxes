@@ -31,6 +31,8 @@ public class GunController : MonoBehaviour
     Vector3 Yp2;
     Vector3 Yp3;
 
+    public ParticleSystem windParticleSys;
+
    
     bool isTouch;
     Vector2 touchDelta;
@@ -45,6 +47,7 @@ public class GunController : MonoBehaviour
         inputX = new InputX();
 
         touchDelta = Vector2.zero;
+        windParticleSys.Stop();
 
         Xp0 = Xroute.GetChild(0).position;
         Xp1 = Xroute.GetChild(1).position;
@@ -141,6 +144,7 @@ public class GunController : MonoBehaviour
         GameObject wind = ObjectPooler.instance.GetPooledObject(LevelData.levelData.windObjects);
         if (wind != null)
         {
+            windParticleSys.Play();
             wind.SetActive(true);
             wind.GetComponent<WindPhysicsScript>().CreateWind(transform, lookPosition,engineHeat);
         }
@@ -167,7 +171,8 @@ public class GunController : MonoBehaviour
             }
             else
             {
-                if(engineHeat < 0.01f)
+                windParticleSys.Stop();
+                if (engineHeat < 0.01f)
                 {
                     shooterLoop = false;
                 }
@@ -179,6 +184,8 @@ public class GunController : MonoBehaviour
 
             yield return new WaitForSecondsRealtime(0.02f);
         }
+        
+        
         StopCoroutine(Fire());
     }
 
