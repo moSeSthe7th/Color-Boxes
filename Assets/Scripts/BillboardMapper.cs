@@ -117,9 +117,8 @@ public class BillboardMapper
 
 
                     //Setted Collider round arranged in SetColliderData() function
-                    LevelData.ColliderRound round = LevelData.ColliderRound.LastColliders;
 
-                    spriteMap.holeData.Add(new LevelData.Hole(currPos, pixels[count],round,0));
+                    spriteMap.holeData.Add(new LevelData.Hole(currPos, pixels[count],0));
                     spriteMap.totBlockCount += 1;
                 }
                 
@@ -142,115 +141,75 @@ public class BillboardMapper
 
     void SetColliderData()
     {
-        roundCount = spriteMap.totBlockCount / 100; //kac kere collider acilcagi. sprite buyudukce buyumesi lazim
+        roundCount = spriteMap.totBlockCount / 150; //kac kere collider acilcagi. sprite buyudukce buyumesi lazim
         cubePerRound = spriteMap.totBlockCount / roundCount;
-        Debug.Log("Collider round count is : " + roundCount);
        
-        int indexer = 0;
-
         float topColliderField = spriteMap.actualSpriteRow - (spriteMap.actualSpriteRow / roundCount);
 
+        
         foreach (Tuple<Vector2, int> holeTuple in spriteMap.Map)
         {
             int index = holeTuple.Item2;
             Vector2 hPosOnMap = holeTuple.Item1;
-
             LevelData.Hole tmpHole = spriteMap.holeData[index];
+
+            bool holeCubeRoundFound = false;
 
             // find round of given hole
             for (int colRound = 0; colRound < roundCount; colRound ++)
             {
-                if (hPosOnMap.y > topColliderField) // eger en ustteyse maks collider round da acilcak demek
+                if ((int)hPosOnMap.y > topColliderField) // eger en ustteyse maks collider round da acilcak demek
                 {
-                    spriteMap.holeData[index] = new LevelData.Hole(tmpHole.position, tmpHole.color, tmpHole.cRound, roundCount - 1);
+                    spriteMap.holeData[index] = new LevelData.Hole(tmpHole.position, tmpHole.color, roundCount - 1);
+                    holeCubeRoundFound = true;
                     break;
                 }
                 else
-                {                                                                                   //burasi loop icinde gittikce kuvulcek    
-                    float baseForRound  = spriteMap.actualSpriteRow - (spriteMap.actualSpriteRow * (roundCount - colRound));
+                {
 
+                    float colliderPing =  ((float)colRound + 1f) / (float)roundCount; //burasi loop icinde gittikce buyucek. 0 dan 1 e dogru 
                     //round icin olan en alt sinir
-                    if (hPosOnMap.y <= baseForRound)
+                    float minRowForRound  = (float)spriteMap.actualSpriteRow - (float)(spriteMap.actualSpriteRow * (1f - colliderPing));
+
+                    //en ust siniri belirle. sprite yuksekliginin 4 de 1 inden basla
+                    float maxRowForRound = (float)(spriteMap.actualSpriteRow / 3f) + (float)(spriteMap.actualSpriteRow * colliderPing);
+
+                    float columnDistanceToCenter = (float)(spriteMap.actualSpriteColumn / 2f) * (float)colliderPing; 
+
+                    float rigthBoundForRoundRect = (float)(spriteMap.actualSpriteColumn / 2f) + columnDistanceToCenter;
+                    float leftBoundForRoundRect = (float)(spriteMap.actualSpriteColumn / 2f) - columnDistanceToCenter;
+
+                    //buraya kadar geldiyse o round icin belirlenen karenin icinde mi ona bak
+                    if (hPosOnMap.y <= maxRowForRound && hPosOnMap.x < rigthBoundForRoundRect && hPosOnMap.x > leftBoundForRoundRect)
                     {
-                        spriteMap.holeData[index] = new LevelData.Hole(tmpHole.position, tmpHole.color, tmpHole.cRound,  colRound);
+                        spriteMap.holeData[index] = new LevelData.Hole(tmpHole.position, tmpHole.color, colRound);
+                        holeCubeRoundFound = true;
+
                         break;
                     }
-                    else
+                    else if (hPosOnMap.y <= minRowForRound) // duz en altta mi diye bak
                     {
-                        //buraya kadar geldiyse o round icin belirlenen karenin icinde mi ona bak
-                        float maxRowForRound = spriteMap.actualSpriteRow - (spriteMap.actualSpriteRow * (roundCount - colRound));
 
+                        spriteMap.holeData[index] = new LevelData.Hole(tmpHole.position, tmpHole.color, colRound);
+                        holeCubeRoundFound = true;
+
+                        break;
                     }
+
+                    // }
                 }
             }
+
+            if(!holeCubeRoundFound)
+            {
+                //buraya girdiyse yukarda setlenmedi demek.hata oldu
+                Debug.LogError("Could not map collider for holeCube " + index + " setting default 0");
+                spriteMap.holeData[index] = new LevelData.Hole(tmpHole.position, tmpHole.color, 0); 
+            }
+           
 
         }
 
-
-
-            for (int r = 0; r < roundCount; r ++)
-            { 
-            for(int cpr = 0; cpr < cubePerRound; cpr++)
-            {
-                LevelData.Hole tmp = spriteMap.holeData[indexer + cpr];
-                spriteMap.holeData[indexer + cpr] = new LevelData.Hole(tmp.position, tmp.color, tmp.cRound,r);
-                Debug.Log("Round is : " + r);
-            }
-            indexer += cubePerRound;
-            foreach(Tuple<Vector2, int> tuple in spriteMap.Map)
-            {
-                float topColliderField = spriteMap.actualSpriteRow - (spriteMap.actualSpriteRow / roundCount);
-
-                if ((float)tuple.Item1.y < topColliderField)
-                {
-                    float baseHeight = spriteMap.actualSpriteRow - spriteMap.actualSpriteRow * 0.2f;
-
-                    if ((float)tuple.Item1.y < spriteMap.actualSpriteRow * 0.4f && ((float)tuple.Item1.x > spriteMap.actualSpriteColumn * 0.3f && (float)tuple.Item1.x < spriteMap.actualSpriteColumn * 0.7f) || (float)tuple.Item1.y < baseHeight)
-                    { }
-                }
-                else
-                {
-
-                }
-            }
-        }
-
-      /*  foreach(Tuple<Vector2,int> tuple in ColliderMap)
-        {
-            if((float)tuple.Item1.y < spriteMap.actualSpriteRow * 0.6f)
-            {
-                if((float)tuple.Item1.y < spriteMap.actualSpriteRow * 0.4f && ((float)tuple.Item1.x > spriteMap.actualSpriteColumn * 0.3f && (float)tuple.Item1.x < spriteMap.actualSpriteColumn * 0.7f) || (float)tuple.Item1.y < spriteMap.actualSpriteRow * 0.2f)
-                {
-                    LevelData.Hole tmp = spriteMap.holeData[tuple.Item2];
-                    tmp.cRound = LevelData.ColliderRound.FirstRound;
-                    spriteMap.holeData[tuple.Item2] = new LevelData.Hole(tmp.position, tmp.color, tmp.cRound);
-
-                    firstColliderCount++;
-                }
-                else if((float)tuple.Item1.y >= spriteMap.actualSpriteRow * 0.4f)
-                {
-                    LevelData.Hole tmp = spriteMap.holeData[tuple.Item2];
-                    tmp.cRound = LevelData.ColliderRound.ThirdRound;
-                    spriteMap.holeData[tuple.Item2] = new LevelData.Hole(tmp.position, tmp.color, tmp.cRound);
-
-                    thirdColliderCount++;
-                }
-                else
-                {
-                    LevelData.Hole tmp = spriteMap.holeData[tuple.Item2];
-                    tmp.cRound = LevelData.ColliderRound.SecondRound;
-                    spriteMap.holeData[tuple.Item2] = new LevelData.Hole(tmp.position, tmp.color, tmp.cRound);
-
-                    secondColliderCount++;
-                }
-            }
-            else
-            {
-                LevelData.Hole tmp = spriteMap.holeData[tuple.Item2];
-                tmp.cRound = LevelData.ColliderRound.LastColliders;
-                spriteMap.holeData[tuple.Item2] = new LevelData.Hole(tmp.position, tmp.color, tmp.cRound);
-            }
-        }*/
     }
 
 

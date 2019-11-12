@@ -6,12 +6,16 @@ public class WindParticleScript : MonoBehaviour
 {
     public GameObject gun;
 
+    ParticleSystem.MainModule particle;
+
     void Start()
     {
+        particle = GetComponent<ParticleSystem>().main;
+
         StartCoroutine(WindRotator());
     }
 
-   private IEnumerator WindRotator()
+    private IEnumerator WindRotator()
     {
         while (true)
         {

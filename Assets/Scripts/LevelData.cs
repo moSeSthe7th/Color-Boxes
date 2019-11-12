@@ -5,25 +5,16 @@ using UnityEngine;
 
 public class LevelData
 {
-    public enum ColliderRound
-    {
-        FirstRound,
-        SecondRound,
-        ThirdRound,
-        LastColliders
-    }
     public struct Hole
     {
         public Vector3 position;
         public Color32 color;
-        public ColliderRound cRound { get; set; }
         public int colliderRound;
 
-        public Hole(Vector3 position,Color32 color,ColliderRound round,int r)
+        public Hole(Vector3 position,Color32 color,int r)
         {
             this.position = position;
             this.color = color;
-            this.cRound = round;
 
             colliderRound = r;
 
@@ -44,6 +35,8 @@ public class LevelData
     public List<GameObject> holeCubes;
     public List<GameObject> windObjects;
 
+    public Vector3 initialWindScale;
+
     public Queue<int> vibrationQue;
 
     //En sonda patlatılan cube lerin hangi konuma alınacağı
@@ -61,39 +54,31 @@ public class LevelData
     public Colliders colliders;
     public struct Colliders
     {
-        public List<Collider> firstColliders;
-        public List<Collider> secondColliders;
-        public List<Collider> thirdColliders;
         public List<Collider> AllColliders;
-
-        public int firstThreshold;
-        public int secondThreshold;
-        public int thirdThreshold;
 
         public int threshold;
 
-        public List<Tuple<int, Collider>> ColliderDict; //Index hangi sırada açılcak collider olduğunu gösteriyor.
+        public List<List<Collider>> ColliderMap;
 
-        int roundCount;
+        public int roundCount;
         public int cubePerRound;
 
-        public Colliders(int cubeCount,int firstCount,int secondCount,int thirdCount,int roundCount,int cpr)
+        public void changeThreshold(int currentEnteredCount)
         {
-            firstColliders = new List<Collider>(firstCount);
-            secondColliders = new List<Collider>(secondCount);
-            thirdColliders = new List<Collider>(thirdCount);
-            AllColliders = new List<Collider>(cubeCount);
+            threshold -= (int)(cubePerRound / 5f);
+        }
 
-            ColliderDict = new List<Tuple<int, Collider>>();
+        public Colliders(int cubeCount,int roundCount,int cpr)
+        {   
+            AllColliders = new List<Collider>(cubeCount);
+            ColliderMap = new List<List<Collider>>(roundCount);
 
             cubePerRound = cpr;
             this.roundCount = roundCount;
-            threshold = cubeCount - (cpr / 3);
-            firstThreshold = firstCount / 2;
-            secondThreshold = firstCount + (int)(secondCount / 4);
-            thirdThreshold = firstCount + secondCount;
+            threshold = cubeCount - (int)(cubePerRound / 7f);
+   
 
-            Debug.Log("Collider round count is : " + this.roundCount + " Cube per round is : " + cpr);
+            Debug.Log("Collider round count is : " + this.roundCount + " Cube per round is : " + cubePerRound + " Threshold is : " + threshold);
         }
     };
 
@@ -171,7 +156,7 @@ public class LevelData
 
         FillerCubes = Billboard.fillerBlocks;
 
-        colliders = new Colliders(holeCount, Billboard.firstColliderCount, Billboard.secondColliderCount, Billboard.thirdColliderCount,Billboard.roundCount,Billboard.cubePerRound);
+        colliders = new Colliders(holeCount,Billboard.roundCount,Billboard.cubePerRound);
     }
 
     public CubeSetter.ThrowableConstruction throwableConst;
@@ -191,6 +176,14 @@ public class LevelData
         ColorData.ColorDataHolder dataHolder = cData.SetLevelColors(level);
 
         return dataHolder;
+    }
+
+    public void IncreaseWindScale(int round)
+    {
+        float increaseRate = 1f / (float)colliders.roundCount;
+
+        Vector3 increaseVec = new Vector3(64f, 120f, 0f) * increaseRate;
+        levelData.initialWindScale += round * increaseVec; 
     }
 
     public void IncreaseLevel()

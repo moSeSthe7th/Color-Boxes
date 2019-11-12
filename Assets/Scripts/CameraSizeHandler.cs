@@ -28,10 +28,10 @@ public class CameraSizeHandler
 
     int CalculateFofAccordingtoScreen()
     {
-        //Field of view maximum value is 75
-        int maxFof = fixedFof + 15;
-        //Field of view minimum value is 45
-        int minFof = fixedFof - 15;
+        //Field of view maximum value is 65
+        int maxFof = fixedFof + 5;
+        //Field of view minimum value is 55
+        int minFof = fixedFof - 5;
 
         //Iphone x height / width . Bununla simdiki ratio yu karsilastir. 
         float fixedScreenRatio = fixedSize.y / fixedSize.x;

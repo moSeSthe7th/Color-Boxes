@@ -25,16 +25,9 @@ public class LevelManager : MonoBehaviour
     float threshold = 0.15f;
     float secondThreshold = 0.02f;
 
-    enum colliderState
-    {
-        firstOpen,
-        secondOpen,
-        thirdOpen,
-        allOpen
-    }
+   
 
     float openColliderTimer = 0f;
-    colliderState openColliderState;
 
     int openedColliderRound;
     private void Start()
@@ -47,11 +40,10 @@ public class LevelManager : MonoBehaviour
         remainingHoleColliderIncreaseThreshold = Mathf.RoundToInt(LevelData.levelData.holes.Count * threshold);
         secondRemainingHoleColliderIncreaseThreshold = Mathf.RoundToInt(LevelData.levelData.holes.Count * secondThreshold);
 
-        openColliderState = colliderState.firstOpen;
         openedColliderRound = 0;
     }
 
-    private void LateUpdate()
+    private void Update()
     {
         //If there are any vibration request call vibration. Eger cok fazla titresim olursa burada bi limit belirleyebilir
      /*   if(LevelData.levelData.vibrationQue.Count > 0)
@@ -67,10 +59,11 @@ public class LevelManager : MonoBehaviour
         }
 
         openColliderTimer += Time.deltaTime;
-        if (openColliderTimer >5f && didColliderThresholdReached())
+        if (openColliderTimer >1f && openedColliderRound < LevelData.levelData.colliders.roundCount && didColliderThresholdReached())
         {
             openColliderTimer = 0f;
             OpenColliders();
+            LevelData.levelData.IncreaseWindScale(openedColliderRound);
         }
 
         if (AreAllCubesPlaced() && !isBlowCoroutineStarted)
@@ -156,65 +149,14 @@ public class LevelManager : MonoBehaviour
     public void OpenColliders()
     {
         openedColliderRound += 1;
-        Debug.Log("openCollider");
-        foreach(Tuple<int,Collider> coll in LevelData.levelData.colliders.ColliderDict)
+
+        foreach(Collider coll in LevelData.levelData.colliders.ColliderMap[openedColliderRound])
         {
-            if(coll.Item1 == openedColliderRound && coll.Item2.gameObject.activeInHierarchy && !coll.Item2.enabled)
+            if (coll.gameObject.activeInHierarchy && !coll.enabled)
             {
-                coll.Item2.enabled = true;
+                coll.enabled = true;
             }
-        }
-
-      /*  switch (openColliderState)
-        {
-            case colliderState.firstOpen:
-
-                foreach(Collider coll in LevelData.levelData.colliders.secondColliders)
-                {
-                    if(coll.gameObject.activeInHierarchy && !coll.enabled)
-                    {
-                        coll.enabled = true;
-                    }
-                }
-
-                openColliderState = colliderState.secondOpen;
-
-                break;
-
-            case colliderState.secondOpen:
-
-                foreach (Collider coll in LevelData.levelData.colliders.thirdColliders)
-                {
-                    if (coll.gameObject.activeInHierarchy && !coll.enabled)
-                    {
-                        coll.enabled = true;
-                    }
-                }
-
-                openColliderState = colliderState.thirdOpen;
-
-                break;
-
-            case colliderState.thirdOpen:
-
-                foreach (Collider coll in LevelData.levelData.colliders.AllColliders)
-                {
-                    if (coll.gameObject.activeInHierarchy && !coll.enabled)
-                    {
-                        coll.enabled = true;
-                    }
-                }
-
-                openColliderState = colliderState.allOpen;
-
-                break;
-
-
-            default:
-                break;
-        }*/
-            
-
+        }     
     }
 
     public bool didColliderThresholdReached()
@@ -223,42 +165,11 @@ public class LevelManager : MonoBehaviour
         
         if (LevelData.levelData.holeCount <= LevelData.levelData.colliders.threshold)
         {
-            Debug.Log("Threshold : " + LevelData.levelData.colliders.threshold);
-            LevelData.levelData.colliders.threshold -= LevelData.levelData.colliders.cubePerRound / 2;
+            LevelData.levelData.colliders.changeThreshold(LevelData.levelData.holeCount);
             return true;
         }
 
         return false;
-
-        /*
-        switch (openColliderState)
-        {
-            case colliderState.firstOpen:
-
-                if (LevelData.levelData.holeCount >= LevelData.levelData.colliders.firstThreshold)
-                    return true;
-
-                break;
-
-            case colliderState.secondOpen:
-
-                if (LevelData.levelData.holeCount >= LevelData.levelData.colliders.secondThreshold)
-                    return true;
-
-                break;
-
-            case colliderState.thirdOpen:
-
-                if (LevelData.levelData.holeCount >= LevelData.levelData.colliders.thirdThreshold)
-                    return true;
-
-                break;
-
-            default:
-                break;
-        }
-
-        return false; */
     }
 
 }

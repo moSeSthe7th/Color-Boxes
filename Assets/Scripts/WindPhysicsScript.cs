@@ -7,22 +7,17 @@ public class WindPhysicsScript : MonoBehaviour
     public float windForce; // ForceMode Impulse la eklendigi icin deger kuculebilir. su anda 200 editor de setlenmis
     
     public Vector3 forceVec;
-    private Vector3 initialScale;
-
-    
-
     private void Awake()
     {
-        initialScale = transform.localScale ;
+        transform.localScale = LevelData.levelData.initialWindScale;
     }
 
     private void OnEnable()
     {
-        transform.localScale = initialScale;
+        transform.localScale = LevelData.levelData.initialWindScale;
     }
 
-
-    private void Update()
+    private void LateUpdate()
     {
         if (transform.position.z > 500f)
         {
@@ -37,8 +32,6 @@ public class WindPhysicsScript : MonoBehaviour
             this.transform.Translate(forceVec * windForce * Time.deltaTime,Space.World);
         }
     }
-
-
 
     public void CreateWind(Transform gunTransform, Vector3 directionVec,float engineHeat)
     {

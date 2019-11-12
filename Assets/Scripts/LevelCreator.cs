@@ -33,8 +33,10 @@ public class LevelCreator : MonoBehaviour
 
         BillboardFillerBlock = (GameObject)Resources.Load("Prefabs/BillboardFillerBlock");
 
+        levelData.initialWindScale = wind.transform.localScale;
         windParent = new GameObject("WindParent");
         levelData.windObjects = ObjectPooler.instance.PooltheObjects(wind, 100, windParent.transform);
+        
 
         bilboard = GameObject.FindGameObjectWithTag("Bilboard").transform;
 
@@ -111,7 +113,16 @@ public class LevelCreator : MonoBehaviour
                 coll.enabled = false;
             }
 
-            levelData.colliders.ColliderDict.Add(new System.Tuple<int, Collider>(selectedHole.colliderRound, coll));
+            if (levelData.colliders.ColliderMap.Count > selectedHole.colliderRound + 1 && levelData.colliders.ColliderMap[selectedHole.colliderRound] != null)
+            {
+                levelData.colliders.ColliderMap[selectedHole.colliderRound].Add(coll);
+            }
+            else
+            {
+                levelData.colliders.ColliderMap.Add(  new List<Collider>() );
+                levelData.colliders.ColliderMap[selectedHole.colliderRound].Add(coll);
+            }
+
             /*
             if (selectedHole.cRound == LevelData.ColliderRound.FirstRound)
             {

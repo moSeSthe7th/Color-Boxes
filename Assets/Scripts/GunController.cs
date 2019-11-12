@@ -149,6 +149,9 @@ public class GunController : MonoBehaviour
     IEnumerator Fire()
     {
         bool shooterLoop = true;
+
+        int iteration = 0;//create wind at every 12th iteration
+
         while (shooterLoop)
         {
            
@@ -158,7 +161,9 @@ public class GunController : MonoBehaviour
             if (isTouch)
             {
                 engineHeat = (engineHeat < 1f) ? engineHeat + 0.01f : engineHeat;
-                CreateWind(engineHeat);
+
+                if(iteration % 12 == 0)
+                    CreateWind(engineHeat);
             }
             else
             {
@@ -170,7 +175,9 @@ public class GunController : MonoBehaviour
                 engineHeat = (engineHeat > 0f) ? engineHeat + -0.01f : engineHeat;
             }
 
-            yield return new WaitForSecondsRealtime(0.2f);
+            iteration++;
+
+            yield return new WaitForSecondsRealtime(0.02f);
         }
         StopCoroutine(Fire());
     }
