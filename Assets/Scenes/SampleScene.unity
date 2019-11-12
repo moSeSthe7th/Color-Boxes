@@ -401,7 +401,7 @@ MonoBehaviour:
   m_ChildAlignment: 1
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 250, y: 250}
+  m_CellSize: {x: 175, y: 175}
   m_Spacing: {x: 50, y: 50}
   m_Constraint: 0
   m_ConstraintCount: 2
@@ -6802,7 +6802,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -7165,7 +7165,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: a5fd04ca4adcc624ca044f79515fba9f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2038400fe3c5bcc4689b3909e2676df8, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -7195,8 +7195,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92db1a262b02b1841ad99805fbf65ce0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vibrationOnSprite: {fileID: 21300000, guid: a5fd04ca4adcc624ca044f79515fba9f, type: 3}
-  vibrationOffSprite: {fileID: 21300000, guid: 7e3d32f3b9b96c54780892b62c324833, type: 3}
+  vibrationOnSprite: {fileID: 21300000, guid: 2038400fe3c5bcc4689b3909e2676df8, type: 3}
+  vibrationOffSprite: {fileID: 21300000, guid: 03dc35e2723130741aa6adcdeed0adda, type: 3}
 --- !u!114 &540866272
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12740,7 +12740,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &806413424
 RectTransform:
   m_ObjectHideFlags: 0
@@ -13913,7 +13913,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1397779001
 RectTransform:
   m_ObjectHideFlags: 0
@@ -14386,8 +14386,8 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -0.000015258789, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1658253699
@@ -14530,7 +14530,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1757621210
 MonoBehaviour:
   m_ObjectHideFlags: 0
