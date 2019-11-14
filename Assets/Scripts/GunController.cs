@@ -182,7 +182,7 @@ public class GunController : MonoBehaviour
 
             iteration++;
 
-            yield return new WaitForSecondsRealtime(0.02f);
+            yield return new WaitForSecondsRealtime(0.002f);
         }
         
         
