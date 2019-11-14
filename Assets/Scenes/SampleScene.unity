@@ -35,10 +35,10 @@ RenderSettings:
   m_DefaultReflectionMode: 0
   m_DefaultReflectionResolution: 128
   m_ReflectionBounces: 1
-  m_ReflectionIntensity: 0.5
+  m_ReflectionIntensity: 0.886
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.38013038, g: 0.5180999, b: 0.6127899, a: 0.5}
+  m_IndirectSpecularColor: {r: 0.497263, g: 0.6723725, b: 0.7925522, a: 0.886}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1507,7 +1507,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!199 &448686388
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -1579,7 +1579,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 448686387}
   serializedVersion: 6
-  lengthInSec: 15
+  lengthInSec: 12
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
