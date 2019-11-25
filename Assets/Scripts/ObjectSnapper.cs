@@ -82,5 +82,8 @@ public class ObjectSnapper : MonoBehaviour
     void ColorizeTheObject(GameObject hole)
     {
         GetComponent<Renderer>().material.SetColor("_BaseColor", hole.GetComponent<HoleCubeScript>().holeColor);
+        GetComponent<Renderer>().material.SetColor("_EmissionColor", new Color(hole.GetComponent<HoleCubeScript>().holeColor.r, 
+            hole.GetComponent<HoleCubeScript>().holeColor.g, 
+            hole.GetComponent<HoleCubeScript>().holeColor.b));
     }
 }
